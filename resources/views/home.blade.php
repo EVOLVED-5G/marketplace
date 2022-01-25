@@ -1,8 +1,13 @@
 
 @extends('layouts.app')
 @push('css')
+    <link rel="stylesheet" href="sass/homepage.css">
     <link rel="stylesheet" href="{{ mix('dist/css/home.css') }}">
 @endpush
+
+@section('body_class')
+test
+@endsection
 
 @section('content')
 <div class="container h-100">

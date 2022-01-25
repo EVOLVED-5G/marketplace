@@ -4,31 +4,35 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title_prefix', config('app.name')) @yield('title_postfix', '')</title>
-    <meta name="description" content="{{ __('messages.meta_tags_description') }}">
-    <meta name="keywords" content="talk and play,disability,rehabilitation,cerebral palsy">
-    <meta name="og:title" property="og:title" content="{{ config('app.name') }}">
-    <meta name="og:type" property="og:type" content="website">
-    <meta name="og:url" property="og:url" content="{{ url()->current() }}">
-    <meta name="og:image" property="og:image" content="{{ asset('img/advertisement-poster.png') }}">
-    <meta name="og:description" property="og:description" content="{{ __('messages.meta_tags_description') }}">
-    <meta name="og:site_name" property="og:site_name" content="Talk & Play - Marketplace">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Talk & Play - Marketplace"/>
-    <meta name="twitter:description" content="{{ __('messages.meta_tags_description') }}"/>
-    <meta name="twitter:image" content="{{ asset('img/advertisement-poster.png') }}"/>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+    <link rel="stylesheet" href="sass/main.css">
+    <link rel="stylesheet" href="sass/homepage.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+    <title>Evolved- Homepage</title>
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
-        @include('common.favicons')
+
+    @include('common.favicons')
+
     <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
+
     @stack('css')
-            <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 </head>
 <body class="hold-transition background-page @yield('body_class')">
 <div id="app">
-    @include('common.staging-indication')
+    {{-- @include('common.staging-indication') --}}
     @include('common.navbar')
     @include('common.alerts')
     <main class="py-5 mb-5">

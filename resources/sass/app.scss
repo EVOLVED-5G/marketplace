@@ -10,6 +10,13 @@
 @import "buttons";
 @import "footer";
 
+@import "base";
+@import "buttons";
+@import "mixins";
+@import "utilities";
+@import "variables_and_functions";
+
+
 
 .navbar {
     background-color: $navbar-light-bg-color;
