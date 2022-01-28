@@ -4,10 +4,9 @@
 @endpush
 
 @section('content')
-    <section class="product-title d-flex align-items-center justify-content-center">
+    <section style="padding-top: 150px;">
         <h1>NetApp Creators </h1>
         <p>Under construction</p>
-
     </section>
 
 @endsection

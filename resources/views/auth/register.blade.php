@@ -73,7 +73,7 @@
 
 
             </div>
-            <p id="rights" class="text-details">© 2021 Mockup. All Rights Reserved.</p>
+            <p id="rights" class="text-details">©Evolved-5G {{ now()->year }} | <small>{{ config('app.version') }}</small></p>
         </div>
     </div>
 
