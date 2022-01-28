@@ -1,7 +1,87 @@
-@extends('layouts.app')
+@extends('auth.layout.auth-layout')
+
+@section('title_postfix')Login @endsection
+
 
 @section('content')
-    <div class="container py-5">
+
+    <div class="login-page row">
+        <div class="login-page__bck col-md-5">
+        </div>
+        <div class="login-page__input col-md-7">
+            <h2 class="text-center mb-5">Sign in to Εvolved-5G</h2>
+            <div class="sign-in-form">
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    <div class="form-group mb-4">
+                        <label for="email" class="col-form-label text-md-right">Username or e-mail</label>
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                            value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="@email.com">
+
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+
+                    </div>
+
+                    <div class="form-group mb-5">
+                        <label for="password" class="col-form-label text-md-right">Password</label>
+
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                            name="password" required autocomplete="current-password" placeholder="Password">
+
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <p class="text-details"><i>Must be 8 characters at least.</i></p>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="form-check float-start mb-3">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                {{ old('remember') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="remember">
+                                Remember me
+                            </label>
+                        </div>
+                        <div class="float-end mb-3" id="forgot-pass">
+                            @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}">
+                                    Forgot password
+                                </a>
+                            @endif
+                        </div>
+
+                    </div>
+
+                    <div class="form-group mb-3">
+
+                        <button type="submit" class="btn btn--blue">
+                            Sign in
+                        </button>
+
+                    </div>
+                </form>
+
+                {{-- edo einai sosto to sign in kai to register? etsi tha ta balo kai to register.blade? --}}
+                <div class="row justify-content-center change-button"> <a class="btn btn-link"
+                        href="{{ route('register') }} ">
+                        {{ __('auth.register_btn') }}
+                    </a></div>
+            </div>
+            <p id="rights" class="text-details">© 2021 Mockup. All Rights Reserved.</p>
+        </div>
+    </div>
+
+
+    {{-- <div class="container py-5">
         <div class="row justify-content-center py-5">
             <div class="col-md-8 pt-5">
                 <div class="card">
@@ -81,5 +161,10 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
+
+
+@push('scripts')
+
+@endpush

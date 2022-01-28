@@ -34,9 +34,7 @@ const app = new Vue({
 });
 (function ($) {
 
-    let init = function () {
-        closeDismissableAlerts();
-    };
+
 
     let closeDismissableAlerts = function () {
         setTimeout(function () {
@@ -45,11 +43,49 @@ const app = new Vue({
         }, 3000);
     };
 
+
+
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 40) {
+            $('header .menu').addClass("scrolled");
+            $('header .menu').removeClass("border-menu");
+        } else {
+
+            $('header .menu').removeClass("scrolled");
+            $('header .menu').addClass("border-menu");
+        }
+    });
+
+    var smoothScrollOnHashChange = function () {
+        var hash = window.location.hash;
+
+        if ($(hash).length > 0) {
+            var top = $(hash).offset().top;
+            console.log(top);
+            window.scrollTo({
+                top: top - 150,
+                left: 0,
+                behavior: 'smooth'
+            });
+            return false;
+        }
+
+    }
+    
+    let init = function () {
+        closeDismissableAlerts();
+        window.onhashchange = smoothScrollOnHashChange;
+        window.onload = smoothScrollOnHashChange;
+    };
+
     $(function () {
         $(document).ready(function () {
             init();
         })
     });
+
+
 
 })(window.jQuery);
 

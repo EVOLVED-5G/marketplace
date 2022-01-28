@@ -1,0 +1,210 @@
+@import "variables_and_functions";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+
+    font-size: $html-font-size;
+
+    // @include media-breakpoint-down(md) {
+    //     font-size: 14px;
+    // }
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-text);
+    min-height: 100vh;
+}
+
+.content,
+.content-small,
+.content-footer {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+}
+
+.content {
+    max-width: 1142px;
+}
+
+.content-small {
+    max-width: 1062px;
+}
+
+.content-footer {
+    max-width: 975px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+h1 {
+    font-size: rem(46px);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: rem(34px);
+    font-weight: 700;
+}
+
+h3 {
+    font-size: rem(24px);
+    font-weight: 700;
+}
+
+h4 {
+    font-size: rem(22px);
+    font-weight: 600;
+}
+
+h5 {
+    font-size: rem(20px);
+    font-weight: 600;
+}
+
+a {
+    font-weight: 500;
+    text-decoration: underline;
+    color: var(--color-blue-dark);
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: background-color 0.5s ease;
+    background-color: transparent;
+
+    &.scrolled {
+        background-color: var(--color-purple);
+    }
+
+    &.border-menu {
+        border-bottom: 1px solid white;
+    }
+
+    .navbar {
+        .container-fluid {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 0;
+
+            .navbar-toggler,
+            .navbar-collapse {
+                float: right;
+            }
+
+            a {
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: 600;
+
+                &:hover {
+                    color: var(--color-yellow);
+                }
+
+                &:focus {
+                    color: var(--color-grey);
+                    font-weight: 400;
+                }
+            }
+
+            .navbar-toggler {
+                &:focus {
+                    text-decoration: none;
+                    outline: 0;
+                    -webkit-box-shadow: 0 0 0 0.25rem;
+                    box-shadow: 0 0 0 0.25rem;
+                    color: white;
+                }
+
+                .navbar-toggler-icon {
+                    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+                }
+            }
+
+            .navbar-collapse {
+                .dropdown-menu {
+                    background-color: var(--color-blue-light-1);
+                    a.dropdown-item {
+                        color: var(--color-title);
+                    }
+                }
+            }
+
+            .active {
+                text-decoration: underline;
+            }
+
+            #login {
+                border: 1px solid var(--color-secondary);
+                color: var(--color-secondary);
+                padding: 5px 20px;
+                display: flex;
+                align-items: center;
+                &:hover {
+                    background-color: var(--color-yellow);
+                }
+
+                &:focus {
+                    background-color: var(--color-grey);
+                }
+            }
+        }
+    }
+}
+
+.footer {
+    a {
+        text-decoration: none;
+    }
+    &__info {
+        background-color: var(--color-primary);
+        padding: 100px;
+        @media screen and (max-width: 992px) {
+            padding: 50px;
+        }
+
+        .social {
+            max-width: 240px;
+            color: var(--color-title);
+        }
+
+        ul {
+            list-style: none;
+
+            h3 {
+                color: var(--color-title);
+                font-family: "Source Sans Pro", sans-serif;
+            }
+
+            a {
+                color: #ffffff;
+            }
+        }
+    }
+    &__copyrights {
+        background-color: var(--color-offwhite);
+        color: var(--color-title);
+    }
+}

@@ -1,0 +1,134 @@
+@import "variables";
+@import "variables_and_functions";
+
+.menu {
+    background-color: var(--color-purple);
+}
+
+.product-title {
+    padding-top: 100px;
+    height: 50vh;
+    background: var(--color-blue-light-1) url("../img/product-bck.png") no-repeat;
+    color: var(--color-title);
+    background-position: bottom;
+}
+
+.product-content {
+    background: linear-gradient(90deg, #ffffff 50%,  var(--color-offwhite-2) 50%);
+    margin-bottom: -96px;
+    .main-sidebar {
+        flex: 0 0 25%;
+        background-color: #ffffff;
+        padding-top: 65px;
+        .form {
+            position: relative;
+
+            .fa-search {
+                position: absolute;
+                top: 14px;
+                left: 16px;
+            }
+
+            .form-input {
+                height: 42px;
+                text-indent: 28px;
+
+            }
+        }
+
+        .filter-group-title {
+            font-weight: 700;
+            color: var(--color-title);
+        }
+
+        ul {
+            list-style: none;
+            color: var(--color-text);
+
+            li {
+                margin-left: -30px;
+
+                label {
+                    max-width: 200px;
+                }
+
+            }
+        }
+
+
+        .sample {
+            width: 119px;
+            height: 37px;
+
+            background-color: var(--color-blue-light-1);
+
+            span {
+                border-right: 1px solid grey;
+            }
+            input {
+                background-color: transparent;
+                border: 1px solid transparent;
+
+            }
+
+
+
+        }
+
+        .btn--tertiary {
+            width: 200px;
+        }
+
+
+    }
+    .products {
+        flex: 1;
+        background-color: var(--color-offwhite-2);
+
+        padding: 50px 0 100px 16px;
+
+        .product-list {
+            gap: 2%;
+            justify-content: space-between;
+
+            &__card {
+                border: 2px solid var(--color-purple-2);
+                width: 255px;
+                height: 234px;
+                background-color: var(--color-blue-light-1);
+
+                &--name {
+                    border-bottom: 2px solid var(--color-purple-2);
+                    background-color: white;
+                    padding: 10px;
+                    position: relative;
+
+                    img {
+                        align-self: center;
+                    }
+
+                    h5,
+                    p {
+                        margin-bottom: 0;
+                    }
+
+                    .far {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        font-size: rem(24px);
+                    }
+                }
+
+                &--content {
+                    padding: 10px;
+
+                    a {
+                        color: var(--color-purple-2);
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+}

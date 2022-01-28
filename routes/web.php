@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'home')->name('home');
 Route::view('/product-catalogue', 'product-catalogue')->name('product-catalogue');
 Route::view('/about', 'about')->name('about');
+Route::view('/netapp-creators', 'netapp-creators')->name('netapp-creators');
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {
@@ -28,5 +31,7 @@ Route::middleware(['auth'])->group(function () {
             'create', 'edit', 'show'
         ]);
     });
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::view('/support', 'support')->name('support');
 });
 

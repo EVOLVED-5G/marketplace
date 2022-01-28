@@ -30,9 +30,11 @@ mix.autoload({
 });
 
 mix.sass('resources/sass/app.scss', 'public/dist/css')
-    .sass('resources/sass/user-management-page.scss', 'public/dist/css')
     .sass('resources/sass/footer.scss', 'public/dist/css')
     .sass('resources/sass/home.scss', 'public/dist/css')
+    .sass('resources/sass/login-page.scss', 'public/dist/css')
+    .sass('resources/sass/product-catalogue.scss', 'public/dist/css')
+    .sass('resources/sass/user-management-page.scss', 'public/dist/css')
     .sourceMaps()
     .webpackConfig({
         devtool: 'source-map'

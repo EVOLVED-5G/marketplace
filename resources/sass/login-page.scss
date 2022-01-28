@@ -1,0 +1,53 @@
+@import "variables_and_functions";
+
+.login-page {
+    margin: 0;
+    height: 100vh;
+
+    & > * {
+        padding: 0;
+    }
+
+    &__bck {
+        background-size: cover;
+        background-image: url("../img/login-bck.png");
+    }
+
+    &__input {
+        position: relative;
+        padding-top: 100px;
+        background-color: var(--color-offwhite-2);
+        .sign-in-form {
+            max-width: 445px;
+            margin: 0 auto;
+
+            .btn {
+                width: 100%;
+            }
+
+            ::placeholder {
+                color: var(--color-grey-2);
+                font-size: rem(14px);
+                opacity: 0.5;
+            }
+
+            #forgot-pass a, .change-button a {
+                font-weight: 700;
+            }
+
+            #forgot-pass a {
+                     color: var(--color-title);
+            }
+            .change-button a {
+                color: var(--color-purple-2);
+            }
+
+        }
+
+        #rights {
+            position: absolute;
+            bottom: 0;
+            left: 40%;
+        }
+    }
+}

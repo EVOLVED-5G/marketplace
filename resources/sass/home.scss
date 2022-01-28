@@ -1,53 +1,259 @@
 @import "variables";
+@import "variables_and_functions";
 
-#intro-carousel-row {
-    height: calc(100vh - 75px - 3rem - 100px);
-    background-image: url("/img/background-carousel-landing-page.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
 
-.flickity-page-dots .dot {
-    background: $green;
-    height: 15px;
-    width: 15px;
-    opacity: 1;
 
-    &:not(.is-selected) {
-        background-color: white;
-        border: 2.5px solid $green;
+.main-title {
+    padding-top: 150px;
+    height: 95vh;
+    background-size: cover;
+    background-image: url(../img/header-image.png);
+
+
+    &__content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+
+        &--text {
+            flex-direction: column;
+            justify-content: space-between;
+            h1 {
+                color: var(--color-secondary);
+            }
+
+            p {
+                color: #ffffff;
+                max-width: 450px;
+            }
+        }
     }
 }
 
-.carousel {
-    height: 500px;
-}
+.explore {
+    background-size: cover;
+    background-image: url(../img/explore-bck.png);
+    height: 80vh;
 
-.carousel-cell {
-    height: 100%;
-}
+    @media screen and (max-width: 992px) {
+        height: 60vh;
+    }
 
-.flickity-page-dots {
-    bottom: 10px;
-}
+    @media screen and (max-width: 370px) {
+        height: 70vh;
+    }
 
-.carousel-cell {
-    width: 100%;
-}
+    &__content {
+        display: flex;
+        flex-direction: column;
 
-#communication-cards {
-    padding-top: 20rem;
-}
+        align-items: center;
 
-#game-cards {
-    padding-top: 20rem;
-    margin-bottom: 10rem;
-}
+        p {
+            max-width: rem(945px);
+        }
+    }
 
-.download-app-container {
-    .fab {
-        margin-top: 3px;
-        font-size: toRem(23);
+    &__box {
+        width: rem(350px);
+        height: rem(290px);
+        background-color: #ffffff;
+        border: 2px solid var(--color-blue-light-1);
+
+        &--title {
+            background-color: var(--color-blue-light-1);
+            padding: 20px;
+        }
+
+        &--text {
+            padding: 20px;
+
+            a {
+                width: 300px;
+            }
+        }
     }
 }
+
+.for-whom {
+    &__content {
+        .for-creators,
+        .for-businesses {
+            min-height: 340px;
+        }
+        .for-creators {
+            &--title {
+                background: var(--color-purple-2) url("../img/creators-bck.png") no-repeat;
+                background-position: right bottom;
+
+                color: var(--color-blue-light-1);
+                font-size: rem(60px);
+                font-weight: bold;
+
+                h1 {
+                    max-width: 250px;
+                }
+            }
+        }
+
+        .for-creators--list,
+        .for-businesses--list {
+            ol {
+                list-style: none;
+
+                li {
+                    position: relative;
+
+                    span {
+                        border: 2px solid var(--color-primary);
+                        border-radius: 100%;
+                        width: 56px;
+                        height: 56px;
+                        line-height: 50px;
+                        background-color: #fff;
+                        text-align: center;
+                        display: inline-block;
+                        margin-right: 10px;
+                        font-size: rem(24px);
+                        font-weight: 800;
+                        font-family: "Source Sans Pro", sans-serif;
+                    }
+
+                    &:before {
+                        position: absolute;
+                        border: 1px solid var(--color-primary);
+                        width: 0;
+                        height: 20px;
+                        display: block;
+                        content: "";
+                        left: 28px;
+                        z-index: 1;
+                        top: -18px;
+                        margin-left: -1px;
+                    }
+
+                    &:first-child:before {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .for-businesses {
+            &--title {
+                background: var(--color-blue-light-1) url("../img/businesses-bck.png") no-repeat;
+                background-position: right bottom;
+
+                color: var(--color-purple-2);
+                font-size: rem(60px);
+                font-weight: bold;
+
+                h1 {
+                    max-width: 250px;
+                }
+            }
+        }
+
+        .btn--primary {
+            width: rem(260px);
+        }
+    }
+}
+
+.support {
+    height: 82vh;
+    background-size: cover;
+    background-image: url(../img/support-bck.png);
+
+    h1 {
+        color: var(--color-secondary);
+    }
+
+
+
+    h2 {
+        color: #ffffff;
+    }
+}
+
+.related-tech {
+    height: 70vh;
+
+    &__content {
+        width: 100%;
+
+        h1 {
+            color: var(--color-title)
+        }
+
+
+    &--tech {
+        justify-content: space-between;
+
+
+        .accordion-item {
+            width: 340px;
+            border: 3px solid color(color06);
+
+            .key-title {
+                button {
+                    color: var(--color-grey-dark);
+                    font-size: rem(18px);
+                    text-decoration: none;
+
+                    b {
+                        margin-left: 10px;
+                    }
+
+                    &:not(.collapsed) {
+                        box-shadow: inset 0 -1px 0 var(--color-primary);
+                    }
+                }
+
+                .fa-minus-circle {
+                    display: initial;
+                    color: var(--color-primary);
+                }
+
+                .fa-plus-circle {
+                    display: none;
+                }
+
+                .accordion-button::after {
+                    display: none;
+                }
+
+                .accordion-button {
+                    background-color: var(--color-blue-light-1);
+                }
+                .accordion-button:focus {
+                    display: none;
+                }
+                .collapsed {
+                    .fa-minus-circle {
+                        display: none;
+
+                    }
+
+                    .fa-plus-circle {
+                        display: initial;
+
+                    }
+
+                    b {
+                        color: color(color03);
+                    }
+                }
+            }
+        }
+
+        .accordion-body {
+            color: color(color07);
+            max-width: 1080px;
+            margin-left: 25px;
+        }
+    }
+}
+}
+
