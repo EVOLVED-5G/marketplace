@@ -13,7 +13,7 @@
 
         <div class="content d-flex">
 
-            <section class="main-sidebar ">
+            <section class="main-sidebar">
                 <div class="filters-list">
 
                     <h4>Filters</h4>
@@ -77,7 +77,7 @@
 
             </section>
 
-            <section class="products ">
+            <section class="products">
                 <p class="text-end">Results: 40</p>
                 <div class="product-list d-flex flex-wrap ">
                     <div class="product-list__card mb-4">

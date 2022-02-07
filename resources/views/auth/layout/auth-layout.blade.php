@@ -9,6 +9,7 @@
     <title>@yield('title_prefix', config('app.name')) @yield('title_postfix', '')</title>
 
     @include('common.favicons')
+    
     <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
     <link rel="stylesheet" href="{{ mix('dist/css/login-page.css') }}">
 

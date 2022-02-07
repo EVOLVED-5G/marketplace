@@ -1,0 +1,148 @@
+@import "variables";
+@import "variables_and_functions";
+
+@import "../plugins/dashboard-skeleton-bs-5/sidebar-skeleton-compostrap/dist/css/sidebar.css";
+@import url(https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.css);
+@import "../plugins/dashboard-skeleton-bs-5/sidebar-menu-compostrap/dist/css/sidebar.menu.css";
+@import "../plugins/dashboard-skeleton-bs-5/dist/css/dashboard.css";
+
+.menu {
+    background-color: var(--color-purple);
+}
+
+.dashboard-content {
+    background: linear-gradient(90deg, #ffffff 50%, var(--color-offwhite-2) 50%);
+    padding-top: 100px;
+    .dashboard-sidebar {
+        flex: 0 0 27%;
+        background-color: #ffffff;
+        padding-top: 65px;
+
+        // @media (max-width: 768px) {
+        //    display: none;
+        // }
+        .my-list {
+            max-width: 50%;
+
+            .btn--tertiary {
+                font-weight: 400;
+                padding: 0.5rem 2.3rem;
+            }
+            .mouse-cursor-gradient-tracking {
+                position: relative;
+                background: transparent;
+                padding: 0.5rem 1rem;
+                font-size: 1.2rem;
+                border: none;
+                color: var(--color-title);
+                cursor: pointer;
+                outline: 3px solid var(--color-title);
+                overflow: hidden;
+                span {
+                    position: relative;
+                }
+            }
+
+            .mouse-cursor-gradient-tracking:before {
+                --size: 0;
+                content: "";
+                position: absolute;
+                left: var(--x);
+                top: var(--y);
+                width: var(--size);
+                height: var(--size);
+                background: radial-gradient(circle closest-side, var(--color-title), transparent);
+                transform: translate(-50%, -50%);
+                transition: width 0.2s ease, height 0.2s ease;
+            }
+
+            .mouse-cursor-gradient-tracking:hover:before {
+                --size: 200px;
+            }
+        }
+    }
+
+    #welcome {
+        flex: 1;
+
+        background-color: var(--color-offwhite-2);
+
+        padding: 50px 50px 100px 50px;
+        @media (max-width: 900px) {
+            padding: 50px 20px 100px 20px;
+        }
+
+        .bar-template {
+            background-color: #ffffff;
+            max-width: rem(825px);
+
+            @media (max-width: 768px) {
+                max-width: rem(285px);
+            }
+
+            .btn--blue {
+                min-width: rem(220px);
+                @media (max-width: 871px) {
+                    min-width: rem(200px);
+                }
+
+                padding: 0.5rem 1rem;
+            }
+        }
+    }
+
+    #stepper {
+        flex: 1;
+
+        background-color: var(--color-offwhite-2);
+
+        padding: 50px 50px 100px 50px;
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .step-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--prm-gray);
+            transition: .4s;
+        }
+        .step-button[aria-expanded="true"] {
+            width: 60px;
+            height: 60px;
+            background-color: var(--prm-color);
+            color: #fff;
+        }
+        .done {
+            background-color: var(--prm-color);
+            color: #fff;
+        }
+        .step-item {
+            z-index: 10;
+            text-align: center;
+        }
+        #progress {
+          -webkit-appearance:none;
+            position: absolute;
+            width: 95%;
+            z-index: 5;
+            height: 10px;
+            margin-left: 18px;
+            margin-bottom: 18px;
+        }
+        /* to customize progress bar */
+        #progress::-webkit-progress-value {
+            background-color: var(--prm-color);
+            transition: .5s ease;
+        }
+        #progress::-webkit-progress-bar {
+            background-color: var(--prm-gray);
+
+        }
+    }
+}
