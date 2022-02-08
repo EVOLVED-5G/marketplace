@@ -20,6 +20,7 @@
         btn.style.setProperty('--y', y + 'px');
     });
 </script>
+
 <script>
     const stepButtons = document.querySelectorAll('.step-button');
     const progress = document.querySelector('#progress');

@@ -96,53 +96,83 @@
 
         background-color: var(--color-offwhite-2);
 
-        padding: 50px 50px 100px 50px;
+        padding: 50px 0 100px 50px;
         .steps {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
             position: relative;
-        }
-        .step-button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background-color: var(--prm-gray);
-            transition: .4s;
-        }
-        .step-button[aria-expanded="true"] {
-            width: 60px;
-            height: 60px;
-            background-color: var(--prm-color);
-            color: #fff;
-        }
-        .done {
-            background-color: var(--prm-color);
-            color: #fff;
-        }
-        .step-item {
-            z-index: 10;
-            text-align: center;
-        }
-        #progress {
-          -webkit-appearance:none;
-            position: absolute;
-            width: 95%;
-            z-index: 5;
-            height: 10px;
-            margin-left: 18px;
-            margin-bottom: 18px;
-        }
-        /* to customize progress bar */
-        #progress::-webkit-progress-value {
-            background-color: var(--prm-color);
-            transition: .5s ease;
-        }
-        #progress::-webkit-progress-bar {
-            background-color: var(--prm-gray);
+            background-color: #ffffff;
+            padding: 20px 10px;
+            .step-item {
+                z-index: 10;
+                text-align: center;
+                .step-button {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    border: none;
+                    background-color: var(--color-blue-light-1);
+                    transition: 0.4s;
 
+                    &[aria-expanded="true"] {
+                        width: 30px;
+                        height: 30px;
+                        background-color: var(--color-purple-2);
+                        color: #fff;
+                    }
+
+                    &.done {
+                        background-color: var(--color-purple-2);
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        .step-button[aria-expanded="true"] {
+            width: 30px;
+            height: 30px;
+            background-color: var(--color-purple-2);
+            color: #fff;
+        }
+
+        #progress {
+            -webkit-appearance: none;
+            position: absolute;
+            width: 85%;
+            z-index: 5;
+            height: 3px;
+            top: 23%;
+            margin-left: 35px;
+            margin-bottom: 18px;
+        /* to customize progress bar */
+            &::-webkit-progress-value {
+                background-color: var(--color-grey-dark);
+                transition: 0.5s ease;
+            }
+
+            &::-webkit-progress-bar {
+                background-color: var(--color-grey);
+            }
+        }
+
+
+
+        .step-card {
+            &__content {
+                background-color: #ffffff;
+            }
+        }
+
+        #service {
+            form {
+                #logo-netapp {
+                    background-color: #ffffff;
+                    border: none;
+                }
+            }
         }
     }
 }
