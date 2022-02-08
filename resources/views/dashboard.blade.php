@@ -70,9 +70,6 @@
                                     <p class="text-note"><b>Action</b></p>
                                     <a class="btn btn--tertiary mt-2" href="#">Create new NetApp</a>
 
-                                    {{-- <button class="mouse-cursor-gradient-tracking ms-3 mt-5">
-                                            <span>Create new NetApp</span>
-                                        </button> --}}
 
                                 </div>
 
@@ -244,40 +241,6 @@
                 </div>
 
 
-
-                <div class="card">
-                    <div  id="headingOne">
-                    </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="card-body">
-                           your content goes here...
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div  id="headingTwo">
-
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="card-body">
-                            your content goes here...
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div  id="headingThree">
-
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                        data-bs-parent="#accordionExample">
-                        <div class="card-body">
-                            your content goes here...
-                        </div>
-                    </div>
-                </div>
-
                 <div id="service" class="step-card">
                     <div class="step-card__title">
                         <h4>Service basic information/metadata</h4>
@@ -314,7 +277,8 @@
                                 <input type="text" class="form-control" id="version-of-netapp" placeholder="v 1.0">
                             </div>
                             <div>
-                                <label for="about-netapp" class="form-label text-details">View more (Marketing page) url site</label>
+                                <label for="about-netapp" class="form-label text-details">View more (Marketing page) url
+                                    site</label>
                                 <input type="text" class="form-control" id="about-netapp">
                             </div>
                             <div class="mb-3">
@@ -338,17 +302,76 @@
                                         Business/Organization
                                     </label>
                                     <div>
-                                        <label for="business-name" class="form-label text-details">Business/Organization Name</label>
-                                        <input type="text" class="form-control" id="business-name" >
+                                        <label for="business-name" class="form-label text-details">Business/Organization
+                                            Name</label>
+                                        <input type="text" class="form-control" id="business-name">
                                     </div>
                                     <div>
                                         <label for="social-number" class="form-label text-details">Social number</label>
-                                        <input type="text" class="form-control" id="social-number" >
+                                        <input type="text" class="form-control" id="social-number">
                                     </div>
                                 </div>
                             </fieldset>
                         </form>
                     </div>
+                </div>
+
+                <div id="policy" class="step-card">
+                    <div class="step-card__title">
+                        <h4>Policy</h4>
+                    </div>
+
+                    <div class="step-card__content p-3">
+                        <p>In order to publish your netapp you need to agree to the Marketplace Policy. <a href="#">Read</a>
+                            the document for policy.</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="agree-policy" id="agree-policy">
+                            <label class="form-check-label" for="agree-policy">
+                                Agree Marketplace policy
+                            </label>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div id="deployment" class="step-card">
+                    <div class="step-card__title">
+                        <h4>Deployment</h4>
+                    </div>
+
+                    <div class="step-card__content p-3">
+                        <form class="row g-3">
+                            <div>
+                                <label for="netapp-image-url" class="form-label text-details">Copy paste the net app image url from the Open Repository</label>
+                                <input type="text" class="form-control" id="netapp-image-url" >
+                            </div>
+                            <div>
+                                <label for="report-url" class="form-label text-details">Copy paste the Certification/Validation report URL</label>
+                                <input type="text" class="form-control" id="report-url" >
+                            </div>
+                            <div>
+                                <label for="docker-size" class="form-label text-details">Enter Docker Size</label>
+                                <input type="text" class="form-control" id="docker-size" >
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="tutorial-pdf" class="form-label text-details">Upload tutorial as a pdf</label>
+                                <input class="form-control" type="file" id="tutorial-pdf">
+                            </div>
+                        </form>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="step-actions mt-5">
+                    <a href="#">Cancel Process</a>
+                    <div class="btn btn--blue ms-5"> Next</div>
                 </div>
 
             </div>

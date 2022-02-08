@@ -147,7 +147,7 @@
             top: 23%;
             margin-left: 35px;
             margin-bottom: 18px;
-        /* to customize progress bar */
+            /* to customize progress bar */
             &::-webkit-progress-value {
                 background-color: var(--color-grey-dark);
                 transition: 0.5s ease;
@@ -157,8 +157,6 @@
                 background-color: var(--color-grey);
             }
         }
-
-
 
         .step-card {
             &__content {
@@ -173,6 +171,18 @@
                     border: none;
                 }
             }
+        }
+    }
+
+    a {
+        color: var(--color-purple-2);
+        font-weight: 700;
+    }
+
+    .step-actions {
+        float: right;
+        .btn--blue {
+            min-width: rem(185px);
         }
     }
 }
