@@ -345,21 +345,23 @@
                     <div class="step-card__content p-3">
                         <form class="row g-3">
                             <div>
-                                <label for="netapp-image-url" class="form-label text-details">Copy paste the net app image url from the Open Repository</label>
-                                <input type="text" class="form-control" id="netapp-image-url" >
+                                <label for="netapp-image-url" class="form-label text-details">Copy paste the net app image
+                                    url from the Open Repository</label>
+                                <input type="text" class="form-control" id="netapp-image-url">
                             </div>
                             <div>
-                                <label for="report-url" class="form-label text-details">Copy paste the Certification/Validation report URL</label>
-                                <input type="text" class="form-control" id="report-url" >
+                                <label for="report-url" class="form-label text-details">Copy paste the
+                                    Certification/Validation report URL</label>
+                                <input type="text" class="form-control" id="report-url">
                             </div>
                             <div>
                                 <label for="docker-size" class="form-label text-details">Enter Docker Size</label>
-                                <input type="text" class="form-control" id="docker-size" >
+                                <input type="text" class="form-control" id="docker-size">
                             </div>
 
                             <div class="mb-3">
-                                <label for="tutorial-pdf" class="form-label text-details">Upload tutorial as a pdf</label>
-                                <input class="form-control" type="file" id="tutorial-pdf">
+                                <label for="deployment-tutorial-pdf" class="form-label text-details">Upload license file </label>
+                                <input class="form-control" type="file" id="deployment-tutorial-pdf">
                             </div>
                         </form>
                     </div>
@@ -369,10 +371,236 @@
 
                 </div>
 
+                <div id="tutorial" class="step-card">
+                    <div class="step-card__title">
+                        <h4>Tutorial</h4>
+                        <p>Please describe in detail your net app. </p>
+                        <p>Add a title/description here for the tutorial. </p>
+                        <br>
+                        <p>Make sure you present a list of the technologies that are used in your docker package.</p>
+                    </div>
+
+                    <div class="step-card__content p-3">
+                        <p>Build your own tutorial editing the form below.</p>
+
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="code_preview0" name="" style="height: 300px;"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tutorial-pdf" class="form-label text-details">Upload tutorial as a pdf</label>
+                            <input class="form-control" type="file" id="tutorial-pdf">
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div id="pricing" class="step-card">
+                    <div class="step-card__title">
+                        <h4>Pricing</h4>
+
+                    </div>
+
+                    <div id="once-off" class="step-card__content p-3 mb-3">
+                        <p>Once-off</p>
+                        <p>Charge your customer once-off. Once they pay this amount they will be able to make unlimited
+                            calls to your netapp API</p>
+                        <div class="choose-cost p-3">
+                            <div class="col-md-2">
+                                <label for="choose-cost" class="form-label text-details">Choose Cost</label>
+                                <input type="text" class="form-control" id="choose-cost" placeholder="300 €">
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- <div id="pay-as-you-go" class="step-card__content p-3">
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="pay" id="pay">
+                                <label class="form-check-label" for="pay">
+                                    Pay as you go pricing
+                                </label>
+                            </div>
+                            <p>Charge your customer either a) a fixed price for a specific number of calls, or b) fixed
+                                price
+                                per call.</p>
+                        </div>
+                        <div>
+                            <p>Plan table</p>
+                            <div class="plan-table-card pt-3 ps-3 pe-3">
+                                <input type="text" class="form-control mb-3" id="device-location"
+                                    placeholder="/get-device-location">
+
+                                <div class="plan-table-card__form p-3 mb-3">
+                                    <div class="check-and-trash">
+                                        <i class="fa fa-check"></i> | <i class="fa fa-trash"></i>
+                                    </div>
+                                    <div class="mt-3">
+                                        <form class="row g-3">
+                                            <div class="col-md-2">
+                                                <label for="from-calls" class="form-label text-details">From</label>
+                                                <input type="text" class="form-control" id="from-calls"
+                                                    placeholder="0 calls">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="to-calls" class="form-label text-details">To</label>
+                                                <input type="text" class="form-control" id="to-calls"
+                                                    placeholder="500 calls">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="category-fee" class="form-label text-details">Category
+                                                    fee</label>
+                                                <select id="category-fee" class="form-select">
+                                                    <option selected class="text-note">Fixed</option>
+                                                    <option class="text-note">Per call</option>
+                                                    <option class="text-note">Option 2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="cost-netapp" class="form-label text-details">Cost</label>
+                                                <input type="text" class="form-control" id="cost-netapp"
+                                                    placeholder="0 €">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="plan-table-card__form p-3 mb-3">
+                                    <div class="check-and-trash">
+                                        <i class="fa fa-check"></i> | <i class="fa fa-trash"></i>
+                                    </div>
+                                    <div class="mt-3">
+                                        <form class="row g-3">
+                                            <div class="col-md-2">
+                                                <label for="from-calls2" class="form-label text-details">From</label>
+                                                <input type="text" class="form-control" id="from-calls2"
+                                                    placeholder="500 calls">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="to-calls2" class="form-label text-details">To</label>
+                                                <input type="text" class="form-control" id="to-calls2"
+                                                    placeholder="1000 calls">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="category-fee2" class="form-label text-details">Category
+                                                    fee</label>
+                                                <select id="category-fee2" class="form-select">
+                                                    <option selected class="text-note">Fixed</option>
+                                                    <option class="text-note">Per call</option>
+                                                    <option class="text-note">Option 2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="cost-netapp2" class="form-label text-details">Cost</label>
+                                                <input type="text" class="form-control" id="cost-netapp2"
+                                                    placeholder="2 € ">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="plan-table-card__form p-3 ">
+                                    <div class="check-and-trash">
+                                        <i class="fa fa-check"></i> | <i class="fa fa-trash"></i>
+                                    </div>
+                                    <div class="mt-3">
+                                        <form class="row g-3">
+                                            <div class="col-md-2">
+                                                <label for="from-calls3" class="form-label text-details">From</label>
+                                                <input type="text" class="form-control" id="from-calls3"
+                                                    placeholder="1000+  calls">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="to-calls3" class="form-label text-details">To</label>
+                                                <input type="text" class="form-control" id="to-calls3"
+                                                    placeholder="∞">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="unlimited" id="unlimited">
+                                                        <label class="form-check-label" for="unlimited">
+                                                            unlimited
+                                                        </label>
+                                                    </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="category-fee3" class="form-label text-details">Category
+                                                    fee</label>
+                                                <select id="category-fee3" class="form-select">
+                                                    <option selected class="text-note">Per call</option>
+                                                    <option class="text-note">Option 1</option>
+                                                    <option class="text-note">Option 2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="cost-netapp" class="form-label text-details">Cost</label>
+                                                <input type="text" class="form-control" id="cost-netapp"
+                                                    placeholder="0.005e/call">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="plan-table-card__add p-2 text-center">
+                                    <a href="#"><i class="fas fa-plus-circle"></i> Add</a>
+                                </div>
+                            </div>
+
+                            <div class="new-table mt-3 p-2 text-center">
+                                Add new plan table
+                            </div>
+                        </div>
+
+                    </div> --}}
+
+
+                </div>
+
                 <div class="step-actions mt-5">
                     <a href="#">Cancel Process</a>
                     <div class="btn btn--blue ms-5"> Next</div>
+
+                    <div class="mt-5">
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn--blue" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Create
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content text-center">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                    <div class="modal-header ">
+                                        <h5 class="modal-title d-flex " id="exampleModalLabel">
+                                            <img loading="lazy" src="/img/success.modal.png" alt="success.modal">
+
+                                        </h5>
+
+                                    </div>
+                                    <div class="modal-body mb-5">
+                                        <h1>Your NetApp was created successfuly! </h1>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="button" class="btn btn--tertiary mb-3"
+                                            data-bs-dismiss="modal">OK</button>
+
+
+                                        <a href="#">Go to see your NetApp</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
 
             </div>
 

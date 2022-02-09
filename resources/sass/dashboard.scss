@@ -179,10 +179,82 @@
         font-weight: 700;
     }
 
+    #pricing {
+        #once-off {
+            .choose-cost {
+                background-color: var(--color-blue-light-1);
+            }
+        }
+
+        #pay-as-you-go {
+            .plan-table-card {
+                background-color: var(--color-blue-light-1);
+                &__form {
+                    background-color: #f3f7fe;
+                    position: relative;
+                    margin: 0 -16px 0 -16px;
+
+                    .check-and-trash {
+                       position: absolute;
+                       top: 10px;
+                       right: 10px;
+
+                       .fa-trash{
+                           color: var(--color-primary);
+                       }
+                    }
+
+                    .form-check-input:checked {
+                        background-color: var(--color-purple-2);
+                        border-color: var(--color-purple-2);
+                    }
+
+                    .form-check-input:checked[type=checkbox] {
+                        background-image: url("../img/rectangle.png");
+                    }
+                }
+                &__add {
+                    background-color: var(--color-secondary);                  
+                    margin: 0 -16px 0 -16px;
+                    border: 1px solid var(--color-blue-light-2);
+                }
+            }
+            .new-table {
+                color: var(--color-primary);
+                   border: 2px solid var(--color-primary);
+            }
+        }
+    }
+
     .step-actions {
         float: right;
         .btn--blue {
             min-width: rem(185px);
+        }
+
+        .modal-dialog {
+            max-width: 945px;
+            .modal-content {
+                align-items: center;
+                .btn-close {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                }
+
+                h1 {
+                    color: var(--color-title);
+                }
+
+                .modal-header,
+                .modal-body {
+                    border-bottom: none;
+                }
+                .modal-footer {
+                    border-top: none;
+                    display: contents;
+                }
+            }
         }
     }
 }
