@@ -72,7 +72,7 @@ const app = new Vue({
         }
 
     }
-    
+
     let init = function () {
         closeDismissableAlerts();
         window.onhashchange = smoothScrollOnHashChange;
@@ -84,6 +84,35 @@ const app = new Vue({
             init();
         })
     });
+
+
+
+
+    // mouse hover
+    $(".mouse-cursor-gradient-tracking").on("mousemove", e => {
+        let rect = e.target.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+        $(this).css("--x", x + "px");
+        $(this).css("--y", y + "px");
+
+    });
+
+
+    // mobile menu
+
+    const mainNavigation = document.querySelector(".main-navigation");
+    const overlay = mainNavigation.querySelector(".overlay");
+    const toggler = mainNavigation.querySelector(".navbar-toggler");
+
+    const openSideNav = () => mainNavigation.classList.add("active");
+    const closeSideNav = () => mainNavigation.classList.remove("active");
+
+    toggler.addEventListener("click", openSideNav);
+    overlay.addEventListener("click", closeSideNav);
+
+    document.addEventListener("swiped-right", openSideNav);
+    document.addEventListener("swiped-left", closeSideNav);
 
 
 

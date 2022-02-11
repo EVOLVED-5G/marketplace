@@ -49,8 +49,6 @@ body {
     max-width: 975px;
 }
 
-
-
 h1,
 h2,
 h3 {
@@ -86,6 +84,10 @@ a {
     font-weight: 500;
     text-decoration: underline;
     color: var(--color-blue-dark);
+
+    &:hover {
+        color: var(--color-yellow);
+    }
 }
 
 .menu {
@@ -105,15 +107,24 @@ a {
         border-bottom: 1px solid white;
     }
 
-    .navbar {
-        .container-fluid {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            padding: 0;
+    .main-navigation {
+        // test
 
-            .navbar-toggler,
-            .navbar-collapse {
-                float: right;
+        .sidebar,
+        .overlay {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            background-color: transparent;
+        }
+
+        .sidebar {
+            left: 100%;
+            max-width: 300px;
+            transition: all ease 0.25s;
+
+            @media (max-width: 992px) {
+                background-color: var(--color-primary);
             }
 
             a {
@@ -126,36 +137,21 @@ a {
                 }
 
                 &:focus {
-                    color: var(--color-grey);
+                    color: var(--color-secondary);
                     font-weight: 400;
                 }
-            }
 
-            .navbar-toggler {
-                &:focus {
-                    text-decoration: none;
-                    outline: 0;
-                    -webkit-box-shadow: 0 0 0 0.25rem;
-                    box-shadow: 0 0 0 0.25rem;
-                    color: white;
-                }
-
-                .navbar-toggler-icon {
-                    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+                &.active {
+                    text-decoration: underline;
+                    color: #ffffff;
                 }
             }
 
-            .navbar-collapse {
-                .dropdown-menu {
-                    background-color: var(--color-blue-light-1);
-                    a.dropdown-item {
-                        color: var(--color-title);
-                    }
+            .dropdown-menu {
+                background-color: var(--color-blue-light-1);
+                a.dropdown-item {
+                    color: var(--color-title);
                 }
-            }
-
-            .active {
-                text-decoration: underline;
             }
 
             #login {
@@ -173,11 +169,55 @@ a {
                 }
             }
         }
+
+        &.active .sidebar {
+            left: 0;
+        }
+
+        &.active .overlay {
+            visibility: visible;
+        }
+
+        .overlay {
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            visibility: hidden;
+        }
+
+        @media (min-width: 992px) {
+            .sidebar {
+                position: relative;
+                top: auto;
+                bottom: auto;
+                left: auto;
+                flex-direction: row;
+                max-width: 100%;
+                transition: none;
+                overflow-y: visible;
+            }
+        }
+
+        .navbar-toggler {
+            &:focus {
+                text-decoration: none;
+                outline: 0;
+                -webkit-box-shadow: 0 0 0 0.25rem;
+                box-shadow: 0 0 0 0.25rem;
+                color: white;
+            }
+
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+        }
     }
+
 }
 
 .footer {
-
     a {
         text-decoration: none;
     }
@@ -201,8 +241,10 @@ a {
                 font-family: "Source Sans Pro", sans-serif;
             }
 
-            a {
-                color: #ffffff;
+            li a {
+                &:hover {
+                    color: var(--color-yellow);
+                }
             }
         }
     }

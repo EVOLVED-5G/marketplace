@@ -7,7 +7,7 @@
 
 .product-title {
     padding-top: 100px;
-    height: 50vh;
+    height: 40vh;
     background: var(--color-blue-light-1) url("../img/product-bck.png") no-repeat;
     color: var(--color-title);
     background-position: bottom;
@@ -38,6 +38,8 @@
         .filter-group-title {
             font-weight: 700;
             color: var(--color-title);
+
+
         }
 
         ul {
@@ -46,6 +48,11 @@
 
             li {
                 margin-left: -30px;
+
+                .form-check-input:checked {
+                    background-color: var(--color-purple-2);
+                    border-color: var(--color-purple-2);
+                }
 
                 label {
                     max-width: 200px;
@@ -84,7 +91,7 @@
         flex: 1;
         background-color: var(--color-offwhite-2);
 
-        padding: 50px 0 100px 16px;
+        padding: 50px 0 100px 30px;
 
         .product-list {
             gap: 2%;

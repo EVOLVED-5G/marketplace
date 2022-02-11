@@ -78,7 +78,10 @@
             </section>
 
             <section class="products">
-                <p class="text-end">Results: 40</p>
+
+
+
+                <p>Results: 40</p>
                 <div class="product-list d-flex flex-wrap ">
                     <div class="product-list__card mb-4">
                         <div class="product-list__card--name d-flex">

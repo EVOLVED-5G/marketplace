@@ -68,7 +68,11 @@
                                     </ul>
                                     <hr>
                                     <p class="text-note"><b>Action</b></p>
-                                    <a class="btn btn--tertiary mt-2" href="#">Create new NetApp</a>
+                                    <a class="btn btn--tertiary mt-2 mb-5" href="#">Create new NetApp</a>
+
+                                    {{-- <button class="mouse-cursor-gradient-tracking">
+                                        <span>Hover me</span>
+                                      </button> --}}
 
 
                                 </div>
@@ -254,7 +258,8 @@
                             </div>
                             <div>
                                 <label for="about-netapp" class="form-label text-details">About</label>
-                                <input type="text" class="form-control" id="about-netapp" placeholder="...">
+
+                                <textarea class="form-control" id="about-netapp" rows="3">...</textarea>
                             </div>
                             <div class="col-md-6">
                                 <label for="type-of-netapp" class="form-label text-details">Type of Net app</label>
@@ -567,6 +572,11 @@
                         <button type="button" class="btn btn--blue" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Create
                         </button>
+
+
+                {{-- <button class="mouse-cursor-gradient-tracking">
+                    <span>Hover me</span>
+                  </button> --}}
 
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
