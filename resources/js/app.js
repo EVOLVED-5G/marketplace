@@ -1,17 +1,20 @@
 import 'bootstrap';
 import $ from 'jquery';
 import Vue from 'vue';
-
+import VeeValidate from 'vee-validate'
 require('./bootstrap');
 window.$ = window.jQuery = $;
 window.route = require('./backend-route');
 import store from './store/store';
-
+import CreateNetApp from './vue-components/CreateNetApp.vue'
 import getLodash from "lodash/get";
 import eachRightLodash from "lodash/eachRight";
 import replaceLodash from "lodash/replace";
-
-
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+Vue.use( CKEditor );
+Vue.use(VeeValidate, {
+    useConstraintAttrs: false,
+  })
 window.translate = function (string, args) {
     let value = getLodash(window.i18n, string);
 
@@ -26,7 +29,7 @@ Vue.prototype.trans = (string, args) => {
 };
 
 Vue.component('modal', require('./vue-components/common/ModalComponent').default);
-
+Vue.component('createnetapp',CreateNetApp);
 
 const app = new Vue({
     el: '#app',

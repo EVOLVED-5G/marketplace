@@ -153,7 +153,7 @@
             <div>
                 <h1> Support</h1>
                 <h2>Connect tο the forum!</h2>
-        
+
                 <a class="btn btn--secondary mt-5" href="{{ route('support') }}">Go to forum</a>
             </div>
 

@@ -1,0 +1,260 @@
+@import "variables";
+@import "variables_and_functions";
+
+@import "../plugins/dashboard-skeleton-bs-5/sidebar-skeleton-compostrap/dist/css/sidebar.css";
+@import url(https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.css);
+@import "../plugins/dashboard-skeleton-bs-5/sidebar-menu-compostrap/dist/css/sidebar.menu.css";
+@import "../plugins/dashboard-skeleton-bs-5/dist/css/dashboard.css";
+
+.menu {
+    background-color: var(--color-purple);
+}
+
+.dashboard-content {
+    background: linear-gradient(90deg, #ffffff 50%, var(--color-offwhite-2) 50%);
+    padding-top: 100px;
+    .dashboard-sidebar {
+        flex: 0 0 27%;
+        background-color: #ffffff;
+        padding-top: 65px;
+
+        // @media (max-width: 768px) {
+        //    display: none;
+        // }
+        .my-list {
+            max-width: 50%;
+
+            .btn--tertiary {
+                font-weight: 400;
+                padding: 0.5rem 2.3rem;
+            }
+            .mouse-cursor-gradient-tracking {
+                position: relative;
+                background: transparent;
+                padding: 0.5rem 1rem;
+                font-size: 1.2rem;
+                border: none;
+                color: var(--color-title);
+                cursor: pointer;
+                outline: 3px solid var(--color-title);
+                overflow: hidden;
+                span {
+                    position: relative;
+                }
+            }
+
+            .mouse-cursor-gradient-tracking:before {
+                --size: 0;
+                content: "";
+                position: absolute;
+                left: var(--x);
+                top: var(--y);
+                width: var(--size);
+                height: var(--size);
+                background: radial-gradient(circle closest-side, var(--color-title), transparent);
+                transform: translate(-50%, -50%);
+                transition: width 0.2s ease, height 0.2s ease;
+            }
+
+            .mouse-cursor-gradient-tracking:hover:before {
+                --size: 200px;
+            }
+        }
+    }
+
+    #welcome {
+        flex: 1;
+
+        background-color: var(--color-offwhite-2);
+
+        padding: 50px 50px 100px 50px;
+        @media (max-width: 900px) {
+            padding: 50px 20px 100px 20px;
+        }
+
+        .bar-template {
+            background-color: #ffffff;
+            max-width: rem(825px);
+
+            @media (max-width: 768px) {
+                max-width: rem(285px);
+            }
+
+            .btn--blue {
+                min-width: rem(220px);
+                @media (max-width: 871px) {
+                    min-width: rem(200px);
+                }
+
+                padding: 0.5rem 1rem;
+            }
+        }
+    }
+
+    #stepper {
+        flex: 1;
+
+        background-color: var(--color-offwhite-2);
+
+        padding: 50px 0 100px 50px;
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+            background-color: #ffffff;
+            padding: 20px 10px;
+            .step-item {
+                z-index: 10;
+                text-align: center;
+                .step-button {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    border: none;
+                    background-color: var(--color-blue-light-1);
+                    transition: 0.4s;
+
+                    &[aria-expanded="true"] {
+                        width: 30px;
+                        height: 30px;
+                        background-color: var(--color-purple-2);
+                        color: #fff;
+                    }
+
+                    &.done {
+                        background-color: var(--color-purple-2);
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        .step-button[aria-expanded="true"] {
+            width: 30px;
+            height: 30px;
+            background-color: var(--color-purple-2);
+            color: #fff;
+        }
+
+        #progress {
+            -webkit-appearance: none;
+            position: absolute;
+            width: 85%;
+            z-index: 5;
+            height: 3px;
+            top: 23%;
+            margin-left: 35px;
+            margin-bottom: 18px;
+            /* to customize progress bar */
+            &::-webkit-progress-value {
+                background-color: var(--color-grey-dark);
+                transition: 0.5s ease;
+            }
+
+            &::-webkit-progress-bar {
+                background-color: var(--color-grey);
+            }
+        }
+
+        .step-card {
+            &__content {
+                background-color: #ffffff;
+            }
+        }
+
+        #service {
+            form {
+                #logo-netapp {
+                    background-color: #ffffff;
+                    border: none;
+                }
+            }
+        }
+    }
+
+    a {
+        color: var(--color-purple-2);
+        font-weight: 700;
+    }
+
+    #pricing {
+        #once-off {
+            .choose-cost {
+                background-color: var(--color-blue-light-1);
+            }
+        }
+
+        #pay-as-you-go {
+            .plan-table-card {
+                background-color: var(--color-blue-light-1);
+                &__form {
+                    background-color: #f3f7fe;
+                    position: relative;
+                    margin: 0 -16px 0 -16px;
+
+                    .check-and-trash {
+                       position: absolute;
+                       top: 10px;
+                       right: 10px;
+
+                       .fa-trash{
+                           color: var(--color-primary);
+                       }
+                    }
+
+                    .form-check-input:checked {
+                        background-color: var(--color-purple-2);
+                        border-color: var(--color-purple-2);
+                    }
+
+                    .form-check-input:checked[type=checkbox] {
+                        background-image: url("../img/rectangle.png");
+                    }
+                }
+                &__add {
+                    background-color: var(--color-secondary);                  
+                    margin: 0 -16px 0 -16px;
+                    border: 1px solid var(--color-blue-light-2);
+                }
+            }
+            .new-table {
+                color: var(--color-primary);
+                   border: 2px solid var(--color-primary);
+            }
+        }
+    }
+
+    .step-actions {
+        float: right;
+        .btn--blue {
+            min-width: rem(185px);
+        }
+
+        .modal-dialog {
+            max-width: 945px;
+            .modal-content {
+                align-items: center;
+                .btn-close {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                }
+
+                h1 {
+                    color: var(--color-title);
+                }
+
+                .modal-header,
+                .modal-body {
+                    border-bottom: none;
+                }
+                .modal-footer {
+                    border-top: none;
+                    display: contents;
+                }
+            }
+        }
+    }
+}

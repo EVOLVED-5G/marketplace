@@ -1,6 +1,11 @@
 @import "variables";
 
+.menu {
+    background-color: var(--color-purple);
+}
+
 #user-management-page {
+    padding-top: 150px;
 
     h4,label {
         color: $body-color;

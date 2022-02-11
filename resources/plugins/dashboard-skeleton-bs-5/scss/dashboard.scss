@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/*!
+ * Dashboard skeleton
+ * Copyright Zdeněk Papučík
+ * MIT License
+*/
+
+// bootstrap
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/mixins';
+
+// sidebar
+@import '../node_modules/sidebar-skeleton-compostrap/scss/utils/functions';
+@import '../node_modules/sidebar-skeleton-compostrap/scss/utils/variables';
+@import '../node_modules/sidebar-menu-compostrap/scss/utils/variables';
+
+// dashboard skeleton
+@import 'components/nanobar';
+@import 'components/text';
+@import 'components/navbar';
+@import 'layout/content';

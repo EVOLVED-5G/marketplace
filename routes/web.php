@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Resource\PatientResourceController;
 use App\Http\Controllers\Resource\CarerResourceController;
 use App\Http\Controllers\Resource\ResourceController;
@@ -31,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
             'create', 'edit', 'show'
         ]);
     });
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::view('/support', 'support')->name('support');
 });
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
