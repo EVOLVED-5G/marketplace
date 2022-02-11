@@ -1,0 +1,42 @@
+version: "3.1"
+services:
+  php7:
+    build:
+      context: docker/apache_php
+    container_name: evolved5g_pilot
+    links:
+      - db
+      - phpmyadmin
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+      - ~/.composer/auth.json:/root/.composer/auth.json
+
+  db:
+    build:
+      context: docker/db
+    container_name: evolved5g_pilot_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3316:3306"
+    volumes:
+      - mydata:/var/lib/mysql
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      MYSQL_USERNAME: ${DB_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      UPLOAD_LIMIT: 128M
+      PMA_HOST: db
+
+volumes:
+  mydata:

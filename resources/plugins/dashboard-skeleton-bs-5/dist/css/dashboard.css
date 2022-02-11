@@ -15,7 +15,18 @@
 .text-purple {
   color: #6f42c1;
 }
-
+.customError {
+	border-color: #ff3636;
+}
+.error-text {
+  color: #d63e3e;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.4;
+  display: block;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
 .text-pink {
   color: #d63384;
 }

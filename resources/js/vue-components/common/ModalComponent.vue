@@ -3,12 +3,21 @@
         <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">
-                    <div class="modal-dialog modal-lg modal-dialog-scrollable" :class="classes">
+                    <div
+                        class="modal-dialog modal-lg modal-dialog-scrollable"
+                        :class="classes"
+                    >
                         <div class="modal-content">
                             <div class="modal-header">
                                 <slot name="header"></slot>
-                                <button v-if="allowClose" type="button" class="btn-close"
-                                        @click="cancel" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button
+                                    v-if="allowClose"
+                                    type="button"
+                                    class="btn-close"
+                                    @click="cancel"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                ></button>
                             </div>
                             <div class="modal-body p-0">
                                 <slot name="body"></slot>
@@ -24,15 +33,14 @@
     </transition>
 </template>
 <script>
-
 export default {
     props: {
         allowClose: Boolean,
         open: false,
-        classes: ''
+        classes: ""
     },
-    data: function () {
-        return {}
+    data: function() {
+        return {};
     },
     methods: {
         cancel() {
@@ -41,18 +49,14 @@ export default {
         submit() {
             this.$emit("submit");
         },
-        hasSlot (name = 'default') {
-            return !!this.$slots[ name ] || !!this.$scopedSlots[ name ];
+        hasSlot(name = "default") {
+            return !!this.$slots[name] || !!this.$scopedSlots[name];
         }
     },
-    mounted() {
-
-    }
-}
+    mounted() {}
+};
 </script>
 <style scoped lang="scss">
-
 @import "resources/sass/variables";
 @import "resources/sass/modal";
-
 </style>
