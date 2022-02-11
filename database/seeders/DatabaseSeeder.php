@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserRoleLkpTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(UserRolesTableSeeder::class);
-
+        $this->call(NetappTypeSeeder::class);
+        $this->call(NetappStatusSeeder::class);
+        $this->call(CategorySeeder::class);
     }
 }
