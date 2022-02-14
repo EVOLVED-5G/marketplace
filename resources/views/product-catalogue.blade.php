@@ -27,14 +27,14 @@
                         </div>
 
                         <ul>
-                            <li><input class="form-check-input me-2"
-                                type="checkbox"><label class="form-check-label">Artificial intelligence</label></li>
+                            <li><input class="form-check-input me-2" type="checkbox"><label
+                                    class="form-check-label">Artificial intelligence</label></li>
                             <li><input class="form-check-input me-2" type="checkbox"><label class="form-check-label">Cyber
                                     security & cryptography</label></li>
-                            <li><input class="form-check-input me-2"
-                                type="checkbox"><label class="form-check-label">Identity and verification</label></li>
-                            <li><input class="form-check-input me-2"
-                                type="checkbox"><label class="form-check-label">Messaging services</label></li>
+                            <li><input class="form-check-input me-2" type="checkbox"><label
+                                    class="form-check-label">Identity and verification</label></li>
+                            <li><input class="form-check-input me-2" type="checkbox"><label
+                                    class="form-check-label">Messaging services</label></li>
                             <li><input class="form-check-input me-2" type="checkbox"><label class="form-check-label">Mobile
                                     carrier lending and advances</label></li>
                             <li><input class="form-check-input me-2" type="checkbox"><label class="form-check-label">Mobile
@@ -70,6 +70,19 @@
                         </ul>
                     </div>
 
+                    <div class="filter-group mb-5">
+                        <div class="filter-group-title">
+                            <p>Type of net app
+                            </p>
+                        </div>
+                        <ul>
+                            <li><input class="form-check-input me-2" type="checkbox"><label class="form-check-label">stand
+                                    alone</label></li>
+                            <li><input class="form-check-input me-2" type="checkbox"><label class="form-check-label">non
+                                    stand alone</label></li>
+
+                        </ul>
+                    </div>
 
 
                     {{-- <button type="button" class="btn btn--tertiary">Search</button> --}}
@@ -240,5 +253,4 @@
     </div>
 @endsection
 @push('scripts')
-
 @endpush

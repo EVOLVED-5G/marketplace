@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @push('css')
-<link rel="stylesheet" href="{{ mix('dist/css/home.css') }}">
+    <link rel="stylesheet" href="{{ mix('dist/css/support.css') }}">
 @endpush
 
 @section('content')
     <section style="padding-top: 150px;">
-        <h1>Support </h1>
-        <p>Under construction</p>
+<h2>Support</h2>
+<p>Under construction</p>
 
     </section>
 

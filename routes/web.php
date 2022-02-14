@@ -23,6 +23,8 @@ Route::view('/', 'home')->name('home');
 Route::view('/product-catalogue', 'product-catalogue')->name('product-catalogue');
 Route::view('/about', 'about')->name('about');
 Route::view('/netapp-creators', 'netapp-creators')->name('netapp-creators');
+Route::view('/netapp-single', 'netapp-single')->name('netapp-single');
+Route::view('/welcome-dashboard', 'welcome-dashboard')->name('welcome-dashboard');
 
 
 
