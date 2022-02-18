@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NetappController;
 use App\Http\Controllers\Resource\PatientResourceController;
 use App\Http\Controllers\Resource\CarerResourceController;
 use App\Http\Controllers\Resource\ResourceController;
@@ -25,6 +26,7 @@ Route::view('/about', 'about')->name('about');
 Route::view('/netapp-creators', 'netapp-creators')->name('netapp-creators');
 Route::view('/netapp-single', 'netapp-single')->name('netapp-single');
 Route::view('/welcome-dashboard', 'welcome-dashboard')->name('welcome-dashboard');
+Route::view('/edit-dashboard-temp', 'edit-dashboard-temp')->name('edit-dashboard-temp');
 
 
 
@@ -35,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
         ]);
     });
     Route::view('/support', 'support')->name('support');
+    Route::post('api/upload-file', [NetappController::class, 'uploadFile']);
+    Route::post('api/create-netapp', [NetappController::class, 'store']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

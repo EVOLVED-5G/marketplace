@@ -41,7 +41,7 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "app/Utils/UrlHelpers.php"
+            "app/Utils/indexHelper.php"
         ]
     },
     "scripts": {

@@ -3,7 +3,9 @@
     <link rel="stylesheet" href="{{ mix('dist/css/home.css') }}">
 @endpush
 
-@section('body_class')home @endsection
+@section('body_class')
+    home
+@endsection
 
 @section('content')
     {{-- <div class="container h-100">
@@ -36,16 +38,14 @@
                         <a href="{{ route('dashboard') }}" class="mouse-cursor-gradient-tracking "
                             style="overflow: hidden;"><span> Create
                                 your own</span></a> --}}
-
-
-
-
                     </div>
 
                     <div>
-                        <a href="{{ route('product-catalogue') }}" class="btn btn--primary me-5">Explore NetApps</a>
-                        <a href="{{ route('dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Create
-                            your own</a>
+                        <a href="{{ route('product-catalogue') }}" class="btn btn--primary ">Explore NetApps</a>
+                        <a href="{{ route('dashboard') }}" class="btn btn--secondary">Create your own</a>
+
+                        {{-- <a href="{{ route('dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Create
+                                your own</a> --}}
 
 
 
@@ -62,7 +62,8 @@
 
 
         <section class="explore d-flex align-items-center u-margin-bottom-big">
-            <div class="explore__content content">
+
+            <div class="explore__content content d-flex flex-wrap ">
                 <div class="text-center mb-5">
                     <img class="img-fluid" loading="lazy" src="/img/line-icon.png" alt="line-icon">
                     <h1> Explore the marketplace</h1>
@@ -71,33 +72,35 @@
                         come together to create, discover and integrate services by consuming 3GPP APIs (native APIs) as
                         well as other telco assets</p>
                 </div>
-                <div class="d-flex justify-start">
-                    <div class="explore__box me-5">
-                        <div class="explore__box--title">
-                            <h4>NetApp category 1</h4>
+                <div class="boxes">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
+                        <div class="explore__box mb-4">
+                            <div class="explore__box--title">
+                                <h4>NetApp category 1</h4>
+                            </div>
+                            <div class="explore__box--text">
+                                <p class="text-note">Category 1 dolor sit amet, consetetur sadipscing elitr, sed diam
+                                    nonumy
+                                    eirmod tempor
+                                    invidunt ut labore et dolore magna.</p>
+                                <a href="{{ route('product-catalogue') }}" class="btn btn--tertiary ">View NetApps</a>
+                            </div>
                         </div>
-                        <div class="explore__box--text">
-                            <p class="text-note">Category 1 dolor sit amet, consetetur sadipscing elitr, sed diam
-                                nonumy
-                                eirmod tempor
-                                invidunt ut labore et dolore magna.</p>
-                            <a href="{{ route('product-catalogue') }}" class="btn btn--tertiary mt-5">View NetApps</a>
+                        <div class="explore__box mb-4">
+                            <div class="explore__box--title">
+                                <h4>NetApp category 2</h4>
+                            </div>
+                            <div class="explore__box--text">
+                                <p class="text-note">Category 1 dolor sit amet, consetetur sadipscing elitr, sed diam
+                                    nonumy
+                                    eirmod tempor
+                                    invidunt ut labore et dolore magna. </p>
+                                <a href="{{ route('product-catalogue') }}" class="btn btn--tertiary ">View NetApps</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="explore__box">
-                        <div class="explore__box--title">
-                            <h4>NetApp category 2</h4>
-                        </div>
-                        <div class="explore__box--text">
-                            <p class="text-note">Category 1 dolor sit amet, consetetur sadipscing elitr, sed diam
-                                nonumy
-                                eirmod tempor
-                                invidunt ut labore et dolore magna.</p>
-                            <a href="{{ route('product-catalogue') }}" class="btn btn--tertiary mt-5">View NetApps</a>
-                        </div>
+
                     </div>
                 </div>
-
 
 
             </div>
@@ -110,7 +113,7 @@
         <section class="for-whom u-margin-bottom-big">
             <div class="for-whom__content content">
                 <div class="row  for-creators">
-                    <div class="col-lg-6 for-creators--title ">
+                    <div class="col-lg-6 for-creators--title p-5">
                         <img class="img-fluid" loading="lazy" src="/img/creators-line.png" alt="creators-line">
                         <h1>For NetApps creators</h1>
                     </div>
@@ -165,7 +168,7 @@
 
         </section>
 
-        <section class="support u-margin-bottom-big d-flex align-items-center">
+        <section class="support u-margin-medium-big d-flex align-items-center">
 
             <div class="support__text content text-center ">
                 <div>
@@ -180,14 +183,14 @@
 
         </section>
 
-        <!--     <img class="img-fluid" loading="lazy" src="/img/grandmother-flowers.png" alt="title-image"> -->
+
 
         <section class="related-tech u-margin-bottom-big d-flex align-items-center">
 
             <div class="related-tech__content content text-center">
                 <h1>Related technologies</h1>
 
-                <div class="related-tech__content--tech d-flex technologies mt-5">
+                <div class="related-tech__content--tech d-flex flex-wrap  gap-2 technologies mt-5">
 
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item mb-4">

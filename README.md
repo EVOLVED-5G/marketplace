@@ -38,7 +38,10 @@ Npm version: 6.14.5
 ```
 php artisan storage:link
 ```
-to link the `/public/storage` folder with the `/storage/app/public` directory
+to link the `/public/storage` folder with the `/storage/app/public` director
+
+
+5. Create folder /public/assets  and allow the www-data user to create new folders there
 
 ## Apache configuration example:
 
@@ -79,7 +82,9 @@ find . -type d -exec chmod 775 {} \;
 ```
 
 Or run the `set-file-permissions.sh` script.
-
+```$xslt
+sudo ./set-file-permissions.sh www-data currentUser .
+```
 Change hosts file so local-dev.evolved5g-marketplace points to localhost
 ```$xslt
 sudo nano /etc/hosts

@@ -2,6 +2,7 @@ import 'bootstrap';
 import $ from 'jquery';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate'
+
 require('./bootstrap');
 window.$ = window.jQuery = $;
 window.route = require('./backend-route');
@@ -11,10 +12,19 @@ import getLodash from "lodash/get";
 import eachRightLodash from "lodash/eachRight";
 import replaceLodash from "lodash/replace";
 import CKEditor from '@ckeditor/ckeditor5-vue2';
-Vue.use( CKEditor );
+import axios from 'axios';
+import VueToastr from "vue-toastr"
+
+Vue.use(VueToastr);
+
+Vue.use(CKEditor);
 Vue.use(VeeValidate, {
     useConstraintAttrs: false,
-  })
+})
+axios.create({
+    baseURL: process.env.MIX_API_URL + '/api',
+    timeout: 1000,
+});
 window.translate = function (string, args) {
     let value = getLodash(window.i18n, string);
 
@@ -29,14 +39,17 @@ Vue.prototype.trans = (string, args) => {
 };
 
 Vue.component('modal', require('./vue-components/common/ModalComponent').default);
-Vue.component('createnetapp',CreateNetApp);
+Vue.component('createnetapp', CreateNetApp);
+
+
+console.log("process env", process.env);
 
 const app = new Vue({
     el: '#app',
     store: store
 });
-(function ($) {
 
+(function ($) {
 
 
     let closeDismissableAlerts = function () {
@@ -45,8 +58,6 @@ const app = new Vue({
             $(".alert-dismissible").fadeTo(4000, 500).slideUp(500);
         }, 3000);
     };
-
-
 
 
     $(window).scroll(function () {
@@ -89,8 +100,6 @@ const app = new Vue({
     });
 
 
-
-
     // mouse hover
     $(".mouse-cursor-gradient-tracking").on("mousemove", e => {
         let rect = e.target.getBoundingClientRect();
@@ -105,6 +114,8 @@ const app = new Vue({
     // mobile menu
 
     const mainNavigation = document.querySelector(".main-navigation");
+
+
     const overlay = mainNavigation.querySelector(".overlay");
     const toggler = mainNavigation.querySelector(".navbar-toggler");
 
@@ -116,7 +127,6 @@ const app = new Vue({
 
     document.addEventListener("swiped-right", openSideNav);
     document.addEventListener("swiped-left", closeSideNav);
-
 
 
 })(window.jQuery);

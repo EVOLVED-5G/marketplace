@@ -21,8 +21,9 @@ export default {
         // },
         value: {
             type: String,
-            required: true
-        }
+            required: true,
+            default: null,
+        },
     },
     data() {
         return {
@@ -30,7 +31,7 @@ export default {
             editorData: "<p>Content of the editor.</p>",
             editorConfig: {
                 // The configuration of the editor.
-            }
+            },
         };
     },
     methods: {
@@ -43,8 +44,8 @@ export default {
             // Supports .lazy
             // Can add validation here
             this.$emit("change", event);
-        }
-    }
+        },
+    },
 };
 </script>
 <style>

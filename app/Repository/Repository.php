@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-abstract class Repository implements RepositoryInterface {
+abstract class Repository implements RepositoryInterface
+{
 
     /**
      * @var App
@@ -25,7 +26,8 @@ abstract class Repository implements RepositoryInterface {
      * @param App $app
      * @throws RepositoryException|BindingResolutionException
      */
-    public function __construct(App $app) {
+    public function __construct(App $app)
+    {
         $this->app = $app;
         $this->makeModelInstance();
     }
@@ -37,7 +39,8 @@ abstract class Repository implements RepositoryInterface {
      */
     abstract function getModelClassName();
 
-    public function all($columns = array('*'), $orderColumn = null, $order = null, $withRelationships = []) {
+    public function all($columns = array('*'), $orderColumn = null, $order = null, $withRelationships = [])
+    {
         $query = $this->modelInstance;
 
         if ($orderColumn)
@@ -48,7 +51,8 @@ abstract class Repository implements RepositoryInterface {
         return $query->get($columns);
     }
 
-    public function allWhere(array $whereArray, $columns = array('*'), $orderColumn = null, $order = null, $withRelationships = []) {
+    public function allWhere(array $whereArray, $columns = array('*'), $orderColumn = null, $order = null, $withRelationships = [])
+    {
         $query = $this->modelInstance->where($whereArray);
 
         if ($orderColumn)
@@ -64,7 +68,8 @@ abstract class Repository implements RepositoryInterface {
      * @param array $columns
      * @return mixed
      */
-    public function paginate($perPage = 15, $columns = array('*')) {
+    public function paginate($perPage = 15, $columns = array('*'))
+    {
         return $this->modelInstance->orderBy('updated_at', 'desc')->paginate($perPage, $columns);
     }
 
@@ -72,22 +77,29 @@ abstract class Repository implements RepositoryInterface {
      * @param array $data
      * @return mixed
      */
-    public function create(array $data) {
+    public function create(array $data)
+    {
         return $this->modelInstance->create($data);
     }
 
+    public function insert(array $data)
+    {
+        return $this->modelInstance->insert($data);
+    }
     /**
      * @param array $data
      * @param $id
      * @param string $attribute
      * @return mixed
      */
-    public function update(array $data, $id, $attribute = "id") {
+    public function update(array $data, $id, $attribute = "id")
+    {
         $this->modelInstance->where($attribute, '=', $id)->update($this->onlyFillable($data));
         return $this->find($id);
     }
 
-    protected function onlyFillable(array $items) {
+    protected function onlyFillable(array $items)
+    {
         if (sizeof($this->modelInstance->getFillable()) === 0)
             return $items;
 
@@ -103,7 +115,8 @@ abstract class Repository implements RepositoryInterface {
      * @param $id
      * @return mixed
      */
-    public function delete($id) {
+    public function delete($id)
+    {
         return $this->modelInstance->destroy($id);
     }
 
@@ -112,18 +125,21 @@ abstract class Repository implements RepositoryInterface {
      * @param array $columns
      * @return mixed
      */
-    public function find($id, $columns = array('*')) {
+    public function find($id, $columns = array('*'))
+    {
         return $this->modelInstance->findOrFail($id, $columns);
     }
 
-    public function updateOrCreate($criteria, $data) {
+    public function updateOrCreate($criteria, $data)
+    {
         return $this->modelInstance->updateOrCreate(
             $criteria,
             $data
         );
     }
 
-    public function updateOrCreateCaseInsensitive($criteria, $data, $caseInsensitiveColumnName = null) {
+    public function updateOrCreateCaseInsensitive($criteria, $data, $caseInsensitiveColumnName = null)
+    {
         if ($caseInsensitiveColumnName && isset($criteria[$caseInsensitiveColumnName])) {
             // should look for case-insensitive
             $val = str_replace("'", "\'", $criteria[$caseInsensitiveColumnName]);
@@ -140,7 +156,8 @@ abstract class Repository implements RepositoryInterface {
             );
     }
 
-    public function firstOrCreate($criteria, $data) {
+    public function firstOrCreate($criteria, $data)
+    {
         return $this->modelInstance->firstOrCreate(
             $criteria,
             $data
@@ -148,7 +165,8 @@ abstract class Repository implements RepositoryInterface {
     }
 
 
-    public function findBy($attribute, $value, $columns = array('*'), $caseInsensitive = false, $withRelationships = []) {
+    public function findBy($attribute, $value, $columns = array('*'), $caseInsensitive = false, $withRelationships = [])
+    {
         if ($caseInsensitive)
             $query = $this->modelInstance->whereRaw("LOWER(`" . $attribute . "`) LIKE '" .
                 strtolower($value) . "'");
@@ -165,7 +183,8 @@ abstract class Repository implements RepositoryInterface {
         return $model;
     }
 
-    public function where(array $whereArray, array $columns = array('*'), $withRelationships = []) {
+    public function where(array $whereArray, array $columns = array('*'), $withRelationships = [])
+    {
         return $this->modelInstance->where($whereArray)->with($withRelationships)->first($columns);
     }
 
@@ -174,7 +193,8 @@ abstract class Repository implements RepositoryInterface {
      * @throws RepositoryException
      * @throws BindingResolutionException
      */
-    private function makeModelInstance(): Model {
+    private function makeModelInstance(): Model
+    {
         $tryToCreateModel = $this->app->make($this->getModelClassName());
 
         if (!$tryToCreateModel instanceof Model)
@@ -182,5 +202,4 @@ abstract class Repository implements RepositoryInterface {
 
         return $this->modelInstance = $tryToCreateModel;
     }
-
 }

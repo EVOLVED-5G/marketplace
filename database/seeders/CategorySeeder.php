@@ -14,11 +14,11 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::create(['name' => 'category 1']);
-        Category::create(['name' => 'category 2']);
-        Category::create(['name' => 'category 3']);
-        Category::create(['name' => 'category 4']);
-        Category::create(['name' => 'category 5']);
-        Category::create(['name' => 'category 6']);
+        Category::create(['name' => 'Artificial intelligence']);
+        Category::create(['name' => 'Cyber security & cryptography']);
+        Category::create(['name' => 'Identity and verification']);
+        Category::create(['name' => 'Messaging services']);
+        Category::create(['name' => 'Mobile carrier lending and advances']);
+        Category::create(['name' => 'Mobile carrier subscriptionsa']);
     }
 }

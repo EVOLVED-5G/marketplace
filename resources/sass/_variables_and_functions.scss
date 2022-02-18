@@ -1,3 +1,5 @@
+@use "sass:math";
+
 :root {
     --color-primary: #FB7669;
     --color-secondary: #FEF3DA;
@@ -9,10 +11,13 @@
 
    --color-blue-light-1 : #EBF3FE;
     --color-blue-light-2:  #96C2FE;
+    --color-blue-light-3:   #F8FBFF;
 	--color-blue-2: #1A2D5D;
+    --color-purple: #4D3F61;
     --color-purple-2:  #848DE6;
+    --color-purple-3: #6771F9;
 	--color-orange:#EE4B3B;
-	--color-purple: #4D3F61;
+
 	--color-yellow:	#F8BF6A;
 
 	--color-grey: #9DA3B4;
@@ -33,12 +38,12 @@ $html-font-size: 16px;
 
 //https://medium.com/@bhargav3shah/scss-convert-pixel-values-to-rem-using-functions-f1cef575edfd
 @function stripUnit($value) {
-	@return $value / ($value * 0 + 1);
+	@return math.div($value , ($value * 0 + 1));
 }
 
 // Converts px to rems
 @function rem($pxValue) {
-	@return #{stripUnit($pxValue) / stripUnit($html-font-size)}rem;
+	@return #{math.div(stripUnit($pxValue),stripUnit($html-font-size))}rem;
 }
 
 

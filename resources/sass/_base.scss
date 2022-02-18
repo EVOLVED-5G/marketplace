@@ -58,11 +58,19 @@ h3 {
 h1 {
     font-size: rem(46px);
     font-weight: 800;
+
+    @media screen and (max-width: 450px) {
+        font-size: rem(24px);
+    }
 }
 
 h2 {
     font-size: rem(34px);
     font-weight: 700;
+
+    @media screen and (max-width: 450px) {
+        font-size: rem(20px);
+    }
 }
 
 h3 {

@@ -5,7 +5,22 @@
     padding-top: 150px;
     height: 95vh;
     background-size: cover;
-    background-image: url(../img/header-image.png);
+    background-position: bottom;
+    background-image: url(../img/header-image_1920.png);
+
+    @media screen and (max-width: 1024px) {
+        background-image: url(../img/header-image_1024.png);
+        padding-top: 100px;
+    }
+
+    @media screen and (max-width: 768px) {
+        background-image: url(../img/header-image_768.png);
+        padding-top: 50px;
+    }
+
+    @media screen and (max-width: 363px) {
+        background-image: url(../img/header-image_363.png);
+    }
 
     &__content {
         display: flex;
@@ -13,9 +28,28 @@
         justify-content: space-between;
         width: 100%;
 
+        @media screen and (max-width: 1024px) {
+            flex-direction: column;
+            align-items: center;
+        }
+
         &--text {
             flex-direction: column;
             justify-content: space-between;
+
+            @media screen and (max-width: 1024px) {
+                order: 2;
+                text-align: center;
+            }
+
+            .btn {
+                margin-right: rem(40px);
+                @media screen and (max-width: 450px) {
+                    margin-bottom: rem(20px);
+                    display: block;
+                    margin-right: 0;
+                }
+            }
             h1 {
                 color: var(--color-secondary);
             }
@@ -109,27 +143,24 @@
                 --size: 200px;
             }
         }
+
+        &--icon {
+            @media screen and (max-width: 1024px) {
+                max-width: rem(269px);
+            }
+        }
     }
 }
 
 .explore {
     background-size: cover;
     background-image: url(../img/explore-bck.png);
-    height: 80vh;
-
-    @media screen and (max-width: 992px) {
-        height: 60vh;
-    }
-
-    @media screen and (max-width: 370px) {
-        height: 70vh;
-    }
 
     &__content {
         display: flex;
         flex-direction: column;
-
         align-items: center;
+        justify-content: center;
 
         p {
             max-width: rem(945px);
@@ -138,9 +169,15 @@
 
     &__box {
         width: rem(350px);
-        height: rem(290px);
+        min-height: rem(290px);
         background-color: #ffffff;
         border: 2px solid var(--color-blue-light-1);
+        position: relative;
+
+        @media screen and (max-width: 768px) {
+            width: rem(286px);
+            min-height: rem(291px);
+        }
 
         &--title {
             background-color: var(--color-blue-light-1);
@@ -151,7 +188,13 @@
             padding: 20px;
 
             a {
-                width: 300px;
+                width: rem(300px);
+                position: absolute;
+                bottom: 15px;
+
+                @media screen and (max-width: 768px) {
+                    width: rem(235px);
+                }
             }
         }
     }
@@ -164,11 +207,16 @@
             min-height: 340px;
             margin: auto 0;
 
+            @media screen and (max-width: 991px) {
+                .for-creators--title,
+                .for-businesses--title {
+                    margin-bottom: 20px;
+                }
+            }
         }
         .for-creators {
             margin-bottom: 6rem;
             --bs-gutter-x: 6rem;
-
 
             &--title {
                 background: var(--color-purple-2) url("../img/creators-bck.png") no-repeat;
@@ -178,8 +226,17 @@
                 font-size: rem(60px);
                 font-weight: bold;
 
+                @media screen and (max-width: 450px) {
+                    background: var(--color-purple-2);
+                }
+
                 h1 {
                     max-width: 250px;
+                }
+            }
+            @media screen and (max-width: 991px) {
+                &--list {
+                    padding-left: 0;
                 }
             }
         }
@@ -233,6 +290,10 @@
 
             &--list {
                 padding-left: 0;
+
+                @media screen and (max-width: 991px) {
+                    order: 2;
+                }
             }
             &--title {
                 background: var(--color-blue-light-1) url("../img/businesses-bck.png") no-repeat;
@@ -241,6 +302,10 @@
                 color: var(--color-purple-2);
                 font-size: rem(60px);
                 font-weight: bold;
+
+                @media screen and (max-width: 450px) {
+                    background: var(--color-blue-light-1);
+                }
 
                 h1 {
                     max-width: 310px;
@@ -255,9 +320,23 @@
 }
 
 .support {
-    height: 82vh;
-    background-size: cover;
-    background-image: url(../img/support-bck.png);
+    height: 76vh;
+    background-image: url(../img/support-bck_1920.png);
+    background-repeat: no-repeat;
+
+    @media screen and (max-width: 1024px) {
+        background-image: url(../img/support-bck_1024.png);
+    }
+
+    @media screen and (max-width: 768px) {
+        background-image: url(../img/support-bck_768.png);
+        height: 62vh;
+    }
+
+    @media screen and (max-width: 450px) {
+        background-image: url(../img/support-bck_363.png);
+        height: 49vh;
+    }
 
     h1 {
         color: var(--color-secondary);
@@ -269,7 +348,10 @@
 }
 
 .related-tech {
-    height: 70vh;
+    height: 65vh;
+    @media screen and (max-width: 450px) {
+        height: 55vh;
+    }
 
     &__content {
         width: 100%;
@@ -281,10 +363,23 @@
         &--tech {
             justify-content: space-between;
 
+            @media screen and (max-width: 1083px) {
+                justify-content: center;
+                max-width: 850px;
+            }
+
             .accordion-item {
                 width: 340px;
                 border: 3px solid color(color06);
 
+                @media screen and (max-width: 1083px) {
+                    width: 446px;
+
+                }
+
+                @media screen and (max-width: 450px) {
+                    width: 286px;
+                }
                 .key-title {
                     button {
                         color: var(--color-grey-dark);

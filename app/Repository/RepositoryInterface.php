@@ -2,13 +2,16 @@
 
 namespace App\Repository;
 
-interface RepositoryInterface {
+interface RepositoryInterface
+{
 
     public function all($columns = array('*'));
 
     public function paginate($perPage = 15, $columns = array('*'));
 
     public function create(array $data);
+
+    public function insert(array $data);
 
     public function update(array $data, $id);
 
@@ -22,7 +25,7 @@ interface RepositoryInterface {
 
     public function firstOrCreate($criteria, $data);
 
-    public function allWhere(array $whereArray, $columns = array('*'), $orderColumn = null, $order = null, $withRelationships=[]);
+    public function allWhere(array $whereArray, $columns = array('*'), $orderColumn = null, $order = null, $withRelationships = []);
 
     public function where(array $whereArray, array $columns = array('*'));
 }

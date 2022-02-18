@@ -77,7 +77,7 @@ class MakeRepository extends GeneratorCommand
      */
     protected function buildModelReplacements(array $replace)
     {
-        $modelClass = $this->parseModel($this->option('model'));
+        $modelClass = 'App\Models\\'.$this->option('model');
 
         if (!class_exists('App\Models\\' . $this->option('model'))) {
             if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
