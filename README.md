@@ -10,7 +10,7 @@ Laravel 8 Web Application for Evolved-5G Market
 
 ## First time install (setup database and install dependencies)
 
-1. Make sure php 7.4 (or newer) is installed along with all the required [dependencies](https://laravel.com/docs/8.x/deployment).
+1. Make sure php 7.4 (or newer) is installed along with all the required [dependencies](https://laravel.com/docs/8.x/deployment). Minimum version of composer  2
 
 2. Install laravel/back-end dependencies
 ```
