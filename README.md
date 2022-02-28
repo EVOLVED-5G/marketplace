@@ -12,17 +12,17 @@ Laravel 8 Web Application for Evolved-5G Market
 
 0. Make sure php 7.4 (or newer) is installed.
 
-
-1. After cloning the project, create an .env file (should be a copy of .env.example),
-   containing the information about your database name and credentials.
-   Then run ```php artisan migrate``` to create the DB schema and
-   ```php artisan db:seed``` in order to insert the starter data to the DB
-
-2. Install laravel/back-end dependencies
+1. Install laravel/back-end dependencies
 ```
 composer install
 
 ```
+
+2. After cloning the project, create an .env file (should be a copy of .env.example),
+   containing the information about your database name and credentials.
+   Then run ```php artisan migrate``` to create the DB schema and
+   ```php artisan db:seed``` in order to insert the starter data to the DB
+
 
 3. Install front-end dependencies
 ```
