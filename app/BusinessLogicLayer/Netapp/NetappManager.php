@@ -36,6 +36,8 @@ class NetappManager
         }
         $netapp = $this->netappRepository->create([
             "name" => $requestData["service"]["name"],
+            'marketing_url' => $requestData['service']['marketing_url'],
+            'app_slug' => $requestData['service']['appSlug'],
             "about" => $requestData["service"]["about"],
             "category_id" => $requestData["service"]["category"],
             "version" => $requestData["service"]["version"],
@@ -54,6 +56,38 @@ class NetappManager
             'pdf' => $requestData['tutorial']['pdf'],
             'user_id' => auth()->user()->id,
         ]);
+
+        return $netapp;
+    }
+    public function update(array $requestData, $id): Netapp
+    {
+        $tags = [];
+        foreach ($requestData["service"]['tag'] as $tag) {
+            array_push($tags, $tag['value']);
+        }
+        $netapp = $this->netappRepository->update([
+            "name" => $requestData["service"]["name"],
+            "visible" => $requestData["visible"],
+            'marketing_url' => $requestData['service']['marketing_url'],
+            'app_slug' => $requestData['service']['appSlug'],
+            "about" => $requestData["service"]["about"],
+            "category_id" => $requestData["service"]["category"],
+            "version" => $requestData["service"]["version"],
+            "publishedBy" => $requestData["service"]["publishedBy"],
+            "businessName" => $requestData["service"]["businessName"],
+            "socialNumber" => $requestData["service"]["socialNumber"],
+            "imageUrl" => $requestData["deployment"]["imageUrl"],
+            "dockerSize" => $requestData["deployment"]["dockerSize"],
+            "report" => $requestData["deployment"]["report"],
+            "agreePolicy" => $requestData["policy"]["agreePolicy"],
+            "docs" => $requestData["tutorial"]["docs"],
+            "price" => $requestData["pricing"]["price"],
+            'type' => $requestData["service"]["type"],
+            'logo' => $requestData["service"]["logo"],
+            'tag' => $tags,
+            'pdf' => $requestData['tutorial']['pdf'],
+            'user_id' => auth()->user()->id,
+        ], $id);
 
         return $netapp;
     }

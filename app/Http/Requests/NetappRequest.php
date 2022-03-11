@@ -26,13 +26,13 @@ class NetappRequest extends FormRequest
 
         $rules = [
             "service.name" => "required|string|max:255",
-            "service.about" => "required|string|max:255",
-            'service.tag' => 'required|array',
+            "service.about" => "required|string",
+            // 'service.tag' => 'required|array',
             "service.publishedBy" => "required|string",
             'service.category' => 'required|exists:categories,id',
             'service.logo' => 'required|string',
             'service.type' => 'required|exists:netapp_types,id',
-            'service.version' => 'required|string',
+            'service.version' => 'required|between:0,99.99',
             "policy.agreePolicy" => "required|boolean",
             "deployment.imageUrl" => 'required|url',
             "deployment.report" => 'required|url',
@@ -46,6 +46,9 @@ class NetappRequest extends FormRequest
         if ($this->request->get('service')["publishedBy"] == "business") {
             $rules['service.businessName'] = 'required|string|max:255';
             $rules["service.socialNumber"] = "required|integer";
+        }
+        if (!$this->request->get('editRequest')) {
+            $rules["service.appSlug"] = "required|string|unique:netapps,slug";
         }
         if ($this->request->get("payasgo")) {
             $rules["payAsGo"] = 'required|array';
@@ -65,7 +68,7 @@ class NetappRequest extends FormRequest
         $message = [
             "service.name" => "Name is Required",
             "service.about" => "About Field is Required",
-            'service.tag' => 'Add atleast One Tag',
+            // 'service.tag' => 'Add atleast One Tag',
             "service.publishedBy" => "Publisher is Required",
             'service.category' => 'select atleast one category',
             'service.logo' => 'Choose A Logo Image',
@@ -81,6 +84,9 @@ class NetappRequest extends FormRequest
         if ($this->request->get('service')["publishedBy"] == "business") {
             $message['service.businessName'] = 'Business Name is Required';
             $message["service.socialNumber"] = "Social Name is Required";
+        }
+        if (!$this->request->get('editRequest')) {
+            $message["service.appSlug"] = "Slug is Already Exists";
         }
         if ($this->request->get("payasgo")) {
             $message["payAsGo"] = 'Please Add Price Plan';

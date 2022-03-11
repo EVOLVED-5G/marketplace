@@ -12,6 +12,6 @@ function upload($file, $path)
     $fileOriginalName = $file->getClientOriginalName();
     $file->move(public_path($path), $fileName . $fileOriginalName);
     return response()->json([
-        'path' => $path . $fileName
+        'path' => config('app.url') . '/' . $path . '/' . $fileName . $fileOriginalName
     ]);
 }

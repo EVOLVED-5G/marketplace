@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NetappController;
+use App\Http\Controllers\ProductCatalogueController;
 use App\Http\Controllers\Resource\PatientResourceController;
 use App\Http\Controllers\Resource\CarerResourceController;
 use App\Http\Controllers\Resource\ResourceController;
@@ -21,14 +22,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'home')->name('home');
-Route::view('/product-catalogue', 'product-catalogue')->name('product-catalogue');
+Route::get('/product-catalogue', [ProductCatalogueController::class, 'index'])->name('product-catalogue');
 Route::view('/about', 'about')->name('about');
 Route::view('/netapp-creators', 'netapp-creators')->name('netapp-creators');
 Route::view('/netapp-single', 'netapp-single')->name('netapp-single');
-Route::view('/welcome-dashboard', 'welcome-dashboard')->name('welcome-dashboard');
-Route::view('/edit-dashboard-temp', 'edit-dashboard-temp')->name('edit-dashboard-temp');
+Route::view('/history-tables', 'history-tables')->name('history-tables');
+Route::view('/admin-dashboard', 'admin-dashboard')->name('admin-dashboard');
 
-
+Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
+Route::post('api/filter-netapp', [ProductCatalogueController::class, 'filter'])->name('filter-netapp');
+Route::get('/netapp-details/{id}', [NetappController::class, 'show'])->name('show-netapp');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {
@@ -36,8 +39,14 @@ Route::middleware(['auth'])->group(function () {
             'create', 'edit', 'show'
         ]);
     });
+    Route::prefix('api')->group(function () {
+        Route::post('/upload-file', [NetappController::class, 'uploadFile']);
+        Route::post('/create-netapp', [NetappController::class, 'store']);
+        Route::post('update-netapp/{id}', [NetappController::class, 'update']);
+    });
+    Route::view('/welcome-dashboard', 'welcome-dashboard')->name('welcome-dashboard');
     Route::view('/support', 'support')->name('support');
-    Route::post('api/upload-file', [NetappController::class, 'uploadFile']);
-    Route::post('api/create-netapp', [NetappController::class, 'store']);
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/create-netapp', [NetappController::class, 'index'])->name('create-netapp');
+    Route::get('/edit-netapp/{id}', [NetappController::class, 'edit'])->name('edit-netapp');
+    Route::view('/my-account-settings-dashboard', 'my-account-settings-dashboard')->name('my-account-settings-dashboard');
 });

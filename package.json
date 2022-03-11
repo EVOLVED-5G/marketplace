@@ -31,7 +31,9 @@
         "bootstrap": "^5.0.0",
         "flickity": "^2.2.2",
         "jquery": "^3.6.0",
+        "laravel-vue-pagination": "2.3.1",
         "vee-validate": "^2.2.12",
+        "vue-simple-suggest": "^1.11.2",
         "vue-toastr": "^2.1.2",
         "vue2-dropzone": "^3.6.0"
     }

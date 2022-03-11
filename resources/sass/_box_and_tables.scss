@@ -1,0 +1,64 @@
+.box-template {
+    background-color: var(--color-offwhite-2);
+
+    @media (max-width: 768px) {
+        margin-top: 46px;
+    }
+
+    &__number {
+        background-color: #ffffff;
+        width: rem(255px);
+        min-height: rem(100px);
+    }
+}
+
+#total-purchases-box {
+    .box-template__number {
+        border-left: 6px solid var(--color-blue-light-2);
+    }
+}
+
+#total-netapps-created-box {
+    .box-template__number {
+        border-left: 6px solid var(--color-primary);
+    }
+}
+
+#total-users-box {
+    .box-template__number {
+        border-left: 6px solid var(--color-purple-2);
+    }
+}
+
+#total-companies-box {
+    .box-template__number {
+        border-left: 6px solid var(--color-purple);
+    }
+}
+
+thead {
+    background-color: var(--color-blue-light-4);
+    color: var(--color-text);
+}
+
+tbody {
+    tr:nth-child(odd) {
+        background-color: #ffffff;
+    }
+    tr:nth-child(even) {
+        background-color: var(--color-blue-light-4);
+    }
+
+    a {
+        color: var(--color-purple-2);
+        &:hover {
+            color: var(--color-yellow);
+        }
+    }
+}
+
+#saved-items {
+    .no-items-saved {
+        background-color: #ffffff;
+    }
+}

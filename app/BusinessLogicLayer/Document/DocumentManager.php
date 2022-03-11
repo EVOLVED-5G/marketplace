@@ -27,18 +27,14 @@ class DocumentManager
      * @param array $requestData array with the form data
      * @return User the newly created user
      */
-    public function create(array $requestData): Document
+    public function create(array $requestData): bool
     {
 
 
 
-        $document = $this->documentRepository->create([
-            'documentable_type' => $requestData['documentable_type'],
-            'documentable_id' => $requestData['documentable_id'],
-            'url' => $requestData['url'],
-            'type' => $requestData['type'],
-
-        ]);
+        $document = $this->documentRepository->create(
+            $requestData
+        );
 
         return $document;
     }

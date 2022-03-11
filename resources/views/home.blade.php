@@ -35,17 +35,17 @@
                             <span>Hover me</span>
                         </button>
 
-                        <a href="{{ route('dashboard') }}" class="mouse-cursor-gradient-tracking "
-                            style="overflow: hidden;"><span> Create
-                                your own</span></a> --}}
+                        <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking "
+                    style="overflow: hidden;"><span> Create
+                        your own</span></a> --}}
                     </div>
 
                     <div>
                         <a href="{{ route('product-catalogue') }}" class="btn btn--primary ">Explore NetApps</a>
-                        <a href="{{ route('dashboard') }}" class="btn btn--secondary">Create your own</a>
+                        <a href="{{ route('welcome-dashboard') }}" class="btn btn--secondary">Create your own</a>
 
-                        {{-- <a href="{{ route('dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Create
-                                your own</a> --}}
+                        {{-- <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Create
+                    your own</a> --}}
 
 
 
@@ -65,7 +65,7 @@
 
             <div class="explore__content content d-flex flex-wrap ">
                 <div class="text-center mb-5">
-                    <img class="img-fluid" loading="lazy" src="/img/line-icon.png" alt="line-icon">
+                    <img class="img-fluid mb-2" loading="lazy" src="/img/line-icon.png" alt="line-icon">
                     <h1> Explore the marketplace</h1>
                     <p>Evolved-5G is cross-industry API Marketplace that enables developers, entrepreneurs and
                         businesses to
@@ -98,9 +98,11 @@
                                 <a href="{{ route('product-catalogue') }}" class="btn btn--tertiary ">View NetApps</a>
                             </div>
                         </div>
-
                     </div>
+
+
                 </div>
+            </div>
 
 
             </div>

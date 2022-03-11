@@ -25,22 +25,48 @@ class Netapp extends Model
         'fix_price',
         'type_id',
         'tags',
-        'user_id'
+        'slug',
+        'visible',
+        'user_id',
     ];
+    public function scopeActive($query)
+    {
+        return $query->where('visible', '=', 1);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function logo()
     {
-        return $this->morphMany('App\Models\Image', 'imageable');
+        return $this->morphMany('App\Models\Image', 'imageable')->where('type', 'logo');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function getTagsAttribute($value)
+    {
+        return $this->attributes['tags'] = json_decode($value);
+    }
+    public function type()
+    {
+        return $this->belongsTo(NetappType::class);
     }
     public function license()
     {
         return $this->morphMany(Document::class, 'documentable')->where('type', 'license');
     }
-    public function tutorialDocs()
+    public function pdf()
     {
         return $this->morphMany(Document::class, 'documentable')->where('type', 'tutorial_docs');
     }
     public function apiEndpoints()
     {
-        return $this->belongsToMany(ApiEndpoint::class);
+        return $this->hasMany(ApiEndpoint::class);
+    }
+    public function paymentplan()
+    {
+        return $this->hasManyThrough(ApiPaymentPlan::class, ApiEndpoint::class);
     }
 }

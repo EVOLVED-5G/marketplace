@@ -14,11 +14,6 @@ class DocumentRepository extends Repository
   }
   public function create(array $data)
   {
-    return parent::create([
-      'documentable_type' => $data['documentable_type'],
-      'documentable_id' => $data['documentable_id'],
-      'url' => $data['url'],
-      'type' => $data['type'],
-    ]);
+    return parent::insert($data);
   }
 }

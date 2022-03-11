@@ -10,7 +10,7 @@
                 <div class="overlay d-flex d-lg-none"></div>
 
 
-                <div class="order-lg-2 d-lg-flex justify-content-end w-100 pb-3 pb-lg-0 sidebar"
+                <div class="order-lg-2 d-lg-flex justify-content-end w-100 pb-3 pb-lg-0 sidebar-main-navigation"
                     id="navbarSupportedContent">
                     <ul class="navbar-nav mr-lg-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -29,16 +29,15 @@
                                 <i class="far fa-user me-2"></i>Login/Register
                             </a>
                         </li>
-                    @else
+                        @else
                         <li class="nav-item">
-                            <a class="nav-link px-3 px-lg-2 " href="{{ route('dashboard') }}">Dashboard</a>
+                            <a class="nav-link px-3 px-lg-2 " href="{{ route('welcome-dashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link px-3 px-lg-2 " href="{{ route('support') }}">Support</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -47,12 +46,11 @@
                                     </a>
                                 </li>
                                 @can('manage-platform')
-                                    <li>
-                                        <a class="dropdown-item {{ UrlMatchesMenuItem('administration.users.index') }}"
-                                            href="{{ route('administration.users.index') }}">
-                                            Manage Users
-                                        </a>
-                                    </li>
+                                <li>
+                                    <a class="dropdown-item {{ UrlMatchesMenuItem('administration.users.index') }}" href="{{ route('administration.users.index') }}">
+                                        Manage Users
+                                    </a>
+                                </li>
                                 @endcan
                                 <li>
                                     <hr class="dropdown-divider">
@@ -62,15 +60,14 @@
                                         {{ __('auth.logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </li>
                             </ul>
 
                         </li>
-                    @endguest
+                        @endguest
 
                     </ul>
 

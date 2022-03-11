@@ -67,3 +67,11 @@
 }
 
 /*# sourceMappingURL=dashboard.css.map */
+.step-card__content{
+  background: #fff;
+}
+#pay-as-you-go .plan-table-card__add {
+  background-color: var(--color-secondary);
+  margin: 0 -16px 0 -16px;
+  border: 1px solid var(--color-blue-light-2);
+}

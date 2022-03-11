@@ -4,7 +4,7 @@
 @endpush
 
 @section('content')
-<createnetapp :categories='{{json_encode($categories)}}' :types='{{json_encode($types)}}'></createnetapp>
+
 
 
 @endsection
@@ -13,4 +13,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nanobar/0.4.2/nanobar.min.js"></script>
 
 <script src="{{ mix('dist/js/dashboard.js') }}"></script>
+
 @endpush

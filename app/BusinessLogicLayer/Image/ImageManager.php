@@ -41,6 +41,21 @@ class ImageManager
         return $document;
     }
 
+    public function update(array $requestData, $id): Image
+    {
+
+
+
+        $document = $this->imageRepository->update([
+            'imageable_type' => $requestData['imageable_type'],
+            'imageable_id' => $requestData['imageable_id'],
+            'url' => $requestData['url'],
+            'type' => $requestData['type'],
+        ], $id);
+
+        return $document;
+    }
+
 
 
     /**

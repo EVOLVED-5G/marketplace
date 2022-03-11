@@ -12,17 +12,32 @@ import getLodash from "lodash/get";
 import eachRightLodash from "lodash/eachRight";
 import replaceLodash from "lodash/replace";
 import CKEditor from '@ckeditor/ckeditor5-vue2';
-import axios from 'axios';
-import VueToastr from "vue-toastr"
+import editNetapp from "./vue-components/edit-netapp.vue";
+import ProductCatalog from "./vue-components/productCatalog.vue";
+import axios from "axios";
+import VueToastr from "vue-toastr";
 
 Vue.use(VueToastr);
+Vue.mixin({
+    data(){
+        return{
+        appurl: process.env.MIX_API_URL
+        }
+    },
+    methods: {
+        handleLoader(attribute) {
+            var yourUl = document.getElementById("loader");
+            yourUl.style.display = attribute === "hide" ? "none" : "block";
+        },
+    },
+});
 
 Vue.use(CKEditor);
 Vue.use(VeeValidate, {
     useConstraintAttrs: false,
-})
+});
 axios.create({
-    baseURL: process.env.MIX_API_URL + '/api',
+    baseURL: process.env.MIX_API_URL + "/api",
     timeout: 1000,
 });
 window.translate = function (string, args) {
@@ -32,17 +47,19 @@ window.translate = function (string, args) {
         value = replaceLodash(value, `:${paramKey}`, paramVal);
     });
     return value;
-}
+};
 
 Vue.prototype.trans = (string, args) => {
     return window.translate(string, args);
 };
 
-Vue.component('modal', require('./vue-components/common/ModalComponent').default);
-Vue.component('createnetapp', CreateNetApp);
-
-
-console.log("process env", process.env);
+Vue.component(
+    "modal",
+    require("./vue-components/common/ModalComponent").default
+);
+Vue.component("createnetapp", CreateNetApp);
+Vue.component("edit-netapp", editNetapp);
+Vue.component("product-catalog", ProductCatalog);
 
 const app = new Vue({
     el: '#app',
@@ -125,8 +142,9 @@ const app = new Vue({
     toggler.addEventListener("click", openSideNav);
     overlay.addEventListener("click", closeSideNav);
 
-    document.addEventListener("swiped-right", openSideNav);
-    document.addEventListener("swiped-left", closeSideNav);
+    document.addEventListener("swiped-left", openSideNav);
+    document.addEventListener("swiped-right", closeSideNav);
+
 
 
 })(window.jQuery);

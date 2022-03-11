@@ -25,10 +25,11 @@ class ApiEndpointManager
      * @param array $requestData array with the form data
      * @return User the newly created user
      */
-    public function create($requestData): ApiEndpoint
+    public function create($requestData, $netapp_id): ApiEndpoint
     {
         $endpoint = $this->apiEndpointRepository->create([
-            'url' => $requestData
+            'url' => $requestData,
+            'netapp_id' => $netapp_id
         ]);
 
         return $endpoint;

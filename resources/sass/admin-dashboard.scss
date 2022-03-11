@@ -1,0 +1,16 @@
+@import "variables";
+@import "variables_and_functions";
+@import "box_and_tables";
+
+.menu {
+    background-color: var(--color-purple);
+}
+
+.admin-page {
+    padding-top: 150px;
+    background-color: var(--color-offwhite-2);
+}
+
+#total-companies img {
+    max-width: rem(40px);
+}

@@ -8,7 +8,11 @@ use App\BusinessLogicLayer\Document\DocumentManager;
 use App\BusinessLogicLayer\Image\ImageManager;
 use App\BusinessLogicLayer\Netapp\NetappManager;
 use App\Http\Requests\NetappRequest;
+use App\Models\ApiEndpoint;
+use App\Models\ApiPaymentPlan;
+use App\Models\Category;
 use App\Models\Netapp;
+use App\Models\NetappType;
 use Illuminate\Http\Request;
 
 class NetappController extends Controller
@@ -39,7 +43,9 @@ class NetappController extends Controller
 
     public function index()
     {
-        //
+        $categories = Category::all();
+        $types = NetappType::all();
+        return view('netapp-create', compact('categories', 'types'));
     }
 
     /**
@@ -69,27 +75,35 @@ class NetappController extends Controller
     }
     public function store(NetappRequest $request)
     {
-
+        $documentRequest = [];
         \DB::beginTransaction();
         try {
             $netapp = $this->netappManager->create($request->all());
-            $document = $this->documentManager->create([
+            if ($request['deployment']['licensefile'] !== null) {
+                array_push($documentRequest, [
+                    'url' => $request['tutorial']['pdf'],
+                    'documentable_type' => 'App\Models\Netapp',
+                    'documentable_id' => $netapp->id,
+                    'type' => 'license_file'
+                ]);
+            }
+            array_push($documentRequest, [
                 'url' => $request['tutorial']['pdf'],
                 'documentable_type' => 'App\Models\Netapp',
                 'documentable_id' => $netapp->id,
                 'type' => 'tutorial_docs'
-            ]);
+            ],);
+            $document = $this->documentManager->create($documentRequest);
             $image = $this->imageManager->create([
                 'url' => $request['service']['logo'],
                 'imageable_type' => 'App\Models\Netapp',
                 'imageable_id' => $netapp->id,
                 'type' => 'logo'
             ]);
-            if ($request->get('payasgo') == true) {
+            if ($request->get('paymentplan') == "paymentplan") {
                 foreach ($request->get('payAsGo') as $plan) {
-                    $apiEndpointManager = $this->apiEndpointManager->create($plan['api_url']);
+                    $apiEndpointManager = $this->apiEndpointManager->create($plan['api_url'], $netapp->id);
                     $this->apiPaymentPlanManager->create($plan['prices'], $apiEndpointManager->id);
-                    $netapp->apiEndpoints()->attach($apiEndpointManager);
                 }
             }
             \DB::commit();
@@ -106,9 +120,14 @@ class NetappController extends Controller
      * @param  \App\Models\Netapp  $netapp
      * @return \Illuminate\Http\Response
      */
-    public function show(Netapp $netapp)
+    public function show(Netapp $netapp, $id)
     {
-        //
+        $netapp = Netapp::where('id', $id)->with(['apiEndpoints.paymentplan', 'category', 'logo', 'pdf', 'user'])->active()->get()->toArray();
+        if (!$netapp) {
+            return abort(404);
+        }
+        $netapp = $netapp[0];
+        return view('netapp-single', compact('netapp'));
     }
 
     /**
@@ -117,9 +136,15 @@ class NetappController extends Controller
      * @param  \App\Models\Netapp  $netapp
      * @return \Illuminate\Http\Response
      */
-    public function edit(Netapp $netapp)
+    public function edit($netapp)
     {
-        //
+        $netappType = NetappType::all();
+        $categories = Category::all();
+        $netapp = Netapp::where(['id' => $netapp, 'user_id' => auth()->user()->id])->with(['logo', 'license', 'pdf', 'apiEndpoints.paymentplan',])->get()->toArray();
+        if (!$netapp) {
+            return abort(404);
+        }
+        return view('edit-dashboard-temp', compact('netapp', 'netappType', 'categories'));
     }
 
     /**
@@ -129,11 +154,44 @@ class NetappController extends Controller
      * @param  \App\Models\Netapp  $netapp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Netapp $netapp)
+    public function update(NetappRequest $request, $id)
     {
-        //
+        if ($request->user_id !== auth()->user()->id) {
+            return response()->json(array('msg' => "UnAuthorized", 'error' => '402'));
+        }
+        \DB::beginTransaction();
+        try {
+            $netapp = $this->netappManager->update($request->all(), $id);
+            if ($request["service"]["logoId"] == null) {
+                $image = $this->imageManager->create([
+                    'url' => $request['service']['logo'],
+                    'imageable_type' => 'App\Models\Netapp',
+                    'imageable_id' => $netapp->id,
+                    'type' => 'logo'
+                ]);
+            } else {
+                $image = $this->imageManager->update([
+                    'url' => $request['service']['logo'],
+                    'imageable_type' => 'App\Models\Netapp',
+                    'imageable_id' => $netapp->id,
+                    'type' => 'logo'
+                ], $request["service"]["logoId"]);
+            }
+            if ($request->get('paymentplan') == "paymentplan") {
+                ApiEndpoint::where('netapp_id', $netapp->id)->delete();
+                ApiPaymentPlan::whereIn('api_endpoint_id', $request->endpointIds)->delete();
+                foreach ($request->get('payAsGo') as $plan) {
+                    $apiEndpointManager = $this->apiEndpointManager->create($plan['api_url'], $netapp->id);
+                    $this->apiPaymentPlanManager->create($plan['prices'], $apiEndpointManager->id);
+                }
+            }
+            \DB::commit();
+            return response()->json(array('data' => $netapp));
+        } catch (\Exception $e) {
+            \DB::rollback();
+            return response()->json(array('error' => $e->getMessage()));
+        }
     }
-
     /**
      * Remove the specified resource from storage.
      *

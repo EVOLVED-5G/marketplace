@@ -118,7 +118,7 @@ a {
     .main-navigation {
         // test
 
-        .sidebar,
+        .sidebar-main-navigation,
         .overlay {
             position: fixed;
             top: 0;
@@ -126,7 +126,7 @@ a {
             background-color: transparent;
         }
 
-        .sidebar {
+        .sidebar-main-navigation {
             left: 100%;
             max-width: 300px;
             transition: all ease 0.25s;
@@ -178,7 +178,7 @@ a {
             }
         }
 
-        &.active .sidebar {
+        &.active .sidebar-main-navigation {
             left: 0;
         }
 
@@ -196,7 +196,7 @@ a {
         }
 
         @media (min-width: 992px) {
-            .sidebar {
+            .sidebar-main-navigation {
                 position: relative;
                 top: auto;
                 bottom: auto;
@@ -222,7 +222,6 @@ a {
             }
         }
     }
-
 }
 
 .footer {
@@ -253,6 +252,12 @@ a {
                 &:hover {
                     color: var(--color-yellow);
                 }
+            }
+        }
+        @media screen and (max-width: 576px) {
+            &--links {
+                margin-left: -45px;
+                margin-top: 15px;
             }
         }
     }

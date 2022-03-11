@@ -23,7 +23,7 @@
                         <h1>Your NetApp was created successfuly!</h1>
                     </div>
                     <div class="modal-footer">
-                        <a href="/">
+                        <a :href="'/edit-netapp/'+this.netappId">
                             <button
                                 type="button"
                                 class="btn btn--tertiary mb-3"
@@ -33,7 +33,7 @@
                             </button></a
                         >
 
-                        <a href="/">Go to see your NetApp</a>
+                        <a :href="'/edit-netapp/'+this.netappId">Go to see your NetApp</a>
                     </div>
                 </div>
             </div>
@@ -42,18 +42,19 @@
 </template>
 <script>
 export default {
-    props: {
-        allowClose: Boolean,
-        open: false,
-        classes: "",
+  props: {
+    allowClose: Boolean,
+    open: false,
+    netappId: Number,
+    classes: "",
+  },
+  methods: {
+    cancel() {
+      this.open = false;
+      this.$emit("canceled");
+      window.location.reload();
     },
-    methods: {
-        cancel() {
-            this.open = false;
-            this.$emit("canceled");
-            window.location.reload();
-        },
-    },
+  },
 };
 </script>
 <style scoped lang="scss">

@@ -16,9 +16,9 @@ class CreateNetappsTable extends Migration
         Schema::create('netapps', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('about');
+            $table->longText('about');
             $table->string('version');
-            $table->json('tags');
+            $table->json('tags')->nullable();
             $table->string('url_site');
             $table->string('business_name')->nullable();
             $table->string('social_number')->nullable();
