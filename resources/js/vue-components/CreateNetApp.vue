@@ -320,7 +320,7 @@
                     />
                     <input
                       type="text"
-                      placeholder="alex-net-app"
+                      placeholder="your-net-app-url"
                       class="form-control"
                       v-model="form.service.appSlug"
                       :class="{
