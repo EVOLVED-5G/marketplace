@@ -17,12 +17,12 @@ class UsersTableSeeder extends Seeder {
 
     public function run() {
         echo "\nRunning User Seeder...\n";
-        echo env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED')."\n";
+
         $data = [
             [
                 'id' => 1,
-                'name' => 'Alexandros Tzoumas',
-                'email' => 'alexandros.tzoumas@gmail.com',
+                'name' => 'Platform Admin',
+                'email' => 'admin@evolved5g.orgZ',
                 'password' => bcrypt(env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'))
             ]
         ];

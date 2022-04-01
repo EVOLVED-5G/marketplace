@@ -9,7 +9,12 @@ class Tags extends Filter
     protected function applyFilter($builder)
     {
         if (count(request($this->filterName())) > 0) {
-            return $builder->whereJsonContains($this->filterName(), request($this->filterName()));
+            $tags = request($this->filterName());
+            return $builder->where(function ($query) use ($tags) {
+                foreach ($tags as $tag) {
+                    $query->orWhereJsonContains($this->filterName(), $tag);
+                }
+            });
         }
         return $builder;
     }

@@ -29,6 +29,20 @@ class Netapp extends Model
         'visible',
         'user_id',
     ];
+    public function savedNetapp()
+    {
+        if (auth()->check()) {
+            return $this->hasOne(SavedNetapp::class)->where('user_id', auth()->user()->id);
+        }
+        return $this->hasOne(SavedNetapp::class)->whereNull('id');
+    }
+    public function purchasedNetapp()
+    {
+        if (auth()->check()) {
+            return $this->hasOne(PurchasedNetapp::class)->where('user_id', auth()->user()->id);
+        }
+        return $this->hasOne(PurchasedNetapp::class)->whereNull('id');
+    }
     public function scopeActive($query)
     {
         return $query->where('visible', '=', 1);

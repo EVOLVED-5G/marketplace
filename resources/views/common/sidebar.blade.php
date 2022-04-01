@@ -30,11 +30,14 @@
                                                 <a href="{{ route('edit-netapp', $netapp->id) }}" class="list-link">Details</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="list-link">Track/revenue</a>
+                                                <a href="{{route('revenue-page',$netapp->id)}}" class="list-link">Track/revenue</a>
                                             </li>
                                         </ul>
                                     </li>
                                     @empty
+                                    <li>
+                                        <p>You haven’t created any netapp yet</p>
+                                    </li>
                                     @endforelse
                                 </ul>
                             </li>
@@ -44,17 +47,21 @@
                                     purchased
                                     NetApp</a>
                                 <!-- list items, second level -->
-                                <!-- <ul class="list-unstyled list-hidden">
+                                <ul class="list-unstyled list-hidden">
+                                    @forelse($purchasednetapps as $purchased)
                                     <li>
-                                        <a href="#" class="list-link">NetApp 1</a>
+                                        <a href="{{route('my-purchased-netapp',$purchased->id)}}" class="list-link">{{$purchased->netapp->name}}</a>
                                     </li>
+                                    @empty
                                     <li>
-                                        <a href="#" class="list-link">NetApp 2</a>
+                                        <p>You haven’t purchased any netapp yet</p>
                                     </li>
-                                </ul> -->
+                                    @endforelse
+
+                                </ul>
                             </li>
                             <li>
-                                <a href="#" class="list-link link-current"><span class="list-icon"><i class="fas fa-bookmark"></i></span>Saved items</a>
+                                <a href="{{route('saved-netapp')}}" class="list-link link-current"><span class="list-icon"><i class="fas fa-bookmark"></i></span>Saved items</a>
                             </li>
                         </ul>
                     </li>

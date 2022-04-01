@@ -309,7 +309,20 @@
               </div>
               <div class="col-md-12">
                 <div class="form_field_main">
-                  <label>URL Slug</label>
+                  <div class="tooltip">
+                    <label>URL Slug </label
+                    ><i class="fas fa-question-circle"></i> <br /><span
+                      class="tooltiptext"
+                    >
+                      <small>
+                        For example (my-net-app) <br />
+                        This will make your net app available at
+                        {{ this.appurl }}. You should use only alphanumeric
+                        characters, underscores (_) or dashes (-).</small
+                      ></span
+                    >
+                  </div>
+
                   <div class="align_url_field">
                     <input
                       type="text"
@@ -597,7 +610,7 @@
                 <VueDropzone
                   :uploadUrl="uploadUrl + '/api/upload-file?url=pdf'"
                   extensions=".pdf"
-                  v-on:file-added="this.changeUploadStatus"
+                  v-on:file-dropped="this.changeUploadStatus"
                   v-on:uploadFile="
                     (value) =>
                       (this.form.deployment.licensefile =

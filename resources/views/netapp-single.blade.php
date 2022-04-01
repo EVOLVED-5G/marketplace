@@ -12,11 +12,23 @@
                     <img loading="lazy" src="{{url($netapp['logo'][0]['url'])}}" alt="product-netapp-icon" style="width: 100px;">
                 </div>
                 <div class="product-info__title--name">
-                    <h2>NetApp 1</h2>
+                    <h2>{{$netapp['name']}}</h2>
                     <p>@if($netapp['published_by'] == 'user') {{$netapp['user']['name']}} @else {{$netapp['business_name']}} @endif</p>
                 </div>
-                <div class="product-info__title--save d-flex justify-content-center align-items-center"> <a href="#"><i class="far fa-bookmark"></i></a> <span class="tooltiptext"> You have to login/register to
-                        save item</span></div>
+                <template>
+                    <div class="product-info__title--save d-flex justify-content-center align-items-center">
+
+                        @if(!auth()->check())
+                        <span class="tooltiptext"> You have to login/register to
+                            save item</span>
+                        <a href="#"><i class="far fa-bookmark"></i></a>
+                        @else
+                        @if($netapp['saved_netapp']!==null)<a href="#" @click="unsaveNetapp({{$netapp['saved_netapp']['id']}},true)"><i class="fa fa-bookmark"></i></a>
+                        @else <a href="#" @click="saveNetapp({{$netapp['id']}},{{auth()->user()->id}},true)"><i class="far fa-bookmark" aria-hidden="true"></i></a>
+                        @endif
+                        @endif
+                    </div>
+                </template>
 
             </div>
             <div class="product-info__status d-flex ms-5">
@@ -108,9 +120,15 @@
 
                                 </div> -->
                             </div>
+                            @if(auth()->check() && $netapp['user_id']!==auth()->user()->id)
                             <div class="row ">
-                                <a href="#" class="btn btn--primary">Purchase</a>
+                                <a href="#" class="btn btn--primary" @click="purchaseNetapp({
+                                    netapp_id:{{$netapp['id']}},
+                                    user_id:{{auth()->user()->id}},
+                                    payment_plan_id: null,
+                                  })">Purchase</a>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -128,44 +146,23 @@
                                     <h2>{{$netapp['fix_price']}} €</h2>
                                 </div>
                             </div>
-
+                            @if($netapp['purchased_netapp'] ==null)
                             <div class="row">
                                 <!-- Button trigger modal -->
-                                <a href="#" class="btn btn--primary" data-bs-toggle="modal" data-bs-target="#purchase">Purchase</a>
+                                @if(auth()->check() && $netapp['user_id']!==auth()->user()->id)
+                                <a href="#" class="btn btn--primary" @click="purchaseNetapp({
+                                    netapp_id:{{$netapp['id']}},
+                                    user_id:{{auth()->user()->id}},
+                                    payment_plan_id: null,
+                                  })">Purchase</a>
+                                @endif
 
 
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="purchase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title d-flex" id="exampleModalLabel">
-                                                    <img loading="lazy" src="/img/success.modal.png" alt="success.modal" />
-                                                </h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h1>Your purchase was successful!</h1>
-                                                <p>The item named "<b>NetApp 1</b>" was added to your dashboard. You will find
-                                                    details to your e-mail such as useful links of your purchase:</p>
-
-                                                <div class="row mb-5 mt-5">
-
-                                                    <ul class="text-details text-start ">Links
-
-                                                        <li class="mt-1"> <a href="#">Blockchain confirmation </a></li>
-                                                        <li><a href="#">Blockchain confirmation 2</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-
-                                                <button type="button" class="btn btn--tertiary">OK</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <purchased-netapp-modal :open="this.showPurchasedModel"></purchased-netapp-modal>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

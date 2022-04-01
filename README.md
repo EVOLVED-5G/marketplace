@@ -10,7 +10,13 @@ Laravel 8 Web Application for Evolved-5G Market
 
 ## First time install (setup database and install dependencies)
 
-1. Make sure composer 2.0 (or newer) and  php 7.4 (or newer) is installed along with all the required [dependencies](https://laravel.com/docs/8.x/deployment).
+0. Make sure php 7.4 (or newer) is installed.
+
+
+1. After cloning the project, create an .env file (should be a copy of .env.example),
+   containing the information about your database name and credentials.
+   Then run ```php artisan migrate``` to create the DB schema and
+   ```php artisan db:seed``` in order to insert the starter data to the DB
 
 2. Install laravel/back-end dependencies
 ```
@@ -18,13 +24,7 @@ composer install
 
 ```
 
-3. After cloning the project, create an .env file (should be a copy of .env.example),
-   containing the information about your database name and credentials.
-   Then run ```php artisan migrate``` to create the DB schema and
-   ```php artisan db:seed``` in order to insert the starter data to the DB
-
-
-4. Install front-end dependencies
+3. Install front-end dependencies
 ```
 npm install
 ```
@@ -33,7 +33,7 @@ Node version:12.18.2
 Npm version: 6.14.5
 
 
-5. Create symbolic link for uploaded files.
+4. Create symbolic link for uploaded files.
 
 ```
 php artisan storage:link
@@ -41,7 +41,7 @@ php artisan storage:link
 to link the `/public/storage` folder with the `/storage/app/public` director
 
 
-6. Create folder /public/assets  and allow the www-data user to create new folders there
+5. Create folder /public/assets  and allow the www-data user to create new folders there
 
 ## Apache configuration example:
 
@@ -96,4 +96,8 @@ sudo nano /etc/hosts
 - Install and configure Xdebug on your machine
 - At Chrome install [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc?utm_source=chrome-app-launcher-info-dialog)
 - At PhpStorm/IntelliJ click the "Start listening for PHP debug connections"
+
+## About the Blockchain Integration
+
+TODO
 

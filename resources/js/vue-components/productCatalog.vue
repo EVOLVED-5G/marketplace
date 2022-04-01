@@ -57,27 +57,10 @@
                 }
               "
             /> -->
-            <vue-simple-suggest
-              v-model="selectedTag"
-              :list="simpleSuggestionList"
-              ref="selectTag"
-              :filter-by-query="true"
-            >
-              <!-- Filter by input text to only show the matching results -->
-            </vue-simple-suggest>
-            <div
-              class="sample p-1"
-              v-for="(tag, index) in searchParams.tags"
-              :key="index"
-            >
-              <span class="p-2">{{ tag }}</span>
-              <input
-                class="ms-2"
-                type="reset"
-                value="X"
-                @click="searchParams.tags.splice(index, 1)"
-              />
-            </div>
+            <select2-multiple-control
+              v-model="searchParams.tags"
+              :options="select2Options"
+            />
           </div>
 
           <!-- <div class="filter-group mb-5">
@@ -132,54 +115,10 @@
             v-for="netapp in allNetapps"
             :key="netapp.id"
           >
-            <div class="product-list__card--name d-flex">
-              <img
-                class="me-2"
-                loading="lazy"
-                alt="icon-codepen"
-                style="border-radius: 50%; height: 57px; width: 70px"
-                :src="netapp.logo[0].url"
-                v-if="netapp.logo.length > 0"
-              />
-              <img
-                class="me-2"
-                loading="lazy"
-                alt="icon-codepen"
-                src="/img/icon-codepen.png"
-                v-else
-              />
-
-              <a
-                :href="'/netapp-details/' + netapp.id"
-                style="text-decoration: none"
-              >
-                <div style="width: 70%">
-                  <h5>{{ netapp.name }}</h5>
-                  <p v-if="netapp.published_by == 'user'">
-                    {{ netapp["user"].name }}
-                  </p>
-                  <p v-if="netapp.published_by == 'business'">
-                    {{ netapp.business_name }}
-                  </p>
-                </div>
-              </a>
-              <a href="#" style="width: 10%"><i class="far fa-bookmark"></i></a>
-            </div>
-            <div class="product-list__card--content">
-              <p
-                class="text-note mb-5"
-                v-html="renderHmtl(netapp.about.substring(0, 50))"
-              ></p>
-              <div class="tags">
-                <a
-                  href="#"
-                  class="text-details"
-                  v-for="(tag, index) in netapp.tags"
-                  :key="index"
-                  >{{ tag }}</a
-                >
-              </div>
-            </div>
+            <SingleNetapp
+              :netapp="netapp"
+              :loggedInUserId="user"
+            ></SingleNetapp>
           </div>
         </div>
         <Pagination
@@ -194,12 +133,14 @@
 </template>
 <script>
 import LaravelVuePagination from "laravel-vue-pagination";
-import VueSimpleSuggest from "vue-simple-suggest";
-import "vue-simple-suggest/dist/styles.css";
+import SingleNetapp from "./singleNetapp.vue";
+import Select2MultipleControl from "v-select2-multiple-component";
+
 export default {
   components: {
     Pagination: LaravelVuePagination,
-    VueSimpleSuggest,
+    SingleNetapp,
+    Select2MultipleControl,
   },
   props: {
     categories: {
@@ -214,12 +155,15 @@ export default {
       type: Array,
       default: () => {},
     },
+    user: {
+      default: null,
+    },
     url: { type: String, default: null },
   },
   data() {
     return {
       searchTag: null,
-      fetchedTags: this.Tags,
+      select2Options: [],
       totalNetapps: 0,
       selectedTag: "",
       searchByName: null,
@@ -235,17 +179,9 @@ export default {
   },
   mounted() {
     this.searchNetapp();
+    this.select2Options = Object.values(this.Tags.tags);
   },
   watch: {
-    selectedTag: {
-      handler(val) {
-        if (val !== null) {
-          this.searchParams.tags.push(val);
-          this.selectedTag = null;
-          this.$refs.selectTag.value = null;
-        }
-      },
-    },
     searchParams: {
       handler(val) {
         this.searchNetapp();
@@ -254,12 +190,6 @@ export default {
     },
   },
   methods: {
-    renderHmtl(html) {
-      return `<span> ${html} </span>`;
-    },
-    simpleSuggestionList() {
-      return Object.values(this.fetchedTags.tags);
-    },
     windowScroll() {
       window.scrollTo({
         top: 100,
@@ -290,17 +220,6 @@ export default {
         });
     },
   },
-  created() {},
 };
 </script>
-<style scoped>
-.vue-simple-suggest >>> .suggest-item {
-  padding: 5px 35px !important;
-}
-.vue-simple-suggest >>> .suggest-item:hover {
-  padding: 5px 35px !important;
-}
-.vue-simple-suggest >>> .input-wrapper input {
-  width: 94%;
-}
-</style>
+

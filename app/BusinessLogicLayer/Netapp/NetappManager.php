@@ -8,6 +8,7 @@ use App\Models\Netapp;
 use App\Models\User;
 use App\Repository\NetappRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class NetappManager
 {
@@ -37,7 +38,7 @@ class NetappManager
         $netapp = $this->netappRepository->create([
             "name" => $requestData["service"]["name"],
             'marketing_url' => $requestData['service']['marketing_url'],
-            'app_slug' => $requestData['service']['appSlug'],
+            'app_slug' => Str::slug($requestData['service']['appSlug']),
             "about" => $requestData["service"]["about"],
             "category_id" => $requestData["service"]["category"],
             "version" => $requestData["service"]["version"],
@@ -69,7 +70,7 @@ class NetappManager
             "name" => $requestData["service"]["name"],
             "visible" => $requestData["visible"],
             'marketing_url' => $requestData['service']['marketing_url'],
-            'app_slug' => $requestData['service']['appSlug'],
+            'app_slug' => Str::slug($requestData['service']['appSlug']),
             "about" => $requestData["service"]["about"],
             "category_id" => $requestData["service"]["category"],
             "version" => $requestData["service"]["version"],

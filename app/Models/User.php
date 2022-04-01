@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 #use Illuminate\Contracts\Auth\MustVerifyEmail;
-class User extends Authenticatable# implements MustVerifyEmail #added implement as per guideline https://laravel.com/docs/8.x/verification
+class User extends Authenticatable # implements MustVerifyEmail #added implement as per guideline https://laravel.com/docs/8.x/verification
 {
     use HasFactory, HasApiTokens, Notifiable, SoftDeletes;
 
@@ -55,12 +55,22 @@ class User extends Authenticatable# implements MustVerifyEmail #added implement 
      */
     protected $with = ['roles'];
 
-    public function roles(): BelongsToMany {
+    public function roles(): BelongsToMany
+    {
         return $this->belongsToMany(UserRoleLkp::class, 'user_roles', 'user_id', 'role_id')
             ->wherePivot('deleted_at', null);
     }
 
-    public function userRoles(): HasMany {
+    public function userRoles(): HasMany
+    {
         return $this->hasMany(UserRole::class, 'user_id', 'id');
+    }
+    public function netapps()
+    {
+        return $this->hasMany(NetApp::class);
+    }
+    public function purchasedNetapp()
+    {
+        return $this->hasMany(PurchasedNetapp::class);
     }
 }

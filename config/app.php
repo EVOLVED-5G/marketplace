@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -123,6 +123,13 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+    'crypto_sender_address' => env('CRYPTO_SENDER_ADDRESS'),
+    'crypto_receiver_address' => env('CRYPTO_RECEIVER_ADDRESS'),
+    'crypto_wallet_private_key' => env('CRYPTO_WALLET_PRIVATE_KEY'),
+    'crypto_network' => env('CRYPTO_NETWORK'),
+    'crypto_infura_project_id' => env('CRYPTO_INFURA_PROJECT_ID'),
+    'crypto_transaction_sender_path' => env('CRYPTO_TRANSACTION_SENDER_PATH'),
 
     /*
     |--------------------------------------------------------------------------

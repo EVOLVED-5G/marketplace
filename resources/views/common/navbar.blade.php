@@ -10,8 +10,7 @@
                 <div class="overlay d-flex d-lg-none"></div>
 
 
-                <div class="order-lg-2 d-lg-flex justify-content-end w-100 pb-3 pb-lg-0 sidebar-main-navigation"
-                    id="navbarSupportedContent">
+                <div class="order-lg-2 d-lg-flex justify-content-end w-100 pb-3 pb-lg-0 sidebar-main-navigation" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-lg-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link px-3 px-lg-2 active" aria-current="page" href="{{ route('home') }}">About</a>
@@ -20,6 +19,13 @@
                             <a class="nav-link px-3 px-lg-2" href="{{ route('product-catalogue') }}">Product
                                 Catalogue</a>
                         </li>
+                        @can('manage-platform')
+                        <li class="nav-item">
+                            <a class="nav-link px-3 px-lg-2 {{ UrlMatchesMenuItem('administration.marketplace.overview.index') }}" href="{{ route('administration.marketplace.overview.index') }}">
+                                Marketplace Overview
+                            </a>
+                        </li>
+                        @endcan
                         @guest()
                         <li class="nav-item">
                             <a class="nav-link px-3 px-lg-2 " href="{{ route('netapp-creators') }}">Net-App Creators</a>
@@ -51,6 +57,7 @@
                                         Manage Users
                                     </a>
                                 </li>
+
                                 @endcan
                                 <li>
                                     <hr class="dropdown-divider">

@@ -120,9 +120,9 @@ class NetappController extends Controller
      * @param  \App\Models\Netapp  $netapp
      * @return \Illuminate\Http\Response
      */
-    public function show(Netapp $netapp, $id)
+    public function show(Netapp $netapp, $slug)
     {
-        $netapp = Netapp::where('id', $id)->with(['apiEndpoints.paymentplan', 'category', 'logo', 'pdf', 'user'])->active()->get()->toArray();
+        $netapp = Netapp::where('slug', $slug)->with(['apiEndpoints.paymentplan', 'category', 'logo', 'pdf', 'user', 'savedNetapp', 'purchasedNetapp'])->active()->get()->toArray();
         if (!$netapp) {
             return abort(404);
         }

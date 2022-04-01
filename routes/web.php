@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MarketplaceOverviewController;
 use App\Http\Controllers\NetappController;
 use App\Http\Controllers\ProductCatalogueController;
+use App\Http\Controllers\PurchasedNetappController;
 use App\Http\Controllers\Resource\PatientResourceController;
 use App\Http\Controllers\Resource\CarerResourceController;
 use App\Http\Controllers\Resource\ResourceController;
+use App\Http\Controllers\SaveNetappController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -31,20 +34,33 @@ Route::view('/admin-dashboard', 'admin-dashboard')->name('admin-dashboard');
 
 Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
 Route::post('api/filter-netapp', [ProductCatalogueController::class, 'filter'])->name('filter-netapp');
-Route::get('/netapp-details/{id}', [NetappController::class, 'show'])->name('show-netapp');
+Route::get('/netapp-details/{slug}', [NetappController::class, 'show'])->name('show-netapp');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {
         Route::resource('users', UserController::class)->except([
             'create', 'edit', 'show'
         ]);
+        Route::get('index', [MarketplaceOverviewController::class, 'index'])->name('marketplace.overview.index');
+        Route::prefix('api')->group(function () {
+            Route::get('/netapps', [MarketplaceOverviewController::class, 'netappTable'])->name('marketplace.overview.netappTable');
+            Route::get('/companies', [MarketplaceOverviewController::class, 'companyTable'])->name('marketplace.overview.companyTable');
+            Route::get('/purchased-netapp', [MarketplaceOverviewController::class, 'purchasedNetappTable'])->name('marketplace.overview.purchasedNetappTable');
+            Route::get('/users', [MarketplaceOverviewController::class, 'userTable'])->name('marketplace.overview.userTable');
+        });
     });
     Route::prefix('api')->group(function () {
         Route::post('/upload-file', [NetappController::class, 'uploadFile']);
         Route::post('/create-netapp', [NetappController::class, 'store']);
         Route::post('update-netapp/{id}', [NetappController::class, 'update']);
+        Route::post('/save-netapp', [SaveNetappController::class, 'store']);
+        Route::patch('/unsave-netapp', [SaveNetappController::class, 'destroy']);
+        Route::post('/purchase-netapp', [PurchasedNetappController::class, 'purchase']);
     });
     Route::view('/welcome-dashboard', 'welcome-dashboard')->name('welcome-dashboard');
+    Route::get('/saved-netapp', [SaveNetappController::class, 'index'])->name('saved-netapp');
+    Route::get('/revenue-page/{id}', [PurchasedNetappController::class, 'showRevenue'])->name('revenue-page');
+    Route::get('/my-purchased-netapp/{id}', [PurchasedNetappController::class, 'myPurchasedNetapp'])->name('my-purchased-netapp');
     Route::view('/support', 'support')->name('support');
     Route::get('/create-netapp', [NetappController::class, 'index'])->name('create-netapp');
     Route::get('/edit-netapp/{id}', [NetappController::class, 'edit'])->name('edit-netapp');

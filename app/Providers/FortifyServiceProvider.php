@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use App\Http\Responses\LoginResponse;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
         Fortify::registerView(function () {
             return view('auth.register');
         });
@@ -45,14 +48,19 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::loginView(function () {
+            if (!session()->has('url.intended')) {
+                session(['url.intended' => url()->previous()]);
+            }
             return view('auth.login');
         });
 
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
 
-            if ($user &&
-                Hash::check($request->password, $user->password)) {
+            if (
+                $user &&
+                Hash::check($request->password, $user->password)
+            ) {
                 return $user;
             }
         });

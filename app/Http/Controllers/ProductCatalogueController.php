@@ -12,18 +12,17 @@ class ProductCatalogueController extends Controller
 {
     public function index()
     {
-        $allTags=[];
+        $allTags = [];
         $categories = Category::all();
         $types = NetappType::all();
-        $tags=Netapp::active()->pluck('tags')->toArray();
-        foreach ($tags as $tag){
-            if(is_array($tag)){
-                array_push($allTags,...$tag);
+        $tags = Netapp::active()->pluck('tags')->toArray();
+        foreach ($tags as $tag) {
+            if (is_array($tag)) {
+                array_push($allTags, ...$tag);
             }
-            
         }
-        $uniqueTags=['tags'=>array_unique($allTags)];
-        return view('product-catalogue', compact('categories', 'types','uniqueTags'));
+        $uniqueTags = ['tags' => array_unique($allTags)];
+        return view('product-catalogue', compact('categories', 'types', 'uniqueTags'));
     }
     public function filter()
     {
@@ -35,8 +34,7 @@ class ProductCatalogueController extends Controller
                 \App\QueryFilters\NetappFilter\Tags::class,
                 \App\QueryFilters\NetappFilter\TypeId::class,
 
-
-            ])->thenReturn()->with(['category', 'logo', 'pdf', 'user'])->active()->paginate(10);
+            ])->thenReturn()->with(['category', 'logo', 'pdf', 'user', 'savedNetapp'])->active()->paginate(10);
             return response()->json(array('data' => $netapps));
         } catch (\Exception $e) {
             return response()->json(array('error' => $e->getMessage()));

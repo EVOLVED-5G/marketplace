@@ -6,6 +6,9 @@ import VeeValidate from 'vee-validate'
 require('./bootstrap');
 window.$ = window.jQuery = $;
 window.route = require('./backend-route');
+import axios from "axios";
+import VueToastr from "vue-toastr";
+
 import store from './store/store';
 import CreateNetApp from './vue-components/CreateNetApp.vue'
 import getLodash from "lodash/get";
@@ -14,17 +17,57 @@ import replaceLodash from "lodash/replace";
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import editNetapp from "./vue-components/edit-netapp.vue";
 import ProductCatalog from "./vue-components/productCatalog.vue";
-import axios from "axios";
-import VueToastr from "vue-toastr";
+import PurchasedNetappModal from './vue-components/common/PurchasedNetappModal.vue'
+import MarketplaceOverview from './vue-components/admin-components/marketplace-overview.vue'
 
 Vue.use(VueToastr);
 Vue.mixin({
     data(){
         return{
-        appurl: process.env.MIX_API_URL
+        appurl: process.env.MIX_API_URL,
+        showPurchasedModel:false,
         }
     },
     methods: {
+        saveNetapp(netappId,loggedInUserId,refreshPage=false){
+            axios
+            .post(`${process.env.MIX_API_URL}/api/save-netapp`, {
+              netapp_id: netappId,
+              user_id: loggedInUserId,
+            })
+            .then((response) => {
+              this.savedNetapp = true;
+              if(refreshPage){
+                  window.location.reload();
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        },
+        unsaveNetapp(savedNetappId,refreshPage=false){
+            axios
+            .patch(`${process.env.MIX_API_URL}/api/unsave-netapp`, { id: savedNetappId })
+            .then((response) => {
+              this.savedNetapp = false;
+              if(refreshPage){
+                window.location.reload();
+            }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        },
+        purchaseNetapp(formData,refreshPage=false){
+            axios
+            .post(`${process.env.MIX_API_URL}/api/purchase-netapp`, formData)
+            .then((response) => {
+                this.showPurchasedModel=true
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        },
         handleLoader(attribute) {
             var yourUl = document.getElementById("loader");
             yourUl.style.display = attribute === "hide" ? "none" : "block";
@@ -60,6 +103,8 @@ Vue.component(
 Vue.component("createnetapp", CreateNetApp);
 Vue.component("edit-netapp", editNetapp);
 Vue.component("product-catalog", ProductCatalog);
+Vue.component("purchased-netapp-modal",PurchasedNetappModal)
+Vue.component('marketplace-overview',MarketplaceOverview)
 
 const app = new Vue({
     el: '#app',
@@ -93,7 +138,6 @@ const app = new Vue({
 
         if ($(hash).length > 0) {
             var top = $(hash).offset().top;
-            console.log(top);
             window.scrollTo({
                 top: top - 150,
                 left: 0,

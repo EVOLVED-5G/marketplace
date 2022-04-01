@@ -3,50 +3,59 @@
     <div class="container">
       <div class="form_top_tabbs">
         <div class="tabs_start">
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active"
-                id="Overview-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#Overview"
-                type="button"
-                role="tab"
-                aria-controls="Overview"
-                aria-selected="true"
-              >
-                Overview
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="Tutorial-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#Tutorial"
-                type="button"
-                role="tab"
-                aria-controls="Tutorial"
-                aria-selected="false"
-              >
-                Tutorial
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="Pricing-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#Pricing"
-                type="button"
-                role="tab"
-                aria-controls="Pricing"
-                aria-selected="false"
-              >
-                Pricing
-              </button>
-            </li>
-          </ul>
+          <div class="d-flex justify-content-between">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="Overview-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#Overview"
+                  type="button"
+                  role="tab"
+                  aria-controls="Overview"
+                  aria-selected="true"
+                >
+                  Overview
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="Tutorial-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#Tutorial"
+                  type="button"
+                  role="tab"
+                  aria-controls="Tutorial"
+                  aria-selected="false"
+                >
+                  Tutorial
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="Pricing-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#Pricing"
+                  type="button"
+                  role="tab"
+                  aria-controls="Pricing"
+                  aria-selected="false"
+                >
+                  Pricing
+                </button>
+              </li>
+            </ul>
+            <a
+              :href="'/netapp-details/' + this.form.service.appSlug"
+              class="edit-details"
+            >
+              View NetApp page</a
+            >
+          </div>
+          <hr />
           <div class="tab-content" id="myTabContent">
             <div
               class="tab-pane fade show active"
@@ -58,7 +67,7 @@
                 <div class="over_field">
                   <label>Status</label>
                   <div class="status_select">
-                    <select class="form-control" v-model="form.visible">
+                    <select class="form-control" v-model="visible">
                       <option value="0">Private</option>
                       <option value="1">Public</option>
                     </select>
@@ -70,7 +79,7 @@
                 <a
                   @click="editForm = !editForm"
                   href="#"
-                  id="edit-details"
+                  class="edit-details"
                   style="margin-left: 92%"
                   v-if="!editForm"
                   >Edit</a
@@ -113,7 +122,7 @@
                       <div class="col-md-12">
                         <div class="form_field_main">
                           <label>About</label>
-                          <ckEditor
+                          <textarea
                             type="text"
                             class="form-control"
                             id="about-netapp"
@@ -126,8 +135,8 @@
                             data-vv-scope="service"
                             v-validate="{ required: true }"
                             data-vv-rules="required"
-                            :readOnly="!editForm"
-                          />
+                            :disabled="editForm == false"
+                          ></textarea>
                           <span
                             v-show="errors.has('service.about')"
                             class="error-text"
@@ -504,7 +513,7 @@
                 </div> -->
               <a
                 href="#"
-                id="edit-details"
+                class="edit-details"
                 @click="editForm = !editForm"
                 v-if="!editForm"
                 style="margin-left: 92%"
@@ -561,11 +570,11 @@
                         data-vv-scope="pricing"
                         v-validate="
                           form.paymentplan == 'onceoff'
-                            ? {}
-                            : {
+                            ? {
                                 required: true,
                                 numeric: true,
                               }
+                            : {}
                         "
                         data-vv-rules="required"
                       />
@@ -984,11 +993,11 @@ export default {
       },
       progressValue: 0,
       pricing: [{ endpoint0: null, from0: null, to0: null }],
+      visible: this.netapp[0].visible,
       form: {
         editRequest: true,
         user_id: null,
         paymentplan: this.netapp[0].fix_price > 0 ? "onceoff" : "paymentplan",
-        visible: this.netapp[0].visible,
         service: {
           appSlug: this.netapp[0].slug,
           type: this.netapp[0].type_id,
@@ -1024,6 +1033,11 @@ export default {
         },
       },
     };
+  },
+  watch: {
+    visible: function (value) {
+      this.processForm(true);
+    },
   },
   methods: {
     windowScroll() {
@@ -1144,8 +1158,8 @@ export default {
         this.windowScroll();
       });
     },
-    processForm() {
-      if (!this.editForm) {
+    processForm(changeStatus = false) {
+      if (!this.editForm && changeStatus == false) {
         return;
       }
       this.handleLoader("show");
@@ -1180,6 +1194,7 @@ export default {
         this.form.payAsGo = [...price];
         this.form.pricing.price = 0;
         this.form.endpointIds = endpointIds;
+        this.form.visible = this.visible;
       }
       let slug = this.form.service.appSlug;
       this.form.service.appSlug = slug.toLowerCase().replace(/\s+/g, "-");
@@ -1190,7 +1205,11 @@ export default {
           if (respnose.data.error) {
             this.$toastr.e("internal Server Error");
           } else {
-            this.showModal = true;
+            if (changeStatus) {
+              this.$toastr.s("Status has been updated");
+            } else {
+              this.showModal = true;
+            }
           }
         })
         .catch((err) => {
@@ -1204,12 +1223,10 @@ export default {
               msg: [...errors[key]],
             });
           }
-          this.progressValue = 0;
         });
     },
   },
   created() {
-    console.log(this.netapp);
     this.form.user_id = this.netapp[0].user_id;
     this.form.service.tag = this.netapp[0].tags.map((tag) => {
       return { key: tag, value: tag };
@@ -1241,8 +1258,6 @@ export default {
       });
     });
     this.divIndex = this.netapp[0].api_endpoints.length;
-
-    console.log(this.form.service.tag);
     if (this.netapp[0].pdf[0].type == "tutorial_docs") {
       this.form.tutorial.pdf = this.netapp[0].pdf[0].url;
     }
