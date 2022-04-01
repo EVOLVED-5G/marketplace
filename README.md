@@ -3,7 +3,7 @@
 Laravel 8 Web Application for Evolved-5G Market
 
 
-[Project URL](https://evolved5g-marketplace.maggioli.gr)
+[Project URL](http://evolved5g-marketplace.evolved-5g.gr)
 
 
 # Installation Instructions:
