@@ -59,9 +59,11 @@ Vue.mixin({
             });
         },
         purchaseNetapp(formData,refreshPage=false){
+            this.handleLoader('show');
             axios
             .post(`${process.env.MIX_API_URL}/api/purchase-netapp`, formData)
             .then((response) => {
+                this.handleLoader('hide');
                 this.showPurchasedModel=true
             })
             .catch((error) => {

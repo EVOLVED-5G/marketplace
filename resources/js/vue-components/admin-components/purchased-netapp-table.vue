@@ -14,7 +14,16 @@
         </thead>
         <tbody>
           <tr v-for="(purchasedNetapp, index) in purchasedNetapps" :key="index">
-            <th scope="row">{{ purchasedNetapp.netapp.name }}</th>
+            <th scope="row">
+              <a
+                :href="
+                  purchasedNetapp.netapp.slug
+                    ? '/netapp-details/' + purchasedNetapp.netapp.slug
+                    : '/netapp-details/' + purchasedNetapp.netapp.id
+                "
+                >{{ purchasedNetapp.netapp.name }}</a
+              >
+            </th>
             <td>
               {{ purchasedNetapp.created_at }}
             </td>

@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/save-netapp', [SaveNetappController::class, 'store']);
         Route::patch('/unsave-netapp', [SaveNetappController::class, 'destroy']);
         Route::post('/purchase-netapp', [PurchasedNetappController::class, 'purchase']);
+        Route::post('slug-validation', [NetappController::class, 'slugValidation']);
     });
     Route::view('/welcome-dashboard', 'welcome-dashboard')->name('welcome-dashboard');
     Route::get('/saved-netapp', [SaveNetappController::class, 'index'])->name('saved-netapp');

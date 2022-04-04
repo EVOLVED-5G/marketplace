@@ -16,10 +16,12 @@ class NetappResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'id' => $this->id,
             'about' => $this->about,
             'version' => $this->version,
             'user' => new UserResource($this->whenLoaded('user')),
             'logo' => $this->logo,
+            'slug' => $this->slug,
             'business_name' => $this->business_name,
             'created_at' => $this->created_at->format('j F Y'),
             'visible' => $this->visible

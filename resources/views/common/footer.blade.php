@@ -21,9 +21,9 @@
                                 <li class="mb-4">
                                     <h2><b>Useful links</b></h2>
                                 </li>
-                                <li class="mb-2"><a href="#">Forum</a></li>
-                                <li class="mb-2"><a href="#">How to develop a net app</a></li>
-                                <li><a href="#">Workspace SDK</a></li>
+                                <li class="mb-2"><a href="http://evolved5g-marketplace-forum.evolved-5g.gr/" target="_blank">Forum</a></li>
+                                <li class="mb-2"><a href="http://evolved5g-marketplace-forum.evolved-5g.gr/" target="_blank">How to develop a net app</a></li>
+                                <li><a href="http://evolved5g-marketplace-forum.evolved-5g.gr/" target="_blank">Workspace SDK</a></li>
                             </ul>
                         </div>
                         <div class="col-md-6 d-flex justify-content-md-end justify-content-sm-start">
@@ -31,8 +31,8 @@
                                 <li class="mb-4">
                                     <h2><b>Check more</b></h2>
                                 </li>
-                                <li class="mb-2"><a href="#">Project webpage</a></li>
-                                <li><a href="#">Newsletter</a></li>
+                                <li class="mb-2"><a href="https://evolved-5g.eu/" target="_blank">Project webpage</a></li>
+                                {{-- <li><a href="#">Newsletter</a></li> --}}
 
                             </ul>
                         </div>

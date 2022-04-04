@@ -18,7 +18,11 @@
       />
 
       <a
-        :href="'/netapp-details/' + this.netapp.slug"
+        :href="
+          this.netapp.slug
+            ? '/netapp-details/' + this.netapp.slug
+            : '/netapp-details/' + this.netapp.id
+        "
         style="text-decoration: none"
       >
         <div style="width: 70%">

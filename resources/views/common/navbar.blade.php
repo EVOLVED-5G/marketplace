@@ -40,7 +40,7 @@
                             <a class="nav-link px-3 px-lg-2 " href="{{ route('welcome-dashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link px-3 px-lg-2 " href="{{ route('support') }}">Support</a>
+                            <a class="nav-link px-3 px-lg-2 " href="http://evolved5g-marketplace-forum.evolved-5g.gr/" target="_blank">Support</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

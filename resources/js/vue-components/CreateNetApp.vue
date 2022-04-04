@@ -349,7 +349,7 @@
                   <span
                     v-show="errors.has('service.appSlug')"
                     class="error-text"
-                    >Add a Valid Url</span
+                    >Slug is alread Exists</span
                   >
                 </div>
               </div>
@@ -1073,7 +1073,9 @@
             <!-- Button trigger modal -->
 
             <!-- Modal -->
-            <Modal :open="this.showModal" :netappId="this.netappId"></Modal>
+            <Modal :open="this.showModal" :netappId="this.netappId">
+              Your Netapp has been created successfully
+            </Modal>
           </div>
         </div>
       </div>
@@ -1204,17 +1206,32 @@ export default {
     Validation() {
       if (this.progressValue == this.stepsValue.service) {
         this.$validator.validate("service.*").then((isValid) => {
-          if (this.form.service.logo == null) {
-            this.errors.add({
-              field: "service.logo",
-              msg: "Please Add a Logo Image",
+          this.handleLoader("show");
+          axios
+            .post("api/slug-validation", { slug: this.form.service.appSlug })
+            .then((respnose) => {
+              this.handleLoader("hide");
+              if (respnose.data.message) {
+                if (this.form.service.logo == null) {
+                  this.errors.add({
+                    field: "service.logo",
+                    msg: "Please Add a Logo Image",
+                  });
+                }
+                if (isValid && this.form.service.logo !== null) {
+                  this.errors.remove("service.logo");
+                  this.progressValue = this.stepsValue.policy;
+                  this.windowScroll();
+                }
+              }
+            })
+            .catch((err) => {
+              this.handleLoader("hide");
+              this.errors.add({
+                field: "service.appSlug",
+                msg: "Slug is Already Exists",
+              });
             });
-          }
-          if (isValid && this.form.service.logo !== null) {
-            this.errors.remove("service.logo");
-            this.progressValue = this.stepsValue.policy;
-            this.windowScroll();
-          }
         });
       }
       if (this.progressValue == this.stepsValue.policy) {

@@ -20,7 +20,7 @@
                         </h5>
                     </div>
                     <div class="modal-body mb-5">
-                        <h1>Your NetApp was created successfuly!</h1>
+                        <h1><slot></slot></h1>
                     </div>
                     <div class="modal-footer">
                         <a :href="'/edit-netapp/'+this.netappId">

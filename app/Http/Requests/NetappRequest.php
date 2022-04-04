@@ -23,7 +23,6 @@ class NetappRequest extends FormRequest
      */
     public function rules()
     {
-
         $rules = [
             "service.name" => "required|string|max:255",
             "service.about" => "required|string",
@@ -43,12 +42,10 @@ class NetappRequest extends FormRequest
 
 
         ];
+        $rules["service.appSlug"] = "required|string";
         if ($this->request->get('service')["publishedBy"] == "business") {
             $rules['service.businessName'] = 'required|string|max:255';
             $rules["service.socialNumber"] = "required|integer";
-        }
-        if (!$this->request->get('editRequest')) {
-            $rules["service.appSlug"] = "required|string|unique:netapps,slug";
         }
         if ($this->request->get("payasgo")) {
             $rules["payAsGo"] = 'required|array';
@@ -81,6 +78,8 @@ class NetappRequest extends FormRequest
             "pricing.price" => 'Price is Required',
             "tutorial.docs" => 'Tutorial Note is Required',
         ];
+        $rules["service.appSlug"] = "required|string";
+
         if ($this->request->get('service')["publishedBy"] == "business") {
             $message['service.businessName'] = 'Business Name is Required';
             $message["service.socialNumber"] = "Social Name is Required";

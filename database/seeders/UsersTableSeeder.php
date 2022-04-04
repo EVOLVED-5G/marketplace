@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder {
             [
                 'id' => 1,
                 'name' => 'Platform Admin',
-                'email' => 'admin@evolved5g.orgZ',
+                'email' => 'admin@evolved5g.org',
                 'password' => bcrypt(env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'))
             ]
         ];

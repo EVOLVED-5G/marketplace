@@ -49,7 +49,11 @@
               </li>
             </ul>
             <a
-              :href="'/netapp-details/' + this.form.service.appSlug"
+              :href="
+                this.form.service.appSlug
+                  ? '/netapp-details/' + this.form.service.appSlug
+                  : '/netapp-details/' + this.netapp[0].id
+              "
               class="edit-details"
             >
               View NetApp page</a
@@ -127,7 +131,7 @@
                             class="form-control"
                             id="about-netapp"
                             name="about"
-                            :value="form.service.about"
+                            v-model="form.service.about"
                             placeholder="..."
                             :class="{
                               customError: errors.has('service.about'),
@@ -356,6 +360,11 @@
                                 required: true,
                               }"
                             />
+                            <span
+                              v-show="errors.has('service.app_slug')"
+                              class="error-text"
+                              >Slug is alread Exists</span
+                            >
                           </div>
                         </div>
                       </div>
@@ -472,6 +481,14 @@
               role="tabpanel"
               aria-labelledby="Tutorial-tab"
             >
+              <a
+                @click="editForm = !editForm"
+                href="#"
+                class="edit-details"
+                style="margin-left: 92%"
+                v-if="!editForm"
+                >Edit</a
+              >
               <ckEditor
                 v-model="form.tutorial.docs"
                 name="docs"
@@ -924,18 +941,14 @@
             <div v-if="editForm">
               <a href="#" @click="editForm = !editForm">Cancel Process</a>
               <div class="btn btn--blue ms-5" type="button" @click="Validation">
-                <span> Next</span>
+                <span> Save</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <Modal :open="this.showModal"
-      ><body>
-        You Netapp has been Updated
-      </body></Modal
-    >
+    <Modal :open="this.showModal"> You Netapp has been Updated </Modal>
   </section>
 </template>
 
@@ -960,6 +973,7 @@ export default {
       inputIndex: 1,
       editForm: false,
       readPrivacyError: null,
+      passedValidation: false,
       RowInputs: {
         recordId: null,
         fromInput: null,
@@ -1089,6 +1103,7 @@ export default {
     },
     Validation() {
       this.$validator.validate("service.*").then((isValid) => {
+        this.handleLoader("show");
         if (this.form.service.logo == null) {
           this.errors.add({
             field: "service.logo",
@@ -1096,9 +1111,12 @@ export default {
           });
         }
         if (isValid && this.form.service.logo !== null) {
+          this.errors.remove("service.logo");
           this.progressValue = this.stepsValue.policy;
           this.windowScroll();
         }
+
+        this.passedValidation = true;
         this.windowScroll();
       });
       this.$validator.validate("policy.*").then((isValid) => {
@@ -1153,10 +1171,28 @@ export default {
       });
       this.$validator.validate("pricing.*").then((isValid) => {
         if (isValid) {
-          this.processForm();
         }
         this.windowScroll();
       });
+      axios
+        .post("/api/slug-validation", {
+          slug: this.form.service.appSlug,
+          editForm: true,
+          id: this.netapp[0].id,
+        })
+        .then((respnose) => {
+          this.handleLoader("hide");
+          if (respnose.data.message) {
+            this.processForm();
+          }
+        })
+        .catch((err) => {
+          this.handleLoader("hide");
+          this.errors.add({
+            field: "service.app_slug",
+            msg: "Slug is Already Exists",
+          });
+        });
     },
     processForm(changeStatus = false) {
       if (!this.editForm && changeStatus == false) {
@@ -1194,8 +1230,9 @@ export default {
         this.form.payAsGo = [...price];
         this.form.pricing.price = 0;
         this.form.endpointIds = endpointIds;
-        this.form.visible = this.visible;
+
       }
+      this.form.visible = this.visible;
       let slug = this.form.service.appSlug;
       this.form.service.appSlug = slug.toLowerCase().replace(/\s+/g, "-");
       axios

@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\Netapp;
 use App\Models\NetappType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class NetappController extends Controller
 {
@@ -122,7 +123,7 @@ class NetappController extends Controller
      */
     public function show(Netapp $netapp, $slug)
     {
-        $netapp = Netapp::where('slug', $slug)->with(['apiEndpoints.paymentplan', 'category', 'logo', 'pdf', 'user', 'savedNetapp', 'purchasedNetapp'])->active()->get()->toArray();
+        $netapp = Netapp::where('slug', $slug)->orWhere('id', $slug)->with(['apiEndpoints.paymentplan', 'category', 'logo', 'pdf', 'user', 'savedNetapp', 'purchasedNetapp'])->active()->get()->toArray();
         if (!$netapp) {
             return abort(404);
         }
@@ -146,7 +147,25 @@ class NetappController extends Controller
         }
         return view('edit-dashboard-temp', compact('netapp', 'netappType', 'categories'));
     }
-
+    /**
+     * Validate the Slug
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Netapp  $netapp
+     * @return \Illuminate\Http\Response
+     */
+    public function slugValidation(Request $request)
+    {
+        $existingSlug = Netapp::where('slug', Str::slug($request->slug))->first();
+        if ($request->get('editForm') && $existingSlug) {
+            if ($existingSlug->id !== $request->get('id')) {
+                return response()->json(array('error' => 'Slug Already Exist'), 400);
+            }
+        } elseif ($existingSlug !== null) {
+            return response()->json(array('error' => 'Slug Already Exist'), 400);
+        }
+        return response()->json(array('message' => 'success'), 200);
+    }
     /**
      * Update the specified resource in storage.
      *

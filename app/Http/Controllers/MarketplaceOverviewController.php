@@ -14,6 +14,7 @@ class MarketplaceOverviewController extends Controller
 {
     public function index()
     {
+        
         $netapps = Netapp::query();
         $totalUsers = User::count();
         $totalNetapps = $netapps->count();

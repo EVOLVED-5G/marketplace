@@ -45,7 +45,13 @@ class Netapp extends Model
     }
     public function scopeActive($query)
     {
-        return $query->where('visible', '=', 1);
+        if (auth()->check()) {
+            if ($this->user_id == auth()->user()->id) {
+                return $query->where('user_id', auth()->user()->id);
+            }
+        } else {
+            return $query->where('visible', '=', 1);
+        }
     }
     public function user()
     {
