@@ -130,7 +130,7 @@ return [
     'crypto_network' => env('CRYPTO_NETWORK'),
     'crypto_infura_project_id' => env('CRYPTO_INFURA_PROJECT_ID'),
     'crypto_transaction_sender_path' => env('CRYPTO_TRANSACTION_SENDER_PATH'),
-
+    'nodejs_path' => env('NODEJS_PATH'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

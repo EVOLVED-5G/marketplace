@@ -16,6 +16,7 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
     private $CRYPTO_NETWORK;
     private $CRYPTO_INFURA_PROJECT_ID;
     private $CRYPTO_TRANSACTION_SENDER_PATH;
+    private $NODEJS_PATH;
     protected $purchasedNetappRepository;
 
     public function __construct(PurchasedNetappRepository $purchasedNetappRepository) {
@@ -25,12 +26,13 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
         $this->CRYPTO_NETWORK = config('app.crypto_network');
         $this->CRYPTO_INFURA_PROJECT_ID = config('app.crypto_infura_project_id');
         $this->CRYPTO_TRANSACTION_SENDER_PATH = config('app.crypto_transaction_sender_path');
+        $this->NODEJS_PATH = config('app.nodejs_path');
         $this->purchasedNetappRepository = $purchasedNetappRepository;
     }
 
     public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetapp $purchasedNetapp) {
         $response = $this->createBlockchainTransactionAndGetResponse($purchasedNetapp->hash);
-        Log::info($response);
+        Log::info("response: " . $response);
         $response = json_decode($response);
         $this->purchasedNetappRepository->update([
             'blockchain_transaction_url' => filter_var($response->link, FILTER_SANITIZE_URL)
@@ -46,7 +48,7 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
      */
     public function createBlockchainTransactionAndGetResponse(string $additionalData): string {
         $this->validateEnvironment();
-        $command = 'node ' . $this->CRYPTO_TRANSACTION_SENDER_PATH
+        $command = $this->NODEJS_PATH . ' ' . $this->CRYPTO_TRANSACTION_SENDER_PATH
             . ' --network=' . $this->CRYPTO_NETWORK
             . ' --project=' . $this->CRYPTO_INFURA_PROJECT_ID
             . ' --from=' . $this->CRYPTO_SENDER_ADDRESS
@@ -71,6 +73,8 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
             throw new Exception("Crypto Network is null");
         if (!$this->CRYPTO_INFURA_PROJECT_ID)
             throw new Exception("Crypto Infura Project ID is null");
+        if (!$this->NODEJS_PATH)
+            throw new Exception("NodeJS path is null");
         if (!file_exists($this->CRYPTO_TRANSACTION_SENDER_PATH))
             throw new Exception("Transaction Sender utility not found . Queried path: " . $this->CRYPTO_TRANSACTION_SENDER_PATH);
     }
