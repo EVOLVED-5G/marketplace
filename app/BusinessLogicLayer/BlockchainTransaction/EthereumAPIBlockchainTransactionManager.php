@@ -29,7 +29,9 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
     }
 
     public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetapp $purchasedNetapp) {
-        $response = json_decode($this->createBlockchainTransactionAndGetResponse($purchasedNetapp->hash));
+        $response = $this->createBlockchainTransactionAndGetResponse($purchasedNetapp->hash);
+        Log::info($response);
+        $response = json_decode($response);
         $this->purchasedNetappRepository->update([
             'blockchain_transaction_url' => filter_var($response->link, FILTER_SANITIZE_URL)
         ], $purchasedNetapp->id);
@@ -51,6 +53,7 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
             . ' --to=' . $this->CRYPTO_RECEIVER_ADDRESS
             . ' --key=' . $this->CRYPTO_WALLET_PRIVATE_KEY
             . ' --data=' . '"' . $additionalData . '"';
+        Log::info($command);
         return trim(shell_exec($command));
     }
 
