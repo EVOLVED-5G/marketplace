@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
  * @param string $urlPatternToMatch the menu item url
  * @return string A relevant CSS class
  */
-function UrlMatchesMenuItem(string $urlPatternToMatch): string {
-    return (Request::is($urlPatternToMatch) || strpos(Route::getCurrentRoute()->getName(), $urlPatternToMatch) !== false) ? "active" : "";
+function UrlMatchesMenuItem(string $urlPatternToMatch, string $class): string {
+    return (Request::is($urlPatternToMatch) || strpos(Route::getCurrentRoute()->getName(), $urlPatternToMatch) !== false) ? $class : "";
 }
 

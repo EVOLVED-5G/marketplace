@@ -121,12 +121,14 @@
                                 </div> -->
                             </div>
                             @if(auth()->check() && $netapp['user_id']!==auth()->user()->id)
-                            <div class="row ">
-                                <a href="#" class="btn btn--primary" @click="purchaseNetapp({
-                                    netapp_id:{{$netapp['id']}},
-                                    user_id:{{auth()->user()->id}},
-                                    payment_plan_id: null,
-                                  })">Purchase</a>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn--primary w-100" @click="purchaseNetapp({
+                                        netapp_id:{{$netapp['id']}},
+                                        user_id:{{auth()->user()->id}},
+                                        payment_plan_id: null,
+                                      })">Purchase</button>
+                                </div>
                             </div>
                             @endif
                         </div>
@@ -150,13 +152,14 @@
                             <div class="row">
                                 <!-- Button trigger modal -->
                                 @if(auth()->check() && $netapp['user_id']!==auth()->user()->id)
-                                <a href="#" class="btn btn--primary" @click="purchaseNetapp({
-                                    netapp_id:{{$netapp['id']}},
-                                    user_id:{{auth()->user()->id}},
-                                    payment_plan_id: null,
-                                  })">Purchase</a>
-                                @endif
-
+                                    <div class="col">
+                                        <button class="btn btn--primary w-100" @click="purchaseNetapp({
+                                            netapp_id:{{$netapp['id']}},
+                                            user_id:{{auth()->user()->id}},
+                                            payment_plan_id: null,
+                                            })">Purchase</button>
+                                        @endif
+                                    </div>
 
 
                                 <!-- Modal -->

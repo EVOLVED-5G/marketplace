@@ -13,7 +13,7 @@
                 <div class="order-lg-2 d-lg-flex justify-content-end w-100 pb-3 pb-lg-0 sidebar-main-navigation" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-lg-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link px-3 px-lg-2 active" aria-current="page" href="{{ route('home') }}">About</a>
+                            <a class="nav-link px-3 px-lg-2 {{ UrlMatchesMenuItem('home', 'active') }}" aria-current="page" href="{{ route('home') }}">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link px-3 px-lg-2" href="{{ route('product-catalogue') }}">Product
@@ -21,7 +21,7 @@
                         </li>
                         @can('manage-platform')
                         <li class="nav-item">
-                            <a class="nav-link px-3 px-lg-2 {{ UrlMatchesMenuItem('administration.marketplace.overview.index') }}" href="{{ route('administration.marketplace.overview.index') }}">
+                            <a class="nav-link px-3 px-lg-2 {{ UrlMatchesMenuItem('administration.marketplace.overview.index', 'active') }}" href="{{ route('administration.marketplace.overview.index') }}">
                                 Marketplace Overview
                             </a>
                         </li>
@@ -53,7 +53,7 @@
                                 </li>
                                 @can('manage-platform')
                                 <li>
-                                    <a class="dropdown-item {{ UrlMatchesMenuItem('administration.users.index') }}" href="{{ route('administration.users.index') }}">
+                                    <a class="dropdown-item {{ UrlMatchesMenuItem('administration.users.index', 'active') }}" href="{{ route('administration.users.index') }}">
                                         Manage Users
                                     </a>
                                 </li>

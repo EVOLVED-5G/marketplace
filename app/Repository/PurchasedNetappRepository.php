@@ -12,8 +12,4 @@ class PurchasedNetappRepository extends Repository
   {
     return  PurchasedNetapp::class;
   }
-  public function create($data)
-  {
-    return parent::create($data);
-  }
 }

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\BusinessLogicLayer\CryptoTransaction\EthereumAPICryptoTransactionManager;
+use App\BusinessLogicLayer\BlockchainTransaction\EthereumAPIBlockchainTransactionManager;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\CreatesApplication;
 use Tests\TestCase;
@@ -21,8 +21,8 @@ class CryptoTransactionTests extends TestCase {
      * @throws BindingResolutionException
      */
     public function test_crypto_transaction() {
-        $cryptoTransactionManager = app()->make(EthereumAPICryptoTransactionManager::class);
-        $response = json_decode($cryptoTransactionManager->createTransactionAndGetResponse());
+        $cryptoTransactionManager = app()->make(EthereumAPIBlockchainTransactionManager::class);
+        $response = json_decode($cryptoTransactionManager->createBlockchainTransactionAndGetResponse());
         $link = $response->link;
         $link = filter_var($link, FILTER_SANITIZE_URL);
         echo "\n" . $link . "\n";

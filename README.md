@@ -99,5 +99,13 @@ sudo nano /etc/hosts
 
 ## About the Blockchain Integration
 
-TODO
+The Evolved-5G Marketplace makes use of the Ethereum Blockchain, in order to create digital signatures when a Netapp is bought.
+
+In order to do so, every time a purchase is made, the app communicates with an external Nodejs script that makes the request to the Ethereum Blockchain.
+
+This script can be found in this GitHub repository: [ETH Transaction Sender](https://github.com/PavlosIsaris/eth-transaction-sender).
+
+In order to install the script, clone the repository and then edit the `CRYPTO_TRANSACTION_SENDER_PATH` variable in the `.env` file, so that Laravel knows where to find the script. An example can be found in the `.env.example` file.
+
+**NOTE:** the script assumes that nodejs is installed on the server and can be run by the same user that runs the Laravel app (group `www-data`).
 

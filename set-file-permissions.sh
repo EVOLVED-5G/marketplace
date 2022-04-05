@@ -11,6 +11,8 @@ usermod -a -G "$groupname" "$username"
 # Change storage ownership to normal user/ webserver group
 chown -R "$username":"$groupname" "$folder"/storage
 
+chown -R "$username":"$groupname" "$folder"/public/assets/netapp
+
 chmod 775 "$folder"/storage
 
 # Update permissions for all storage files

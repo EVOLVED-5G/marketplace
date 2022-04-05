@@ -61,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/welcome-dashboard', 'welcome-dashboard')->name('welcome-dashboard');
     Route::get('/saved-netapp', [SaveNetappController::class, 'index'])->name('saved-netapp');
     Route::get('/revenue-page/{id}', [PurchasedNetappController::class, 'showRevenue'])->name('revenue-page');
-    Route::get('/my-purchased-netapp/{id}', [PurchasedNetappController::class, 'myPurchasedNetapp'])->name('my-purchased-netapp');
+    Route::get('/my-purchased-netapp/{hash}', [PurchasedNetappController::class, 'myPurchasedNetapp'])->name('my-purchased-netapp');
     Route::view('/support', 'support')->name('support');
     Route::get('/create-netapp', [NetappController::class, 'index'])->name('create-netapp');
     Route::get('/edit-netapp/{id}', [NetappController::class, 'edit'])->name('edit-netapp');

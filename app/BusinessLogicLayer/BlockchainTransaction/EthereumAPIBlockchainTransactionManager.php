@@ -1,10 +1,14 @@
 <?php
 
-namespace App\BusinessLogicLayer\CryptoTransaction;
+namespace App\BusinessLogicLayer\BlockchainTransaction;
 
+use App\Models\PurchasedNetapp;
+use App\Notifications\NotifyBuyerAboutPurchasedNetappBlockchainTransactionCreation;
+use App\Repository\PurchasedNetappRepository;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
-class EthereumAPICryptoTransactionManager implements CryptoTransactionManager {
+class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionManager {
 
     private $CRYPTO_SENDER_ADDRESS;
     private $CRYPTO_RECEIVER_ADDRESS;
@@ -12,24 +16,33 @@ class EthereumAPICryptoTransactionManager implements CryptoTransactionManager {
     private $CRYPTO_NETWORK;
     private $CRYPTO_INFURA_PROJECT_ID;
     private $CRYPTO_TRANSACTION_SENDER_PATH;
+    protected $purchasedNetappRepository;
 
-    public function __construct() {
+    public function __construct(PurchasedNetappRepository $purchasedNetappRepository) {
         $this->CRYPTO_SENDER_ADDRESS = config('app.crypto_sender_address');
         $this->CRYPTO_RECEIVER_ADDRESS = config('app.crypto_receiver_address');
         $this->CRYPTO_WALLET_PRIVATE_KEY = config('app.crypto_wallet_private_key');
         $this->CRYPTO_NETWORK = config('app.crypto_network');
         $this->CRYPTO_INFURA_PROJECT_ID = config('app.crypto_infura_project_id');
         $this->CRYPTO_TRANSACTION_SENDER_PATH = config('app.crypto_transaction_sender_path');
+        $this->purchasedNetappRepository = $purchasedNetappRepository;
     }
 
-    public function createTransactionForUser(int $user_id, int $net_app_id) {
-
+    public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetapp $purchasedNetapp) {
+        $response = json_decode($this->createBlockchainTransactionAndGetResponse($purchasedNetapp->hash));
+        $this->purchasedNetappRepository->update([
+            'blockchain_transaction_url' => filter_var($response->link, FILTER_SANITIZE_URL)
+        ], $purchasedNetapp->id);
+        $buyerUser = $purchasedNetapp->user;
+        $buyerUser->notify(new NotifyBuyerAboutPurchasedNetappBlockchainTransactionCreation($purchasedNetapp));
     }
 
     /**
+     * @param string $additionalData
+     * @return string the response
      * @throws Exception
      */
-    public function createTransactionAndGetResponse(): string {
+    public function createBlockchainTransactionAndGetResponse(string $additionalData): string {
         $this->validateEnvironment();
         $command = 'node ' . $this->CRYPTO_TRANSACTION_SENDER_PATH
             . ' --network=' . $this->CRYPTO_NETWORK
@@ -37,7 +50,7 @@ class EthereumAPICryptoTransactionManager implements CryptoTransactionManager {
             . ' --from=' . $this->CRYPTO_SENDER_ADDRESS
             . ' --to=' . $this->CRYPTO_RECEIVER_ADDRESS
             . ' --key=' . $this->CRYPTO_WALLET_PRIVATE_KEY
-            . ' --data=' . '"EVOLVED-5G Transaction"';
+            . ' --data=' . '"' . $additionalData . '"';
         return trim(shell_exec($command));
     }
 

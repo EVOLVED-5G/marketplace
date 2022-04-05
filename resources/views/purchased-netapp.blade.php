@@ -7,21 +7,24 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Date of purchace </th>
-                    <th scope="col">Blockchain confirmation</th>
-                    <th scope="col">Blockchain confirmation</th>
+                    <th scope="col">Date of purchase</th>
+                    <th scope="col">Blockchain URL</th>
+                    <th scope="col">Netapp Page</th>
 
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td> {{\Carbon\Carbon::parse($myPurchasedNetapp->created_at)->isoFormat('D MMM YYYY')}}</td>
+                    <td> {{\Carbon\Carbon::parse($myPurchasedNetapp->created_at)->isoFormat('D MMM YYYY - H:ss')}}</td>
                     <td>
-                        <a href="#">link</a> (#okasdaef)
+                        <a href="{{ $myPurchasedNetapp->blockchain_transaction_url }}" target="_blank">
+                            {{ parse_url($myPurchasedNetapp->blockchain_transaction_url, PHP_URL_HOST) }} <i class="fa-solid fa-up-right-from-square mx-1"></i></a>
                     </td>
                     <td>
-                        <a href="#">View NetApp 1 page</a>
+                        <a href="{{ route('show-netapp', $myPurchasedNetapp->netapp->slug) }}" target="_blank">
+                            View NetApp "{{ $myPurchasedNetapp->netapp->name }}" page
+                        </a>
                     </td>
 
                 </tr>
