@@ -1,7 +1,7 @@
 <?php
 
-use App\BusinessLogicLayer\PurchasedNetapp\PurchasedNetappManager;
-use App\Models\PurchasedNetapp;
+use App\BusinessLogicLayer\PurchasedNetapp\PurchasedNetAppManager;
+use App\Models\PurchasedNetApp;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,10 +20,10 @@ class AddColumnsToPurchasedNetappsTable extends Migration
             $table->string('blockchain_transaction_url')->after('hash')->nullable();
         });
 
-        $purchasedNetappManager = app()->make(PurchasedNetappManager::class);
-        $purchasedNetapps = PurchasedNetapp::all();
+        $purchasedNetappManager = app()->make(PurchasedNetAppManager::class);
+        $purchasedNetapps = PurchasedNetApp::all();
         foreach ($purchasedNetapps as $purchasedNetapp) {
-            $hash = $purchasedNetappManager->getHashForPurchasedNetapp($purchasedNetapp);
+            $hash = $purchasedNetappManager->getHashForPurchasedNetApp($purchasedNetapp);
             $purchasedNetapp->hash = $hash;
             $purchasedNetapp->save();
         }

@@ -81,7 +81,7 @@
               </div>
               <div class="main_form">
                 <a
-                  @click="editForm = !editForm"
+                 @click="editForm = true"
                   href="#"
                   class="edit-details"
                   style="margin-left: 92%"
@@ -240,11 +240,11 @@
                           >Add Service Version</span
                         >
                       </div>
-                      <div class="col-md-6" v-if="form.service.tag.length > 0">
+                      <div class="col-md-6" v-if="form.service.tag && form.service.tag.length > 0">
                         <label
                           for="version-of-netapp"
                           class="form-label text-details"
-                        ></label>
+                        >Add a tag name<br><i>Help your NetApp be more distinguished so that it can be found easier. Add tag names that you want to characterize your NetApp.</i></label></label>
                         <VoerroTagsInput
                           element-id="tags"
                           v-model="form.service.tag"
@@ -280,16 +280,47 @@
                           >Select atleast one Tag</span
                         >
                       </div>
+                        <div class="col-md-12">
+                            <div class="form_field_main">
+                                <label style="margin-right: 5px">URL Slug</label>
+                                <div class="align_url_field">
+                                    <input
+                                        type="text"
+                                        style="width: 30%"
+                                        :placeholder="this.appurl"
+                                        name=""
+                                        class="form-control"
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="alex-net-app"
+                                        class="form-control"
+                                        v-model="form.service.appSlug"
+                                        :class="{
+                                customError: errors.has('service.app_slug'),
+                              }"
+                                        data-vv-scope="service"
+                                        name="app_slug"
+                                        v-validate="{
+                                required: true,
+                              }"
+                                    />
+                                    <span
+                                        v-show="errors.has('service.app_slug')"
+                                        class="error-text"
+                                    >Slug is alread Exists</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
                       <div class="form_field_main">
-                        <label
-                          for="about-netapp"
-                          class="form-label text-details"
-                          >View more (Marketing page) url site</label
-                        >
+                          <label for="about-netapp" class="form-label text-details"
+                          >View more (Marketing page) url site<br><i>Do you have an external page/URL hat demonstrates your NetApp (for example in your company's website)? Paste it below:</i></label
+                          >
                         <input
                           type="url"
                           class="form-control"
-                          id="about-netapp"
+                          id="netapp-url"
                           v-model="form.service.marketing_url"
                           :class="{
                             customError: errors.has('service.marketing_url'),
@@ -334,39 +365,6 @@
                       </div>
                       <div class="col-md-6">
                         <!-- For Blank Space -->
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form_field_main">
-                          <label>URL Slug</label>
-                          <div class="align_url_field">
-                            <input
-                              type="text"
-                              style="width: 30%"
-                              :placeholder="this.appurl"
-                              name=""
-                              class="form-control"
-                            />
-                            <input
-                              type="text"
-                              placeholder="alex-net-app"
-                              class="form-control"
-                              v-model="form.service.appSlug"
-                              :class="{
-                                customError: errors.has('service.app_slug'),
-                              }"
-                              data-vv-scope="service"
-                              name="app_slug"
-                              v-validate="{
-                                required: true,
-                              }"
-                            />
-                            <span
-                              v-show="errors.has('service.app_slug')"
-                              class="error-text"
-                              >Slug is alread Exists</span
-                            >
-                          </div>
-                        </div>
                       </div>
 
                       <fieldset class="row mb-3">
@@ -482,7 +480,7 @@
               aria-labelledby="Tutorial-tab"
             >
               <a
-                @click="editForm = !editForm"
+                @click="editForm = true"
                 href="#"
                 class="edit-details"
                 style="margin-left: 92%"
@@ -500,7 +498,7 @@
                 data-vv-scope="service"
                 v-validate="{ required: true }"
                 data-vv-rules="required"
-                :readOnly="!editForm"
+               :readOnly="editForm==true"
               ></ckEditor>
               <span v-show="errors.has('tutorial.docs')" class="error-text"
                 >Please Fill this field</span
@@ -1182,6 +1180,7 @@ export default {
         })
         .then((respnose) => {
           this.handleLoader("hide");
+          this.editForm = false;
           if (respnose.data.message) {
             this.processForm();
           }
@@ -1265,6 +1264,9 @@ export default {
   },
   created() {
     this.form.user_id = this.netapp[0].user_id;
+    if(!this.netapp[0].tags)
+        this.netapp[0].tags = [];
+
     this.form.service.tag = this.netapp[0].tags.map((tag) => {
       return { key: tag, value: tag };
     });
@@ -1295,7 +1297,7 @@ export default {
       });
     });
     this.divIndex = this.netapp[0].api_endpoints.length;
-    if (this.netapp[0].pdf[0].type == "tutorial_docs") {
+    if (this.netapp[0].pdf[0] && this.netapp[0].pdf[0].type == "tutorial_docs") {
       this.form.tutorial.pdf = this.netapp[0].pdf[0].url;
     }
     if (this.netapp[0].fix_price == 0) {

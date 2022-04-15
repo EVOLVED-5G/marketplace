@@ -71,6 +71,6 @@ class User extends Authenticatable # implements MustVerifyEmail #added implement
     }
     public function purchasedNetapp()
     {
-        return $this->hasMany(PurchasedNetapp::class);
+        return $this->hasMany(PurchasedNetApp::class);
     }
 }

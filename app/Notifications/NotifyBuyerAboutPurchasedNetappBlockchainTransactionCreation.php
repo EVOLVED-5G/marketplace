@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\PurchasedNetapp;
+use App\Models\PurchasedNetApp;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -18,7 +18,7 @@ class NotifyBuyerAboutPurchasedNetappBlockchainTransactionCreation extends Notif
      *
      * @return void
      */
-    public function __construct(PurchasedNetapp $purchasedNetapp)
+    public function __construct(PurchasedNetApp $purchasedNetapp)
     {
         $this->purchasedNetapp = $purchasedNetapp;
     }

@@ -83,10 +83,10 @@
 
 
             .btn--blue {
-                min-width: rem(220px);
+                min-width: rem(170px);
                 color: #ffffff;
                 @media (max-width: 871px) {
-                    min-width: rem(200px);
+                    min-width: rem(150px);
                 }
 
                 padding: 0.5rem 1rem;
@@ -226,7 +226,6 @@
     }
 
     .step-actions {
-        float: right;
         .btn--blue {
             min-width: rem(185px);
         }
@@ -552,7 +551,7 @@ body {
     display: inline-block;
     opacity: 1;
   }
-  
+
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 200px;
@@ -561,12 +560,16 @@ body {
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-  
+
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
   }
-  
+
   .tooltip:hover .tooltiptext {
     visibility: visible;
+  }
+
+  #no-net-apps {
+      font-style: italic;
   }

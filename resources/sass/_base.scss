@@ -238,6 +238,10 @@ a {
         .social {
             max-width: 240px;
             color: var(--color-title);
+
+            .fab {
+                font-size: 22px;
+            }
         }
 
         ul {

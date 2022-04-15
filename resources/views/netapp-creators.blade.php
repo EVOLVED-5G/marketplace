@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @push('css')
+<link rel="stylesheet" href="{{ mix('dist/css/netapp-creators.css') }}">
 @endpush
 
 @section('content')
@@ -71,7 +72,7 @@
                 <img class="img-fluid mt-3 mb-3" loading="lazy" src="/img/creators-line.png" alt="line-icon">
                 <h1> Do you have questions?</h1>
                 <p>Check our community platform and get accurate answers.</p>
-                <a href="#" class="btn btn--blue mt-5">Find out more</a>
+                <a href="http://evolved5g-marketplace-forum.evolved-5g.gr/" target="blank" class="btn btn--blue mt-5">Find out more</a>
             </div>
 
 

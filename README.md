@@ -10,7 +10,7 @@ Laravel 8 Web Application for Evolved-5G Market
 
 ## First time install (setup database and install dependencies)
 
-0. Make sure php 7.4 (or newer) is installed.
+0. Make sure `php 7.4` (or newer) and `NodeJS v14` (or newer) are installed.
 
 
 1. After cloning the project, create an .env file (should be a copy of .env.example),
@@ -29,8 +29,9 @@ composer install
 npm install
 ```
 
-Node version:12.18.2
-Npm version: 6.14.5
+Node version: `14.18.1`
+
+Npm version:  `6.14.5`
 
 
 4. Create symbolic link for uploaded files.
@@ -107,5 +108,7 @@ This script can be found in this GitHub repository: [ETH Transaction Sender](htt
 
 In order to install the script, clone the repository and then edit the `CRYPTO_TRANSACTION_SENDER_PATH` variable in the `.env` file, so that Laravel knows where to find the script. An example can be found in the `.env.example` file.
 
-**NOTE:** the script assumes that nodejs is installed on the server and can be run by the same user that runs the Laravel app (group `www-data`).
+**NOTE #1:** the script assumes that `nodejs` is installed on the server and can be run by the same user that runs the Laravel app (group `www-data`).
+
+**NOTE #2:** Make sure to also add the `node` executable path in `.env`, in the `NODEJS_PATH` variable.
 

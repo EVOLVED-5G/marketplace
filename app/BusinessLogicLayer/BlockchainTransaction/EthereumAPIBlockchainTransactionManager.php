@@ -2,9 +2,9 @@
 
 namespace App\BusinessLogicLayer\BlockchainTransaction;
 
-use App\Models\PurchasedNetapp;
+use App\Models\PurchasedNetApp;
 use App\Notifications\NotifyBuyerAboutPurchasedNetappBlockchainTransactionCreation;
-use App\Repository\PurchasedNetappRepository;
+use App\Repository\PurchasedNetAppRepository;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -19,7 +19,7 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
     private $NODEJS_PATH;
     protected $purchasedNetappRepository;
 
-    public function __construct(PurchasedNetappRepository $purchasedNetappRepository) {
+    public function __construct(PurchasedNetAppRepository $purchasedNetappRepository) {
         $this->CRYPTO_SENDER_ADDRESS = config('app.crypto_sender_address');
         $this->CRYPTO_RECEIVER_ADDRESS = config('app.crypto_receiver_address');
         $this->CRYPTO_WALLET_PRIVATE_KEY = config('app.crypto_wallet_private_key');
@@ -30,9 +30,8 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
         $this->purchasedNetappRepository = $purchasedNetappRepository;
     }
 
-    public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetapp $purchasedNetapp) {
+    public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetApp $purchasedNetapp) {
         $response = $this->createBlockchainTransactionAndGetResponse($purchasedNetapp->hash);
-        Log::info("response: " . $response);
         $response = json_decode($response);
         $this->purchasedNetappRepository->update([
             'blockchain_transaction_url' => filter_var($response->link, FILTER_SANITIZE_URL)
@@ -55,7 +54,6 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
             . ' --to=' . $this->CRYPTO_RECEIVER_ADDRESS
             . ' --key=' . $this->CRYPTO_WALLET_PRIVATE_KEY
             . ' --data=' . '"' . $additionalData . '"';
-        Log::info($command);
         return trim(shell_exec($command));
     }
 

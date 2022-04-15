@@ -54,7 +54,7 @@
                 </div>
                 <div class="product-about__extra-info--support d-flex justify-content-center align-items-center flex-column">
                     <p>If you have any question you can join<br> our community for support</p>
-                    <a href="{{ route('support') }}" class="btn btn--primary">Support</a>
+                    <a href="http://evolved5g-marketplace-forum.evolved-5g.gr/c/support/2" target="blank" class="btn btn--primary">Support</a>
 
 
                 </div>

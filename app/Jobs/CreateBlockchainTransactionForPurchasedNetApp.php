@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\BusinessLogicLayer\BlockchainTransaction\EthereumAPIBlockchainTransactionManager;
-use App\Models\PurchasedNetapp;
+use App\Models\PurchasedNetApp;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class CreateBlockchainTransactionForPurchasedNetapp implements ShouldQueue, ShouldBeUnique {
+class CreateBlockchainTransactionForPurchasedNetApp implements ShouldQueue, ShouldBeUnique {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $purchasedNetapp;
@@ -21,7 +21,7 @@ class CreateBlockchainTransactionForPurchasedNetapp implements ShouldQueue, Shou
      *
      * @return void
      */
-    public function __construct(PurchasedNetapp $purchasedNetapp) {
+    public function __construct(PurchasedNetApp $purchasedNetapp) {
         $this->onQueue('blockchain-transactions');
         $this->purchasedNetapp = $purchasedNetapp;
     }

@@ -31,8 +31,8 @@ mix.autoload({
 });
 
 mix.sass('resources/sass/app.scss', 'public/dist/css')
-.sass('resources/sass/dashboard.scss', 'public/dist/css')
-.sass('resources/sass/admin-dashboard.scss', 'public/dist/css')
+    .sass('resources/sass/dashboard.scss', 'public/dist/css')
+    .sass('resources/sass/admin-dashboard.scss', 'public/dist/css')
     .sass('resources/sass/footer.scss', 'public/dist/css')
     .sass('resources/sass/home.scss', 'public/dist/css')
     .sass('resources/sass/login-page.scss', 'public/dist/css')

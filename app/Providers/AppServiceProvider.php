@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Netapp;
-use App\Models\PurchasedNetapp;
+use App\Models\PurchasedNetApp;
 use Auth;
 use View;
 use Illuminate\Support\ServiceProvider;
@@ -34,9 +34,7 @@ class AppServiceProvider extends ServiceProvider
         if (\Auth::check() !== null) {
             View::Composer('*', function ($view) {
                 $netapps = Netapp::where('user_id', \Auth::id())->get();
-                $purchasednetapps = PurchasedNetapp::where('user_id', \Auth::id())->get();
-
-                $view->with(['netapps' => $netapps, 'purchasednetapps' => $purchasednetapps]);
+                $view->with(['netapps' => $netapps]);
             });
         }
     }

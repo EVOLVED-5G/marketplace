@@ -2,13 +2,13 @@
 
 namespace App\Notifications;
 
-use App\Models\PurchasedNetapp;
+use App\Models\PurchasedNetApp;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NotifyBuyerAboutPurchasedNetapp extends Notification implements ShouldQueue {
+class NotifySellerAboutPurchasedNetApp extends Notification implements ShouldQueue {
     use Queueable;
 
     protected $purchasedNetapp;
@@ -18,7 +18,7 @@ class NotifyBuyerAboutPurchasedNetapp extends Notification implements ShouldQueu
      *
      * @return void
      */
-    public function __construct(PurchasedNetapp $purchasedNetapp) {
+    public function __construct(PurchasedNetApp $purchasedNetapp) {
         $this->purchasedNetapp = $purchasedNetapp;
     }
 
@@ -51,8 +51,11 @@ class NotifyBuyerAboutPurchasedNetapp extends Notification implements ShouldQueu
      */
     public function toMail($notifiable) {
         return (new MailMessage)
-            ->subject('Your evolved-5G netapp purchase is completed!')
-            ->line('Congratulations, you have purchased net app: <a href="' . route('show-netapp', ['slug' => $this->purchasedNetapp->netapp->slug]) . '" target="_blank">' . $this->purchasedNetapp->netapp->name . '</a>')
+            ->subject('Your evolved-5G netapp has been purchased!')
+            ->line('Congratulations, the Evolved-5G user with email ' .
+                $this->purchasedNetapp->user->email
+                . ' has purchased your net app: <a href="' . route('show-netapp', ['slug' => $this->purchasedNetapp->netapp->slug])
+                . '" target="_blank">' . $this->purchasedNetapp->netapp->name . '</a>')
             ->line("Go to your dashboard to see it:")
             ->action('Visit your dashboard', route('welcome-dashboard'))
             ->line('Thank you for using Evolved-5G Marketplace!');

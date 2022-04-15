@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-content">
     <div class="content d-flex">
-      <div id="stepper" class="dashboard-right-content">
+      <div id="stepper" class="dashboard-right-content flex-fill">
         <h3>Create new NetApp</h3>
         <div class="accordion mt-5" id="accordionExample">
           <div class="steps">
@@ -243,7 +243,7 @@
                   >Select atleast one Service Category</span
                 >
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <label for="version-of-netapp" class="form-label text-details"
                   >Version</label
                 >
@@ -265,11 +265,11 @@
                   >Add Service Version</span
                 >
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <label
                   for="version-of-netapp"
                   class="form-label text-details"
-                ></label>
+                >Add a tag name<br><i>Help your NetApp be more distinguished so that it can be found easier. Add tag names that you want to characterize your NetApp.</i></label>
                 <VoerroTagsInput
                   element-id="tags"
                   v-model="form.service.tag"
@@ -283,23 +283,62 @@
                   >Select atleast one Tag asdf</span
                 >
               </div>
+                <div class="col-md-12">
+                    <div class="form_field_main">
+                        <div class="tooltip">
+                            <label style="margin-right: 5px">URL Slug </label
+                            ><i class="fas fa-question-circle"></i> <br /><span
+                            class="tooltiptext"
+                        >
+                      <small>
+                        For example (my-net-app) <br />
+                        This will make your net app available at
+                        {{ this.appurl }}. You should use only alphanumeric
+                        characters, underscores (_) or dashes (-).</small
+                      ></span
+                        >
+                        </div>
+
+                        <div class="align_url_field">
+                            <input
+                                type="text"
+                                style="width: 30%"
+                                :placeholder="this.appurl"
+                                name=""
+                                class="form-control"
+                            />
+                            <input
+                                type="text"
+                                placeholder="your-net-app-url"
+                                class="form-control"
+                                v-model="form.service.appSlug"
+                                :class="{
+                        customError: errors.has('service.appSlug'),
+                      }"
+                                data-vv-scope="service"
+                                name="appSlug"
+                                v-validate="{
+                        required: true,
+                      }"
+                            />
+                        </div>
+                        <span
+                            v-show="errors.has('service.appSlug')"
+                            class="error-text"
+                        >Slug is alread Exists</span
+                        >
+                    </div>
+                </div>
               <div>
                 <label for="about-netapp" class="form-label text-details"
-                  >View more (Marketing page) url site</label
+                  >View more (Marketing page) url site<br><i>Do you have an external page/URL hat demonstrates your NetApp (for example in your company's website)? Paste it below:</i></label
                 >
                 <input
                   type="url"
                   class="form-control"
-                  id="about-netapp"
+                  id="netapp-url"
                   v-model="form.service.marketing_url"
-                  :class="{
-                    customError: errors.has('service.marketing_url'),
-                  }"
-                  data-vv-scope="service"
-                  name="marketing_url"
-                  v-validate="{
-                    url: { require_protocol: true },
-                  }"
+
                 />
                 <span
                   v-show="errors.has('service.marketing_url')"
@@ -307,57 +346,12 @@
                   >Invalid Url</span
                 >
               </div>
-              <div class="col-md-12">
-                <div class="form_field_main">
-                  <div class="tooltip">
-                    <label>URL Slug </label
-                    ><i class="fas fa-question-circle"></i> <br /><span
-                      class="tooltiptext"
-                    >
-                      <small>
-                        For example (my-net-app) <br />
-                        This will make your net app available at
-                        {{ this.appurl }}. You should use only alphanumeric
-                        characters, underscores (_) or dashes (-).</small
-                      ></span
-                    >
-                  </div>
-
-                  <div class="align_url_field">
-                    <input
-                      type="text"
-                      style="width: 30%"
-                      :placeholder="this.appurl"
-                      name=""
-                      class="form-control"
-                    />
-                    <input
-                      type="text"
-                      placeholder="your-net-app-url"
-                      class="form-control"
-                      v-model="form.service.appSlug"
-                      :class="{
-                        customError: errors.has('service.appSlug'),
-                      }"
-                      data-vv-scope="service"
-                      name="appSlug"
-                      v-validate="{
-                        required: true,
-                      }"
-                    />
-                  </div>
-                  <span
-                    v-show="errors.has('service.appSlug')"
-                    class="error-text"
-                    >Slug is alread Exists</span
-                  >
-                </div>
-              </div>
               <div class="mb-3">
                 <label for="logo-netapp" class="form-label text-details"
                   >NetApp logo</label
                 >
                 <VueDropzone
+                    id="logo-netapp"
                   :uploadUrl="uploadUrl + '/api/upload-file?url=logo'"
                   extensions=".jpg, .jpeg, .png, .webp"
                   v-on:uploadFile="
@@ -1063,11 +1057,24 @@
         </div>
 
         <div class="step-actions mt-5">
-          <a href="#">Cancel Process</a>
-          <div class="btn btn--blue ms-5" type="button" @click="Validation">
-            <span v-if="this.progressValue < 100"> Next</span>
-            <span v-else>Create</span>
-          </div>
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-6 text-start">
+                        <a style="font-weight: bold" :href="getDashboardRoute()">Cancel Process</a>
+                    </div>
+                    <div class="col-6 text-end">
+                        <div v-if="this.progressValue > 0" class="btn btn--tertiary" type="button" @click="goToPreviousStep">
+                            Previous
+                        </div>
+                        <div class="btn btn--blue" style="margin-left: 20px" type="button" @click="Validation">
+                            <span v-if="this.progressValue < 100"> Next</span>
+                            <span v-else>Create</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
           <div class="mt-5">
             <!-- Button trigger modal -->
@@ -1187,6 +1194,9 @@ export default {
   },
 
   methods: {
+      getDashboardRoute() {
+          return route('welcome-dashboard');
+      },
     changeUploadStatus() {
       console.log("change upload status");
       this.uploadLicenseFile = true;
@@ -1267,19 +1277,19 @@ export default {
         this.$validator.validate("tutorial.*").then((isValid) => {
           if (
             isValid &&
-            this.form.tutorial.pdf !== null &&
+            // this.form.tutorial.pdf !== null &&
             (this.form.tutorial.docs !== null || this.form.tutorial.docs !== "")
           ) {
             this.progressValue = this.stepsValue.pricing;
             this.errors.remove("tutorial.pdf");
             this.windowScroll();
           } else {
-            if (this.form.tutorial.pdf == null) {
-              this.errors.add({
-                field: "tutorial.pdf",
-                msg: "Add Tutorial File",
-              });
-            }
+            // if (this.form.tutorial.pdf == null) {
+            //   this.errors.add({
+            //     field: "tutorial.pdf",
+            //     msg: "Add Tutorial File",
+            //   });
+            // }
             if (
               this.form.tutorial.docs == null ||
               this.form.tutorial.docs == ""
@@ -1301,6 +1311,26 @@ export default {
         });
       }
     },
+      goToPreviousStep() {
+          switch (this.progressValue) {
+              case 22:
+                  this.progressValue = 0;
+                  this.windowScroll();
+                  break;
+              case 50:
+                  this.progressValue = 22;
+                  this.windowScroll();
+                  break;
+              case 75:
+                  this.progressValue = 50;
+                  this.windowScroll();
+                  break;
+              case 100:
+                  this.progressValue = 75;
+                  this.windowScroll();
+                  break;
+          }
+      },
     addRow(index) {
       let maindiv = this.search(index, this.mainDiv);
       maindiv.inputRows.push({

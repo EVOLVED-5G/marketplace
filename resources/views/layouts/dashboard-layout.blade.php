@@ -47,24 +47,27 @@
         <div id="loader"></div>
 
         <div class="dashboard-content">
-            <div class="content ">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 col-sm-12 mx-auto">
+                        <nav class="navbar navbar-expand-md navbar-light bg-light ">
+                            <button class="navbar-toggler btn btn-link border-0" type="button" id="sidebar" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon me-5">Dashboard <i class="fas fa-chevron-right"></i></span>
+                            </button>
+                        </nav>
 
-                <nav class="navbar navbar-expand-md navbar-light bg-light ">
-                    <button class="navbar-toggler btn btn-link border-0" type="button" id="sidebar" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon me-5">Dashboard <i class="fas fa-chevron-right"></i></span>
-                    </button>
-                </nav>
 
+                        <div class="d-flex wrapper wrapper-navbar-used wrapper-navbar-fixed">
+                            @include('common.sidebar')
 
-                <div class="d-flex wrapper wrapper-navbar-used wrapper-navbar-fixed">
-                    @include('common.sidebar')
+                            <div class="container-fluid">
+                                <!-- content -->
+                                <main role="main">
+                                    @yield('content')
+                                </main>
 
-                    <div class="container-fluid">
-                        <!-- content -->
-                        <main role="main">
-                            @yield('content')
-                        </main>
-
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,14 +2,14 @@
 
 namespace App\Repository;
 
-use App\Models\PurchasedNetapp;
+use App\Models\PurchasedNetApp;
 use App\Repository\Repository;
 
-class PurchasedNetappRepository extends Repository
+class PurchasedNetAppRepository extends Repository
 {
   //protected $entity = PurchasedNetapp::class;
   function getModelClassName()
   {
-    return  PurchasedNetapp::class;
+    return  PurchasedNetApp::class;
   }
 }

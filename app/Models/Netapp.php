@@ -39,19 +39,20 @@ class Netapp extends Model
     public function purchasedNetapp()
     {
         if (auth()->check()) {
-            return $this->hasOne(PurchasedNetapp::class)->where('user_id', auth()->user()->id);
+            return $this->hasOne(PurchasedNetApp::class)->where('user_id', auth()->user()->id);
         }
-        return $this->hasOne(PurchasedNetapp::class)->whereNull('id');
+        return $this->hasOne(PurchasedNetApp::class)->whereNull('id');
     }
     public function scopeActive($query)
     {
-        if (auth()->check()) {
-            if ($this->user_id == auth()->user()->id) {
-                return $query->where('user_id', auth()->user()->id);
-            }
-        } else {
+     
+        // if (auth()->check()) {
+        //     if ($this->user_id == auth()->user()->id) {
+        //         return $query->where('user_id', auth()->user()->id);
+        //     }
+        // } else {
             return $query->where('visible', '=', 1);
-        }
+        // }
     }
     public function user()
     {
@@ -75,7 +76,7 @@ class Netapp extends Model
     }
     public function license()
     {
-        return $this->morphMany(Document::class, 'documentable')->where('type', 'license');
+        return $this->morphMany(Document::class, 'documentable')->where('type', 'license')->latest();
     }
     public function pdf()
     {

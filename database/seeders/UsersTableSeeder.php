@@ -21,8 +21,8 @@ class UsersTableSeeder extends Seeder {
         $data = [
             [
                 'id' => 1,
-                'name' => 'Platform Admin',
-                'email' => 'admin@evolved5g.org',
+                'name' => 'Alexandros Tzoumas',
+                'email' => 'alexandros.tzoumas@gmail.com',
                 'password' => bcrypt(env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'))
             ]
         ];

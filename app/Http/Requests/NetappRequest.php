@@ -38,7 +38,7 @@ class NetappRequest extends FormRequest
             "deployment.dockerSize" => 'required|integer',
             "pricing.price" => 'required|integer',
             "tutorial.docs" => 'required|string',
-            "tutorial.pdf" => 'required|string',
+            // "tutorial.pdf" => 'required|string',
 
 
         ];

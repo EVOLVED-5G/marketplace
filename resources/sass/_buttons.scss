@@ -38,7 +38,7 @@
         position: relative;
         cursor: pointer;
         overflow: hidden;
-        
+
         span {
             position: relative;
         }
@@ -76,7 +76,6 @@
         &:hover {
             background-color: var(--color-blue-2);
             color: #ffffff;
-            outline: none;
         }
         &:focus {
             background-color: #ffffff;

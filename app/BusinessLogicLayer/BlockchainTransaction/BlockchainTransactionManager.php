@@ -2,11 +2,11 @@
 
 namespace App\BusinessLogicLayer\BlockchainTransaction;
 
-use App\Models\PurchasedNetapp;
+use App\Models\PurchasedNetApp;
 
 interface BlockchainTransactionManager {
 
-    public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetapp $purchasedNetapp);
+    public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetApp $purchasedNetapp);
 
     public function createBlockchainTransactionAndGetResponse(string $additionalAdditionalData): string;
 

@@ -10,44 +10,47 @@
                     </div>
                     <div class="modal-body">
                         <h1>Your purchase was successful!</h1>
-                        <p>The item named "<b>NetApp 1</b>" was added to your dashboard. You will find
-                            details to your e-mail such as useful links of your purchase:</p>
+                        <p class="text-start">The NetApp was successfully purchased. You will soon receive an
+                            e-mail containing more details about your purchase.<br><br>You can see your purchase in your dashboard:</p>
 
                         <div class="row mb-5 mt-5">
-
-                            <ul class="text-details text-start ">Links
-
-                                <li class="mt-1"> <a href="#">Blockchain confirmation </a></li>
-                                <li><a href="#">Blockchain confirmation 2</a></li>
-                            </ul>
+                            <div class="col-lg-6 col-md-8 col-sm-12 mx-auto">
+                                <a id="dashboard-btn" href="/welcome-dashboard" type="button" class="btn btn--primary btn-lg w-100">Visit your Dashboard</a>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-
-                        <button type="button" class="btn btn--tertiary" data-bs-dismiss="modal" aria-label="Close" @click="cancel">OK</button>
+                        <button type="button" class="btn btn--tertiary" data-bs-dismiss="modal" aria-label="Close" @click="cancel">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </transition>
+
+
+
 </template>
 <script>
 export default {
-  name: "purchased-netapp-modal",
-  props: {
-    allowClose: Boolean,
-    open: false,
-    netappId: Number,
-    classes: "",
-  },
-  methods: {
-    cancel() {
-      this.open = false;
-      window.location.reload();
+    name: "purchased-netapp-modal",
+    props: {
+        allowClose: Boolean,
+        open: false,
+        netappId: Number,
+        classes: "",
     },
-  },
+    methods: {
+        cancel() {
+            this.open = false;
+            window.location.reload();
+        },
+    },
 };
 </script>
 <style scoped lang="scss">
 @import "resources/sass/modal";
+
+#dashboard-btn {
+    font-size: 1.3rem;
+}
 </style>
