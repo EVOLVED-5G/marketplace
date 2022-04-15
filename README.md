@@ -12,18 +12,17 @@ Laravel 8 Web Application for Evolved-5G Market
 
 1. Make sure `php 7.4` (or newer) and `NodeJS v14` (or newer) are installed.
 2. Make sure php [related packages](https://stackoverflow.com/questions/40815984/how-to-install-all-required-php-extensions-for-laravel) are installed
-3. After cloning the project, create an .env file (should be a copy of .env.example),
-   containing the information about your database name and credentials.
-   Then run ```php artisan migrate``` to create the DB schema and
-   ```php artisan db:seed``` in order to insert the starter data to the DB
-
 4. Install laravel/back-end dependencies
 ```
 composer install
 composer dump-autoload
 ```
+4. After cloning the project, create an .env file (should be a copy of .env.example),
+   containing the information about your database name and credentials.
+   Then run ```php artisan migrate``` to create the DB schema and
+   ```php artisan db:seed``` in order to insert the starter data to the DB
 
-3. Install front-end dependencies
+5. Install front-end dependencies
 ```
 npm install
 ```
@@ -32,7 +31,7 @@ Node version that should be used: `14.18.1`
 Npm version  that should be used:  `6.14.5`
 
 
-4. Create symbolic link for uploaded files.
+6. Create symbolic link for uploaded files.
 
 ```
 php artisan storage:link
@@ -40,7 +39,7 @@ php artisan storage:link
 to link the `/public/storage` folder with the `/storage/app/public` director
 
 
-5. Create folder /public/assets  and allow the www-data user to create new folders there
+7. Create folder /public/assets  and allow the www-data user to create new folders there
 
 ## Apache configuration example:
 
