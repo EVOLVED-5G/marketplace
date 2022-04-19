@@ -10,7 +10,7 @@
                     </div>
                     <div class="modal-body">
                         <h1>Your purchase was successful!</h1>
-                        <p class="text-start">The NetApp was successfully purchased. You will soon receive an
+                        <p class="text-start">The NetApp {{this.netappName}} successfully purchased. You will soon receive an
                             e-mail containing more details about your purchase.<br><br>You can see your purchase in your dashboard:</p>
 
                         <div class="row mb-5 mt-5">
@@ -32,25 +32,26 @@
 </template>
 <script>
 export default {
-    name: "purchased-netapp-modal",
-    props: {
-        allowClose: Boolean,
-        open: false,
-        netappId: Number,
-        classes: "",
+  name: "purchased-netapp-modal",
+  props: {
+    allowClose: Boolean,
+    open: false,
+    netappId: Number,
+    classes: "",
+    netappName: null,
+  },
+  methods: {
+    cancel() {
+      this.open = false;
+      window.location.reload();
     },
-    methods: {
-        cancel() {
-            this.open = false;
-            window.location.reload();
-        },
-    },
+  },
 };
 </script>
 <style scoped lang="scss">
 @import "resources/sass/modal";
 
 #dashboard-btn {
-    font-size: 1.3rem;
+  font-size: 1.3rem;
 }
 </style>

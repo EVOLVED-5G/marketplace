@@ -152,18 +152,18 @@
                             <div class="row">
                                 <!-- Button trigger modal -->
                                 @if(auth()->check() && $netapp['user_id']!==auth()->user()->id)
-                                    <div class="col">
-                                        <button class="btn btn--primary w-100" @click="purchaseNetapp({
+                                <div class="col">
+                                    <button class="btn btn--primary w-100" @click="purchaseNetapp({
                                             netapp_id:{{$netapp['id']}},
                                             user_id:{{auth()->user()->id}},
                                             payment_plan_id: null,
                                             })">Purchase</button>
-                                        @endif
-                                    </div>
+                                    @endif
+                                </div>
 
 
                                 <!-- Modal -->
-                                <purchased-netapp-modal :open="this.showPurchasedModel"></purchased-netapp-modal>
+                                <purchased-netapp-modal :open="this.showPurchasedModel" netapp-name="{{$netapp['name']}}"></purchased-netapp-modal>
                             </div>
                             @endif
                         </div>

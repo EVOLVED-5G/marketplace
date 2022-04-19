@@ -18,3 +18,5 @@ public/web.config
 *.~lock.*
 public/fonts
 public/webfonts
+public/assets/netapp/logo/*
+public/assets/pdf/*

@@ -487,7 +487,12 @@
                 v-if="!editForm"
                 >Edit</a
               >
-              <ckEditor
+            <div  :style="[
+                      !editForm
+                        ? { 'pointer-events': 'none' }
+                        : {},
+                    ]">
+             <ckEditor
                 v-model="form.tutorial.docs"
                 name="docs"
                 :value="form.tutorial.docs"
@@ -498,8 +503,9 @@
                 data-vv-scope="service"
                 v-validate="{ required: true }"
                 data-vv-rules="required"
-               :readOnly="editForm==true"
+               
               ></ckEditor>
+              </div>
               <span v-show="errors.has('tutorial.docs')" class="error-text"
                 >Please Fill this field</span
               >
@@ -1169,31 +1175,13 @@ export default {
       });
       this.$validator.validate("pricing.*").then((isValid) => {
         if (isValid) {
+          this.processForm();
         }
         this.windowScroll();
       });
-      axios
-        .post("/api/slug-validation", {
-          slug: this.form.service.appSlug,
-          editForm: true,
-          id: this.netapp[0].id,
-        })
-        .then((respnose) => {
-          this.handleLoader("hide");
-          this.editForm = false;
-          if (respnose.data.message) {
-            this.processForm();
-          }
-        })
-        .catch((err) => {
-          this.handleLoader("hide");
-          this.errors.add({
-            field: "service.app_slug",
-            msg: "Slug is Already Exists",
-          });
-        });
     },
     processForm(changeStatus = false) {
+      console.log("here");
       if (!this.editForm && changeStatus == false) {
         return;
       }
@@ -1229,43 +1217,62 @@ export default {
         this.form.payAsGo = [...price];
         this.form.pricing.price = 0;
         this.form.endpointIds = endpointIds;
-
       }
       this.form.visible = this.visible;
       let slug = this.form.service.appSlug;
       this.form.service.appSlug = slug.toLowerCase().replace(/\s+/g, "-");
       axios
-        .post(`/api/update-netapp/${this.netapp[0].id}`, this.form)
+        .post("/api/slug-validation", {
+          slug: this.form.service.appSlug,
+          editForm: true,
+          id: this.netapp[0].id,
+        })
         .then((respnose) => {
-          this.handleLoader("hide");
-          if (respnose.data.error) {
-            this.$toastr.e("internal Server Error");
-          } else {
-            if (changeStatus) {
-              this.$toastr.s("Status has been updated");
-            } else {
-              this.showModal = true;
-            }
+          if (respnose.data.message) {
+            axios
+              .post(`/api/update-netapp/${this.netapp[0].id}`, this.form)
+              .then((respnose) => {
+                this.handleLoader("hide");
+                this.editForm = false;
+
+                if (respnose.data.error) {
+                  this.$toastr.e("internal Server Error");
+                } else {
+                  if (changeStatus) {
+                    this.$toastr.s("Status has been updated");
+                  } else {
+                    this.showModal = true;
+                  }
+                }
+              })
+              .catch((err) => {
+                this.handleLoader("hide");
+                this.$toastr.defaultPosition = "toast-top-center";
+                this.$toastr.e(err.response.data.message);
+                let errors = err.response.data.errors;
+                for (let key in errors) {
+                  this.errors.add({
+                    field: key,
+                    msg: [...errors[key]],
+                  });
+                }
+              });
           }
         })
         .catch((err) => {
           this.handleLoader("hide");
           this.$toastr.defaultPosition = "toast-top-center";
-          this.$toastr.e(err.response.data.message);
-          let errors = err.response.data.errors;
-          for (let key in errors) {
-            this.errors.add({
-              field: key,
-              msg: [...errors[key]],
-            });
-          }
+          this.$toastr.e("Slug is Already Exists");
+          this.errors.add({
+            field: "service.app_slug",
+            msg: "Slug is Already Exists",
+          });
         });
     },
   },
   created() {
     this.form.user_id = this.netapp[0].user_id;
-    if(!this.netapp[0].tags)
-        this.netapp[0].tags = [];
+    if (!this.netapp[0].tags) this.netapp[0].tags = [];
 
     this.form.service.tag = this.netapp[0].tags.map((tag) => {
       return { key: tag, value: tag };
@@ -1297,7 +1304,10 @@ export default {
       });
     });
     this.divIndex = this.netapp[0].api_endpoints.length;
-    if (this.netapp[0].pdf[0] && this.netapp[0].pdf[0].type == "tutorial_docs") {
+    if (
+      this.netapp[0].pdf[0] &&
+      this.netapp[0].pdf[0].type == "tutorial_docs"
+    ) {
       this.form.tutorial.pdf = this.netapp[0].pdf[0].url;
     }
     if (this.netapp[0].fix_price == 0) {

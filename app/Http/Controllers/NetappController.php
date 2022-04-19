@@ -88,12 +88,14 @@ class NetappController extends Controller
                     'type' => 'license_file'
                 ]);
             }
-            array_push($documentRequest, [
-                'url' => $request['tutorial']['pdf'],
-                'documentable_type' => 'App\Models\Netapp',
-                'documentable_id' => $netapp->id,
-                'type' => 'tutorial_docs'
-            ],);
+            if ($request['tutorial']['pdf'] !== null) {
+                array_push($documentRequest, [
+                    'url' => $request['tutorial']['pdf'],
+                    'documentable_type' => 'App\Models\Netapp',
+                    'documentable_id' => $netapp->id,
+                    'type' => 'tutorial_docs'
+                ],);
+            }
             $document = $this->documentManager->create($documentRequest);
             $image = $this->imageManager->create([
                 'url' => $request['service']['logo'],

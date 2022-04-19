@@ -67,6 +67,14 @@
                 color: var(--color-yellow);
             }
         }
+
+        #digital-signature  {
+            max-width: 400px;
+            a {
+
+            word-break: break-word;
+        }
+    }
     }
 
     #welcome {
