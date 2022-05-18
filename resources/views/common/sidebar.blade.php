@@ -73,7 +73,7 @@
                 </ul>
                 <hr/>
                 <p class="text-note"><b>Action</b></p>
-                <a class="btn btn--tertiary mt-2" href="{{ route('create-netapp') }}">
+                <a class="mouse-cursor-gradient-tracking btn btn--tertiary mt-2" href="{{ route('create-netapp') }}">
                     Create new NetApp
                 </a>
             </div>

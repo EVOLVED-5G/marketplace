@@ -129,9 +129,9 @@ return [
     'crypto_wallet_private_key' => env('CRYPTO_WALLET_PRIVATE_KEY'),
     'crypto_network' => env('CRYPTO_NETWORK'),
     'crypto_infura_project_id' => env('CRYPTO_INFURA_PROJECT_ID'),
-    'crypto_transaction_sender_path' => env('CRYPTO_TRANSACTION_SENDER_PATH'),
-    'nodejs_path' => env('NODEJS_PATH'),
+    'crypto_transaction_sender_base_url' => env('CRYPTO_SENDER_BASE_URL'),
     'forum_url' => env('FORUM_URL'),
+    'tm_forum_api_base_url' => env('TM_FORUM_API_BASE_URL'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

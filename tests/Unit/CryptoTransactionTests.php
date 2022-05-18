@@ -22,7 +22,7 @@ class CryptoTransactionTests extends TestCase {
      */
     public function test_crypto_transaction() {
         $cryptoTransactionManager = app()->make(EthereumAPIBlockchainTransactionManager::class);
-        $response = json_decode($cryptoTransactionManager->createBlockchainTransactionAndGetResponse());
+        $response = json_decode($cryptoTransactionManager->createBlockchainTransactionAndGetResponse("test123"));
         $link = $response->link;
         $link = filter_var($link, FILTER_SANITIZE_URL);
         echo "\n" . $link . "\n";

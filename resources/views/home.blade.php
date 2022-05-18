@@ -8,21 +8,8 @@
 @endsection
 
 @section('content')
-    {{-- <div class="container h-100">
-    <div class="row h-100 align-items-center">
-        <div class="col h-100">
-            <div class="container h-100">
-                <div class="row align-items-center h-100">
-                    <div class="col-6">
-                        <h1>home2</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
     <main>
-        <section class="main-title d-flex align-items-center">
+        <section class="main-title d-flex align-items-center u-margin-bottom-big">
             <div class="main-title__content content">
                 <div class="main-title__content--text d-flex">
                     <div>
@@ -31,27 +18,12 @@
                                 alt="5g-icon"> era
                         </h1>
                         <p> We provide the tools to create, manage and connect to the next generation of 5G netapps</p>
-                        {{-- <button class="mouse-cursor-gradient-tracking ms-3 me-3">
-                            <span>Hover me</span>
-                        </button>
-
-                        <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking "
-                    style="overflow: hidden;"><span> Create
-                        your own</span></a> --}}
                     </div>
 
                     <div>
-                        <a href="{{ route('product-catalogue') }}" class="btn btn--primary ">Explore NetApps</a>
-                        <a href="{{ route('welcome-dashboard') }}" class="btn btn--secondary">Create your own</a>
-
-                        {{-- <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Create
-                    your own</a> --}}
-
-
-
-
-
-                    </div>
+                        <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--primary ">Explore NetApps</a>
+                        <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Create your own</a>
+                   </div>
 
                 </div>
                 <div class="main-title__content--icon">
@@ -71,8 +43,9 @@
                         businesses to
                         come together to create, discover and integrate services by consuming 3GPP APIs (native APIs) as
                         well as other telco assets</p>
+                    <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--tertiary mt-5">View NetApps</a>
                 </div>
-                <div class="boxes">
+                {{-- <div class="boxes">
                     <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
                         <div class="explore__box mb-4">
                             <div class="explore__box--title">
@@ -83,7 +56,7 @@
                                     nonumy
                                     eirmod tempor
                                     invidunt ut labore et dolore magna.</p>
-                                <a href="{{ route('product-catalogue') }}" class="btn btn--tertiary ">View NetApps</a>
+                                <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--tertiary ">View NetApps</a>
                             </div>
                         </div>
                         <div class="explore__box mb-4">
@@ -95,13 +68,13 @@
                                     nonumy
                                     eirmod tempor
                                     invidunt ut labore et dolore magna. </p>
-                                <a href="{{ route('product-catalogue') }}" class="btn btn--tertiary ">View NetApps</a>
+                                <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--tertiary ">View NetApps</a>
                             </div>
                         </div>
                     </div>
 
 
-                </div>
+                </div> --}}
             </div>
 
 
@@ -136,7 +109,7 @@
 
                             </li>
                         </ol>
-                        <a href="{{ route('netapp-creators') }}" class="btn btn--primary mt-5">Find out more</a>
+                        <a href="{{ route('netapp-creators') }}" class="mouse-cursor-gradient-tracking btn btn--primary mt-5">Find out more</a>
                     </div>
                 </div>
 
@@ -156,7 +129,7 @@
 
                         </ol>
 
-                        <a href="{{ route('product-catalogue') }}" class="btn btn--primary mt-5">Find out more</a>
+                        <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--primary mt-5">Find out more</a>
                     </div>
                     <div class="col-lg-6 for-businesses--title p-5">
                         <img class="img-fluid" loading="lazy" src="/img/businesses-line.png" alt="businesses-line">
@@ -177,7 +150,7 @@
                     <h1> Support</h1>
                     <h2>Connect tο the forum!</h2>
 
-                    <a class="btn btn--secondary mt-5" href="{{ route('support') }}">Go to forum</a>
+                    <a class="mouse-cursor-gradient-tracking btn btn--secondary mt-5" href="{{ route('support') }}">Go to forum</a>
                 </div>
 
 
@@ -205,9 +178,9 @@
                             </h2>
                             <div class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
                                 data-bs-parent="#accordionFlushExample" id="key-1">
-                                <div class="accordion-body text-start">Lorem ipsum dolor sit amet, consetetur sadipscing
-                                    elitr, sed
-                                    diam nonumy eirmod tempor invidunt ut labore et.</div>
+                                <div class="accordion-body text-start">Software-Defined Networking (SDN) is a network
+                                    architecture approach that enables the network to be intelligently and centrally
+                                    controlled, or 'programmed,' using software applications.</div>
                             </div>
                         </div>
 
@@ -225,9 +198,9 @@
                             </h2>
                             <div class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
                                 data-bs-parent="#accordionFlushExample" id="key-2">
-                                <div class="accordion-body text-start">Lorem ipsum dolor sit amet, consetetur sadipscing
-                                    elitr, sed
-                                    diam nonumy eirmod tempor invidunt ut labore et.</div>
+                                <div class="accordion-body text-start">Cloud-native architecture and technologies are an
+                                    approach to designing, constructing, and operating workloads that are built in the cloud
+                                    and take full advantage of the cloud computing model</div>
                             </div>
                         </div>
                     </div>
@@ -243,9 +216,9 @@
                             </h2>
                             <div class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
                                 data-bs-parent="#accordionFlushExample" id="key-3">
-                                <div class="accordion-body text-start">Lorem ipsum dolor sit amet, consetetur sadipscing
-                                    elitr, sed
-                                    diam nonumy eirmod tempor invidunt ut labore et.</div>
+                                <div class="accordion-body text-start">5G is the 5th generation mobile network.5G enables a
+                                    new kind of network that is designed to connect virtually everyone and everything
+                                    together including machines, objects, and devices.</div>
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,7 @@
         </div>
         <div class="login-page__input col-md-7">
             <h2 class="text-center mb-4"> {{ __('auth.reset_password') }}</h2>
-            <div class="sign-in-form">
+            <div class="sign-in-form px-3">
                 <form method="POST" action="{{ route('password.update') }}">
                     @csrf
 

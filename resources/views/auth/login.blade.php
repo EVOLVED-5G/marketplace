@@ -10,7 +10,7 @@
         </div>
         <div class="login-page__input col-md-7">
             <h2 class="text-center mb-5">Sign in to Εvolved-5G</h2>
-            <div class="sign-in-form">
+            <div class="sign-in-form px-3">
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 

@@ -43,6 +43,10 @@
 
     .sidebar {
         padding-top: 65px;
+
+        .ps__rail-x {
+            display: none;
+        }
     }
 
     #welcome,
@@ -238,46 +242,7 @@
             min-width: rem(185px);
         }
 
-        // blue
-
-        .mouse-cursor-gradient-tracking {
-            position: relative;
-            padding: 0.5rem 1rem;
-            font-size: 1.2rem;
-
-            background-color: var(--color-title);
-            color: #ffffff;
-            border: none;
-
-            // outline: 2px solid var(--color-primary);
-            cursor: pointer;
-            // outline: 2px solid var(--color-primary);
-            overflow: hidden;
-            span {
-                position: relative;
-            }
-
-            &:hover {
-                color: #ffffff;
-            }
-        }
-
-        .mouse-cursor-gradient-tracking:before {
-            --size: 0;
-            content: "";
-            position: absolute;
-            left: var(--x);
-            top: var(--y);
-            width: var(--size);
-            height: var(--size);
-            background: radial-gradient(circle closest-side, var(--color-purple-2), transparent);
-            transform: translate(-50%, -50%);
-            transition: width 0.2s ease, height 0.2s ease;
-        }
-
-        .mouse-cursor-gradient-tracking:hover:before {
-            --size: 200px;
-        }
+      
 
         .modal-dialog {
             max-width: 945px;

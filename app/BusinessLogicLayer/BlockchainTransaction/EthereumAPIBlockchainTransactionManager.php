@@ -6,18 +6,20 @@ use App\Models\PurchasedNetApp;
 use App\Notifications\NotifyBuyerAboutPurchasedNetappBlockchainTransactionCreation;
 use App\Repository\PurchasedNetAppRepository;
 use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 
-class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionManager {
+class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionManager
+{
 
     private $CRYPTO_SENDER_ADDRESS;
     private $CRYPTO_RECEIVER_ADDRESS;
     private $CRYPTO_WALLET_PRIVATE_KEY;
     private $CRYPTO_NETWORK;
     private $CRYPTO_INFURA_PROJECT_ID;
-    private $CRYPTO_TRANSACTION_SENDER_PATH;
-    private $NODEJS_PATH;
+    private $CRYPTO_SENDER_BASE_URL;
     protected $purchasedNetappRepository;
+    protected $client;
 
     public function __construct(PurchasedNetAppRepository $purchasedNetappRepository) {
         $this->CRYPTO_SENDER_ADDRESS = config('app.crypto_sender_address');
@@ -25,11 +27,14 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
         $this->CRYPTO_WALLET_PRIVATE_KEY = config('app.crypto_wallet_private_key');
         $this->CRYPTO_NETWORK = config('app.crypto_network');
         $this->CRYPTO_INFURA_PROJECT_ID = config('app.crypto_infura_project_id');
-        $this->CRYPTO_TRANSACTION_SENDER_PATH = config('app.crypto_transaction_sender_path');
-        $this->NODEJS_PATH = config('app.nodejs_path');
+        $this->CRYPTO_SENDER_BASE_URL = config('app.crypto_transaction_sender_base_url');
         $this->purchasedNetappRepository = $purchasedNetappRepository;
+        $this->client = new Client();
     }
 
+    /**
+     * @throws Exception if the blockchain transaction cannot be created
+     */
     public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetApp $purchasedNetapp) {
         $response = $this->createBlockchainTransactionAndGetResponse($purchasedNetapp->hash);
         $response = json_decode($response);
@@ -41,26 +46,36 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
     }
 
     /**
-     * @param string $additionalData
+     * @param string $data
      * @return string the response
      * @throws Exception
      */
-    public function createBlockchainTransactionAndGetResponse(string $additionalData): string {
+    public function createBlockchainTransactionAndGetResponse(string $data): string {
         $this->validateEnvironment();
-        $command = $this->NODEJS_PATH . ' ' . $this->CRYPTO_TRANSACTION_SENDER_PATH
-            . ' --network=' . $this->CRYPTO_NETWORK
-            . ' --project=' . $this->CRYPTO_INFURA_PROJECT_ID
-            . ' --from=' . $this->CRYPTO_SENDER_ADDRESS
-            . ' --to=' . $this->CRYPTO_RECEIVER_ADDRESS
-            . ' --key=' . $this->CRYPTO_WALLET_PRIVATE_KEY
-            . ' --data=' . '"' . $additionalData . '"';
-        return trim(shell_exec($command));
+        return $this->client->request('POST', $this->CRYPTO_SENDER_BASE_URL . '/create', [
+            'json' => [
+                'network' => $this->CRYPTO_NETWORK,
+                'project' => $this->CRYPTO_INFURA_PROJECT_ID,
+                'from' => $this->CRYPTO_SENDER_ADDRESS,
+                'to' => $this->CRYPTO_RECEIVER_ADDRESS,
+                'key' => $this->CRYPTO_WALLET_PRIVATE_KEY,
+                'data' => $data
+            ],
+            // If you want more informations during request
+            'debug' => false,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ]
+        ])->getBody();
     }
 
     /**
      * @throws Exception
      */
     protected function validateEnvironment() {
+        if (!$this->CRYPTO_SENDER_BASE_URL)
+            throw new Exception("Crypto Sender base URL is null");
         if (!$this->CRYPTO_SENDER_ADDRESS)
             throw new Exception("Crypto Sender address is null");
         if (!$this->CRYPTO_RECEIVER_ADDRESS)
@@ -71,9 +86,5 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
             throw new Exception("Crypto Network is null");
         if (!$this->CRYPTO_INFURA_PROJECT_ID)
             throw new Exception("Crypto Infura Project ID is null");
-        if (!$this->NODEJS_PATH)
-            throw new Exception("NodeJS path is null");
-        if (!file_exists($this->CRYPTO_TRANSACTION_SENDER_PATH))
-            throw new Exception("Transaction Sender utility not found . Queried path: " . $this->CRYPTO_TRANSACTION_SENDER_PATH);
     }
 }

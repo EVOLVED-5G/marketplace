@@ -266,10 +266,13 @@
                 >
               </div>
               <div class="col-md-12">
-                <label
-                  for="version-of-netapp"
-                  class="form-label text-details"
-                >Add a tag name<br><i>Help your NetApp be more distinguished so that it can be found easier. Add tag names that you want to characterize your NetApp.</i></label>
+                <label for="version-of-netapp" class="form-label text-details"
+                  >Add a tag name<br /><i
+                    >Help your NetApp be more distinguished so that it can be
+                    found easier. Add tag names that you want to characterize
+                    your NetApp.</i
+                  ></label
+                >
                 <VoerroTagsInput
                   element-id="tags"
                   v-model="form.service.tag"
@@ -283,62 +286,65 @@
                   >Select atleast one Tag asdf</span
                 >
               </div>
-                <div class="col-md-12">
-                    <div class="form_field_main">
-                        <div class="tooltip">
-                            <label style="margin-right: 5px">URL Slug </label
-                            ><i class="fas fa-question-circle"></i> <br /><span
-                            class="tooltiptext"
-                        >
+              <div class="col-md-12">
+                <div class="form_field_main">
+                  <div class="tooltip">
+                    <label style="margin-right: 5px">URL Slug </label
+                    ><i class="fas fa-question-circle"></i> <br /><span
+                      class="tooltiptext"
+                    >
                       <small>
                         For example (my-net-app) <br />
                         This will make your net app available at
                         {{ this.appurl }}. You should use only alphanumeric
                         characters, underscores (_) or dashes (-).</small
                       ></span
-                        >
-                        </div>
+                    >
+                  </div>
 
-                        <div class="align_url_field">
-                            <input
-                                type="text"
-                                style="width: 30%"
-                                :placeholder="this.appurl"
-                                name=""
-                                class="form-control"
-                            />
-                            <input
-                                type="text"
-                                placeholder="your-net-app-url"
-                                class="form-control"
-                                v-model="form.service.appSlug"
-                                :class="{
+                  <div class="align_url_field">
+                    <input
+                      type="text"
+                      style="width: 30%"
+                      :placeholder="this.appurl"
+                      name=""
+                      class="form-control"
+                    />
+                    <input
+                      type="text"
+                      placeholder="your-net-app-url"
+                      class="form-control"
+                      v-model="form.service.appSlug"
+                      :class="{
                         customError: errors.has('service.appSlug'),
                       }"
-                                data-vv-scope="service"
-                                name="appSlug"
-                                v-validate="{
+                      data-vv-scope="service"
+                      name="appSlug"
+                      v-validate="{
                         required: true,
                       }"
-                            />
-                        </div>
-                        <span
-                            v-show="errors.has('service.appSlug')"
-                            class="error-text"
-                        >Slug is alread Exists</span
-                        >
-                    </div>
+                    />
+                  </div>
+                  <span
+                    v-show="errors.has('service.appSlug')"
+                    class="error-text"
+                    >Slug is alread Exists</span
+                  >
                 </div>
+              </div>
               <div>
                 <label for="about-netapp" class="form-label text-details"
-                  >View more (Marketing page) url site<br><i>Do you have an external page/URL hat demonstrates your NetApp (for example in your company's website)? Paste it below:</i></label
+                  >View more (Marketing page) url site<br /><i
+                    >Do you have an external page/URL hat demonstrates your
+                    NetApp (for example in your company's website)? Paste it
+                    below:</i
+                  ></label
                 >
                 <input
                   type="url"
                   class="form-control"
                   id="netapp-url"
                   v-model="form.service.marketing_url"
-
                 />
                 <span
                   v-show="errors.has('service.marketing_url')"
@@ -351,7 +357,7 @@
                   >NetApp logo</label
                 >
                 <VueDropzone
-                    id="logo-netapp"
+                  id="logo-netapp"
                   :uploadUrl="uploadUrl + '/api/upload-file?url=logo'"
                   extensions=".jpg, .jpeg, .png, .webp"
                   v-on:uploadFile="
@@ -719,11 +725,11 @@
                   data-vv-scope="pricing"
                   v-validate="
                     form.paymentplan == 'onceoff'
-                      ? {}
-                      : {
+                      ? {
                           required: true,
                           numeric: true,
                         }
+                      : {}
                   "
                   data-vv-rules="required"
                 />
@@ -776,7 +782,7 @@
                   type="url"
                   class="form-control mb-3"
                   id="device-location"
-                  placeholder="/get-device-location"
+                  placeholder="http://www.test.com/"
                   v-model="maindiv.endpointInput"
                   :name="'payAsGo.' + mainIndex + '.api_url'"
                   :class="{
@@ -1057,30 +1063,44 @@
         </div>
 
         <div class="step-actions mt-5">
-            <div class="container-fluid p-0">
-                <div class="row">
-                    <div class="col-6 text-start">
-                        <a style="font-weight: bold" :href="getDashboardRoute()">Cancel Process</a>
-                    </div>
-                    <div class="col-6 text-end">
-                        <div v-if="this.progressValue > 0" class="btn btn--tertiary" type="button" @click="goToPreviousStep">
-                            Previous
-                        </div>
-                        <div class="btn btn--blue" style="margin-left: 20px" type="button" @click="Validation">
-                            <span v-if="this.progressValue < 100"> Next</span>
-                            <span v-else>Create</span>
-                        </div>
-                    </div>
+          <div class="container-fluid p-0">
+            <div class="row">
+              <div class="col-6 text-start">
+                <a style="font-weight: bold" :href="getDashboardRoute()"
+                  >Cancel Process</a
+                >
+              </div>
+              <div class="col-6 text-end">
+                <div
+                  v-if="this.progressValue > 0"
+                  class="btn btn--tertiary"
+                  type="button"
+                  @click="goToPreviousStep"
+                >
+                  Previous
                 </div>
+                <div
+                  class="btn btn--blue"
+                  style="margin-left: 20px"
+                  type="button"
+                  @click="Validation"
+                >
+                  <span v-if="this.progressValue < 100"> Next</span>
+                  <span v-else>Create</span>
+                </div>
+              </div>
             </div>
-
-
+          </div>
 
           <div class="mt-5">
             <!-- Button trigger modal -->
 
             <!-- Modal -->
-            <Modal :open="this.showModal" :netappId="this.netappId">
+            <Modal
+              :open="this.showModal"
+              :netappId="this.netappId"
+              :link="'/edit-netapp/' + this.netappId"
+            >
               Your Netapp has been created successfully
             </Modal>
           </div>
@@ -1194,9 +1214,9 @@ export default {
   },
 
   methods: {
-      getDashboardRoute() {
-          return route('welcome-dashboard');
-      },
+    getDashboardRoute() {
+      return route("welcome-dashboard");
+    },
     changeUploadStatus() {
       console.log("change upload status");
       this.uploadLicenseFile = true;
@@ -1221,7 +1241,7 @@ export default {
             .post("api/slug-validation", { slug: this.form.service.appSlug })
             .then((respnose) => {
               this.handleLoader("hide");
-              if (respnose.data.message) {
+              if (respnose.data.message == "success") {
                 if (this.form.service.logo == null) {
                   this.errors.add({
                     field: "service.logo",
@@ -1231,6 +1251,7 @@ export default {
                 if (isValid && this.form.service.logo !== null) {
                   this.errors.remove("service.logo");
                   this.progressValue = this.stepsValue.policy;
+                  console.log(this.progressValue);
                   this.windowScroll();
                 }
               }
@@ -1311,26 +1332,26 @@ export default {
         });
       }
     },
-      goToPreviousStep() {
-          switch (this.progressValue) {
-              case 22:
-                  this.progressValue = 0;
-                  this.windowScroll();
-                  break;
-              case 50:
-                  this.progressValue = 22;
-                  this.windowScroll();
-                  break;
-              case 75:
-                  this.progressValue = 50;
-                  this.windowScroll();
-                  break;
-              case 100:
-                  this.progressValue = 75;
-                  this.windowScroll();
-                  break;
-          }
-      },
+    goToPreviousStep() {
+      switch (this.progressValue) {
+        case 22:
+          this.progressValue = 0;
+          this.windowScroll();
+          break;
+        case 50:
+          this.progressValue = 22;
+          this.windowScroll();
+          break;
+        case 75:
+          this.progressValue = 50;
+          this.windowScroll();
+          break;
+        case 100:
+          this.progressValue = 75;
+          this.windowScroll();
+          break;
+      }
+    },
     addRow(index) {
       let maindiv = this.search(index, this.mainDiv);
       maindiv.inputRows.push({
@@ -1377,6 +1398,7 @@ export default {
           return {
             api_url: value.endpointInput,
             prices: value.inputRows.map((price, priceIndex) => {
+                console.log(price)
               if (price.unlimitedInput) {
                 return {
                   from: price.fromInput,

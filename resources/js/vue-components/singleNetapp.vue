@@ -25,7 +25,7 @@
         "
         style="text-decoration: none"
       >
-        <div style="width: 70%">
+        <div style="width: 90%">
           <h5>{{ this.netapp.name }}</h5>
           <p v-if="this.netapp.published_by == 'user'">
             {{ this.netapp["user"].name }}

@@ -59,89 +59,7 @@
                 max-width: 450px;
             }
 
-            // primary
-
-            // .mouse-cursor-gradient-tracking {
-            //     position: relative;
-            //     padding: 0.5rem 1rem;
-            //     font-size: 1.2rem;
-            //     border: none;
-            //     background-color: var(--color-primary);
-            //     color: white;
-            //     // outline: 2px solid var(--color-primary);
-            //     cursor: pointer;
-            //     // outline: 2px solid var(--color-primary);
-            //     overflow: hidden;
-            //     span {
-            //         position: relative;
-            //     }
-
-            //     &:hover {
-
-            //         color: #ffffff;
-
-            //     }
-            // }
-
-            // .mouse-cursor-gradient-tracking:before {
-            //     --size: 0;
-            //     content: "";
-            //     position: absolute;
-            //     left: var(--x);
-            //     top: var(--y);
-            //     width: var(--size);
-            //     height: var(--size);
-            //     background: radial-gradient(circle closest-side, var(--color-orange), transparent);
-            //     transform: translate(-50%, -50%);
-            //     transition: width 0.2s ease, height 0.2s ease;
-            // }
-
-            // .mouse-cursor-gradient-tracking:hover:before {
-            //     --size: 200px;
-            // }
-
-            // secondary
-
-            .mouse-cursor-gradient-tracking {
-                position: relative;
-                padding: 0.5rem 1rem;
-                font-size: 1.2rem;
-
-                color: white;
-
-                background-color: transparent;
-                color: #ffffff;
-                border: none;
-                outline: 2px solid #ffffff;
-                // outline: 2px solid var(--color-primary);
-                cursor: pointer;
-                // outline: 2px solid var(--color-primary);
-                overflow: hidden;
-                span {
-                    position: relative;
-                }
-
-                &:hover {
-                    color: #ffffff;
-                }
-            }
-
-            .mouse-cursor-gradient-tracking:before {
-                --size: 0;
-                content: "";
-                position: absolute;
-                left: var(--x);
-                top: var(--y);
-                width: var(--size);
-                height: var(--size);
-                background: radial-gradient(circle closest-side, var(--color-orange), transparent);
-                transform: translate(-50%, -50%);
-                transition: width 0.2s ease, height 0.2s ease;
-            }
-
-            .mouse-cursor-gradient-tracking:hover:before {
-                --size: 200px;
-            }
+           
         }
 
         &--icon {
@@ -164,6 +82,10 @@
 
         p {
             max-width: rem(945px);
+        }
+
+        .btn {
+            width: rem(260px);
         }
     }
 

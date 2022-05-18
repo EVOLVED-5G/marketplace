@@ -1,17 +1,20 @@
 version: "3.1"
 services:
-  php7:
+
+  php:
     build:
       context: docker/apache_php
-    container_name: evolved5g_pilot
-    links:
-      - db
-      - phpmyadmin
+      dockerfile: php8.dockerfile
+    container_name: evolved5g_pilot_php
+    user: "1000:1000" #this is the Laravel user. We need to set it
+    # this way, so that the permissions are applied correctly.
     ports:
       - "89:80"
     volumes:
       - .:/var/www/html
       - ~/.composer/auth.json:/root/.composer/auth.json
+    networks:
+      - docker_evolved5g_net
 
   db:
     build:
@@ -26,9 +29,14 @@ services:
       - "3316:3306"
     volumes:
       - mydata:/var/lib/mysql
+    networks:
+      - docker_evolved5g_net
+
   phpmyadmin:
     depends_on:
       - db
+      - php
+    container_name: evolved5g_pilot_phpmyadmin
     image: phpmyadmin/phpmyadmin
     ports:
       - "8089:80"
@@ -37,6 +45,68 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       UPLOAD_LIMIT: 128M
       PMA_HOST: db
+    networks:
+      - docker_evolved5g_net
+
+  composer:
+    container_name: evolved5g_pilot_composer
+    build:
+      context: ./docker/utils
+      dockerfile: composer.dockerfile
+    volumes:
+      - .:/var/www/html
+    networks:
+      - docker_evolved5g_net
+
+  artisan:
+    container_name: evolved5g_pilot_artisan
+    build:
+      context: docker/apache_php
+      dockerfile: php8.dockerfile
+    volumes:
+      - .:/var/www/html
+    networks:
+      - docker_evolved5g_net
+    depends_on:
+      - php
+    entrypoint: [ "php", "/var/www/html/artisan" ]
+
+  npm:
+    build:
+      context: .
+      dockerfile: docker/utils/npm.dockerfile
+    container_name: evolved5g_pilot_npm
+    working_dir: /var/www/html
+    entrypoint: [ "npm" ]
+    volumes:
+      - .:/var/www/html
+    networks:
+      - docker_evolved5g_net
+    depends_on:
+      - php
+
+  supervisor:
+    container_name: supervisor
+    image: redditsaved/laravel-supervisord:latest
+    restart: unless-stopped
+    environment:
+      - APP_ROOT=/var/www/html
+      - QUEUE_DRIVER=${QUEUE_CONNECTION}
+      - OPTIONS=${QUEUE_OPTIONS}
+      - NUM_PROCS=${NUM_PROCS}
+    volumes:
+      - .:/var/www/html
+    networks:
+      - docker_evolved5g_net
+    depends_on:
+      - php
+      - db
+
 
 volumes:
   mydata:
+
+networks:
+  docker_evolved5g_net:
+    external: false
+    name: docker_evolved5g_net

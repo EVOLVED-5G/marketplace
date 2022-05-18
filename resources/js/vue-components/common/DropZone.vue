@@ -94,3 +94,8 @@ export default {
     },
 };
 </script>
+<style>
+.dropzone .dz-preview .dz-error-message{
+    top:0px !important;
+}
+</style>

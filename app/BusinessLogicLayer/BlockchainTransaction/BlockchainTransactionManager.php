@@ -8,6 +8,6 @@ interface BlockchainTransactionManager {
 
     public function createBlockchainTransactionForPurchasedNetapp(PurchasedNetApp $purchasedNetapp);
 
-    public function createBlockchainTransactionAndGetResponse(string $additionalAdditionalData): string;
+    public function createBlockchainTransactionAndGetResponse(string $data): string;
 
 }

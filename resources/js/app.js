@@ -22,53 +22,53 @@ import MarketplaceOverview from './vue-components/admin-components/marketplace-o
 
 Vue.use(VueToastr);
 Vue.mixin({
-    data(){
-        return{
-        appurl: process.env.MIX_API_URL,
-        showPurchasedModel:false,
+    data() {
+        return {
+            appurl: process.env.MIX_API_URL,
+            showPurchasedModel: false,
         }
     },
     methods: {
-        saveNetapp(netappId,loggedInUserId,refreshPage=false){
+        saveNetapp(netappId, loggedInUserId, refreshPage = false) {
             axios
-            .post(`${process.env.MIX_API_URL}/api/save-netapp`, {
-              netapp_id: netappId,
-              user_id: loggedInUserId,
-            })
-            .then((response) => {
-              this.savedNetapp = true;
-              if(refreshPage){
-                  window.location.reload();
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+                .post(`${process.env.MIX_API_URL}/api/save-netapp`, {
+                    netapp_id: netappId,
+                    user_id: loggedInUserId,
+                })
+                .then((response) => {
+                    this.savedNetapp = true;
+                    if (refreshPage) {
+                        window.location.reload();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
-        unsaveNetapp(savedNetappId,refreshPage=false){
+        unsaveNetapp(savedNetappId, refreshPage = false) {
             axios
-            .patch(`${process.env.MIX_API_URL}/api/unsave-netapp`, { id: savedNetappId })
-            .then((response) => {
-              this.savedNetapp = false;
-              if(refreshPage){
-                window.location.reload();
-            }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+                .patch(`${process.env.MIX_API_URL}/api/unsave-netapp`, { id: savedNetappId })
+                .then((response) => {
+                    this.savedNetapp = false;
+                    if (refreshPage) {
+                        window.location.reload();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
-        purchaseNetapp(formData,refreshPage=false){
+        purchaseNetapp(formData, refreshPage = false) {
             this.handleLoader('show');
             axios
-            .post(`${process.env.MIX_API_URL}/api/purchase-netapp`, formData)
-            .then((response) => {
-                this.handleLoader('hide');
-                this.showPurchasedModel=true
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+                .post(`${process.env.MIX_API_URL}/api/purchase-netapp`, formData)
+                .then((response) => {
+                    this.handleLoader('hide');
+                    this.showPurchasedModel = true
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
         handleLoader(attribute) {
             var yourUl = document.getElementById("loader");
@@ -105,8 +105,8 @@ Vue.component(
 Vue.component("createnetapp", CreateNetApp);
 Vue.component("edit-netapp", editNetapp);
 Vue.component("product-catalog", ProductCatalog);
-Vue.component("purchased-netapp-modal",PurchasedNetappModal)
-Vue.component('marketplace-overview',MarketplaceOverview)
+Vue.component("purchased-netapp-modal", PurchasedNetappModal)
+Vue.component('marketplace-overview', MarketplaceOverview)
 
 const app = new Vue({
     el: '#app',
@@ -164,14 +164,17 @@ const app = new Vue({
 
 
     // mouse hover
-    $(".mouse-cursor-gradient-tracking").on("mousemove", e => {
-        let rect = e.target.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        let y = e.clientY - rect.top;
-        $(this).css("--x", x + "px");
-        $(this).css("--y", y + "px");
 
+    document.querySelectorAll('.mouse-cursor-gradient-tracking').forEach(element => {
+        element.addEventListener('mousemove', e => {
+            let rect = e.target.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            let y = e.clientY - rect.top;
+            element.style.setProperty('--x', x + 'px');
+            element.style.setProperty('--y', y + 'px');
+        });
     });
+
 
 
     // mobile menu

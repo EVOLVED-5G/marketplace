@@ -82,7 +82,7 @@ class NetappController extends Controller
             $netapp = $this->netappManager->create($request->all());
             if ($request['deployment']['licensefile'] !== null) {
                 array_push($documentRequest, [
-                    'url' => $request['tutorial']['pdf'],
+                    'url' => $request['deployment']['licensefile'],
                     'documentable_type' => 'App\Models\Netapp',
                     'documentable_id' => $netapp->id,
                     'type' => 'license_file'

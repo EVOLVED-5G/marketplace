@@ -97,6 +97,8 @@
                     background-color: white;
                     padding: 10px;
                     position: relative;
+                    min-height: 80px;
+
 
                     img {
                         align-self: center;
@@ -105,7 +107,13 @@
                     h5,
                     p {
                         margin-bottom: 0;
+                        white-space: nowrap;
+                        width: 132px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
+
+
 
                     a {
                         text-decoration: none;

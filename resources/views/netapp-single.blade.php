@@ -11,7 +11,7 @@
                 <div class="product-info__title--icon me-3">
                     <img loading="lazy" src="{{url($netapp['logo'][0]['url'])}}" alt="product-netapp-icon" style="width: 100px;">
                 </div>
-                <div class="product-info__title--name">
+                <div class="product-info__title--name me-3">
                     <h2>{{$netapp['name']}}</h2>
                     <p>@if($netapp['published_by'] == 'user') {{$netapp['user']['name']}} @else {{$netapp['business_name']}} @endif</p>
                 </div>
@@ -68,19 +68,19 @@
             </div>
 
             <div class="collapse content p-5" id="tutorials">
-                <h2>How to use it</h2>
+           
                 {!!$netapp['tutorial_docs']!!}
             </div>
 
         </div>
         <div class="product-pricing mb-5">
             <div class="section-title">
-                <a data-bs-toggle="collapse" href="javascript:void(0)" data-bs-target="#pricing" role="button" aria-expanded="false" aria-controls="pricing" class="collapsed">
+                <a data-bs-toggle="collapse" href="javascript:void(0)" data-bs-target="#pricing" role="button" aria-expanded="true" aria-controls="pricing">
                     <h3>Pricing<i class="fas fa-long-arrow-alt-right ms-5" aria-hidden="true"></i><i class="fas fa-long-arrow-alt-left ms-5" aria-hidden="true"></i></h3>
                 </a>
             </div>
 
-            <div class="collapse content p-5" id="pricing">
+            <div class="collapse show content p-5" id="pricing">
                 @if(count($netapp['api_endpoints'])>0)
                 <div id="pay-as-you-go">
                     <h3>Pay as you go</h3>

@@ -4,6 +4,7 @@
 @endpush
 
 @section('content')
+
 <main>
     <section class="main-title d-flex align-items-center u-margin-bottom-big">
         <div class="main-title__content content">
@@ -24,35 +25,28 @@
         <div class="how-to-sell__content text-center mb-5 d-flex align-items-center flex-column">
             <img class="img-fluid mb-3" loading="lazy" src="/img/line-icon.png" alt="line-icon">
             <h1>How to sell</h1>
-            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                et ea rebum. Stet clita kasd gubergren, no sea</p>
+            <p>Use the marketplace to upload your Evolved5G- netapps, configure pricing quotes, branding and marketing material. Activate your NetApp and start selling!</p>
         </div>
         <div class="how-to-sell__steps p-5">
             <h3 class="mb-3">Take the steps</h3>
             <ol>
                 <li>
-                    <p> <span>1</span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore</p>
+                    <p> <span>1</span>Use the <a href="http://evolved5g-marketplace-forum.evolved-5g.gr/c/how-to-build/6" target="blank">forum</a> to lean how you can create your netapps</p>
                 </li>
                 <li>
-                    <p> <span>2</span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore</p>
+                    <p> <span>2</span>Validate and Certify your NetApp</p>
                 </li>
                 <li>
-                    <p> <span>3</span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, or
-                        <a href="#">chech our documentation</a>
+                    <p> <span>3</span>Configure your pricing quotes and connect to the marketplace</a>
                     </p>
                 </li>
                 <li>
-                    <p> <span>4</span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-                        accusam et justo duo dolores et ea rebum. Stet clita kasd</p>
+                    <p> <span>4</span>Start Selling!</p>
 
                 </li>
             </ol>
             <div class="text-center">
-                <a href="#" class="btn btn--blue mt-5">Create your NetApp</a>
+                <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--blue mt-5">Create your NetApp</a>
             </div>
         </div>
     </section>
@@ -62,7 +56,7 @@
 
         <section class="buy-a-netapp u-margin-bottom-big content text-center p-5">
             <h1> Buy a NetApp</h1>
-            <a href="#" class="btn btn--tertiary mt-5">Find NetApp</a>
+            <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--tertiary mt-5">Find NetApp</a>
 
         </section>
 
@@ -72,7 +66,7 @@
                 <img class="img-fluid mt-3 mb-3" loading="lazy" src="/img/creators-line.png" alt="line-icon">
                 <h1> Do you have questions?</h1>
                 <p>Check our community platform and get accurate answers.</p>
-                <a href="http://evolved5g-marketplace-forum.evolved-5g.gr/" target="blank" class="btn btn--blue mt-5">Find out more</a>
+                <a href="http://evolved5g-marketplace-forum.evolved-5g.gr/" target="blank" class="mouse-cursor-gradient-tracking btn btn--blue mt-5">Find out more</a>
             </div>
 
 

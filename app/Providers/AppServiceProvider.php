@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\BusinessLogicLayer\TMForumAPI\ForumAPIManager;
+use App\BusinessLogicLayer\TMForumAPI\TMForumAPIManager;
 use App\Models\Netapp;
 use App\Models\PurchasedNetApp;
 use Auth;
@@ -18,7 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ForumAPIManager::class, function ($app) {
+            return $app->make(TMForumAPIManager::class);
+        });
     }
 
     /**

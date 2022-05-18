@@ -23,7 +23,7 @@
                         <h1><slot></slot></h1>
                     </div>
                     <div class="modal-footer">
-                        <a :href="'/edit-netapp/'+this.netappId">
+                        <a :href="this.link">
                             <button
                                 type="button"
                                 class="btn btn--tertiary mb-3"
@@ -33,7 +33,7 @@
                             </button></a
                         >
 
-                        <a :href="'/edit-netapp/'+this.netappId">Go to see your NetApp</a>
+                        <a :href="this.link">Go to see your NetApp</a>
                     </div>
                 </div>
             </div>
@@ -45,6 +45,7 @@ export default {
   props: {
     allowClose: Boolean,
     open: false,
+    link: null,
     netappId: Number,
     classes: "",
   },

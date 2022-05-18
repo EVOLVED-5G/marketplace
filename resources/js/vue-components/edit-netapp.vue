@@ -211,7 +211,7 @@
                         <span
                           v-show="errors.has('service.category')"
                           class="error-text"
-                          >Select atleast one Service Category</span
+                          >Select at least one Service Category</span
                         >
                       </div>
                       <div class="col-md-6 form_field_main">
@@ -503,7 +503,7 @@
                 data-vv-scope="service"
                 v-validate="{ required: true }"
                 data-vv-rules="required"
-               
+
               ></ckEditor>
               </div>
               <span v-show="errors.has('tutorial.docs')" class="error-text"
@@ -546,7 +546,7 @@
                   v-if="this.netapp[0].fix_price !== 0"
                 >
                   <div class="p-3 border bg-light">
-                    <h4 class="mb-4">One Off</h4>
+                    <h4 class="mb-4">Once-off</h4>
                     <h2>{{ this.netapp[0].fix_price }} € <br /></h2>
                   </div>
                 </div>
@@ -654,7 +654,7 @@
                         type="url"
                         class="form-control mb-3"
                         id="device-location"
-                        placeholder="/get-device-location"
+                        placeholder="http://www.test.com/"
                         v-model="maindiv.endpointInput"
                         :name="'payAsGo.' + mainIndex + '.api_url'"
                         :class="{
@@ -952,7 +952,7 @@
         </div>
       </div>
     </div>
-    <Modal :open="this.showModal"> You Netapp has been Updated </Modal>
+  <Modal :open="this.showModal" :netappId="this.netapp[0].id" :link="'/netapp-details/'+this.netapp[0].id"> You Netapp has been Updated </Modal>
   </section>
 </template>
 
