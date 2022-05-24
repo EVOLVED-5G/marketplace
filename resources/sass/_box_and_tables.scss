@@ -5,6 +5,10 @@
         margin-top: 46px;
     }
 
+    @media (max-width: 500px) {
+        margin-top: 15px;
+    }
+
     &__number {
         background-color: #ffffff;
         width: rem(255px);

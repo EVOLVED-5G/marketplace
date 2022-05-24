@@ -13,10 +13,17 @@
 
 
 
+<script>
+    function openNav() {
+        $("body").addClass("test");
+    }
 
+    function closeNav() {
+        $("body").removeClass("test");
+        // document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
 
 
 
 @stack('scripts')
-
-

@@ -1065,23 +1065,23 @@
         <div class="step-actions mt-5">
           <div class="container-fluid p-0">
             <div class="row">
-              <div class="col-6 text-start">
+              <div class="col-lg-3 col-md-12 text-start mb-4">
                 <a style="font-weight: bold" :href="getDashboardRoute()"
                   >Cancel Process</a
                 >
               </div>
-              <div class="col-6 text-end">
+              <div class="col-lg-9 text-lg-end text-md-start">
                 <div
                   v-if="this.progressValue > 0"
-                  class="btn btn--tertiary"
+                  class="btn btn--tertiary mb-4"
                   type="button"
                   @click="goToPreviousStep"
                 >
                   Previous
                 </div>
                 <div
-                  class="btn btn--blue"
-                  style="margin-left: 20px"
+                  class="btn btn--blue ms-sm-3 mb-4"
+
                   type="button"
                   @click="Validation"
                 >
@@ -1101,7 +1101,11 @@
               :netappId="this.netappId"
               :link="'/edit-netapp/' + this.netappId"
             >
-              Your Netapp has been created successfully
+              <h1>You are about to change your Status</h1>
+              <p>
+                Your NetApp status will change to <b>public</b> and it will be
+                visible in Marketplace
+              </p>
             </Modal>
           </div>
         </div>
@@ -1398,7 +1402,7 @@ export default {
           return {
             api_url: value.endpointInput,
             prices: value.inputRows.map((price, priceIndex) => {
-                console.log(price)
+              console.log(price);
               if (price.unlimitedInput) {
                 return {
                   from: price.fromInput,

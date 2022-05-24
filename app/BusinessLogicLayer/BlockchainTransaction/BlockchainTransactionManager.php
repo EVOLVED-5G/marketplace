@@ -10,4 +10,5 @@ interface BlockchainTransactionManager {
 
     public function createBlockchainTransactionAndGetResponse(string $data): string;
 
+    public function isBlockchainIntegrationEnabled(): bool;
 }

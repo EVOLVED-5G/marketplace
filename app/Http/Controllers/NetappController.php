@@ -7,43 +7,51 @@ use App\BusinessLogicLayer\ApiPaymentPlan\ApiPaymentPlanManager;
 use App\BusinessLogicLayer\Document\DocumentManager;
 use App\BusinessLogicLayer\Image\ImageManager;
 use App\BusinessLogicLayer\Netapp\NetappManager;
+use App\BusinessLogicLayer\TMForumAPI\ForumAPIManager;
+use App\BusinessLogicLayer\TMForumAPI\TMForumAPIManager;
 use App\Http\Requests\NetappRequest;
 use App\Models\ApiEndpoint;
 use App\Models\ApiPaymentPlan;
 use App\Models\Category;
 use App\Models\Netapp;
 use App\Models\NetappType;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
-class NetappController extends Controller
-{
+class NetappController extends Controller {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
 
     protected $netappManager;
     protected $documentManager;
     protected $imageManager;
     protected $apiPaymentPlanManager;
+    protected $forumAPIManager;
+
     public function __construct(
-        NetappManager $netappManager,
-        DocumentManager $documentManager,
-        ImageManager $imageManager,
-        ApiPaymentPlanManager  $apiPaymentPlanManager,
-        ApiEndpointManager $apiEndpointManager
+        NetappManager         $netappManager,
+        DocumentManager       $documentManager,
+        ImageManager          $imageManager,
+        ApiPaymentPlanManager $apiPaymentPlanManager,
+        ApiEndpointManager    $apiEndpointManager,
+        ForumAPIManager       $forumAPIManager
     ) {
         $this->documentManager = $documentManager;
         $this->netappManager = $netappManager;
         $this->imageManager = $imageManager;
         $this->apiPaymentPlanManager = $apiPaymentPlanManager;
         $this->apiEndpointManager = $apiEndpointManager;
+        $this->forumAPIManager = $forumAPIManager;
     }
 
-    public function index()
-    {
+    public function index() {
         $categories = Category::all();
         $types = NetappType::all();
         return view('netapp-create', compact('categories', 'types'));
@@ -52,20 +60,18 @@ class NetappController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create(NetappRequest $request)
-    {
+    public function create(NetappRequest $request) {
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return Response
      */
-    public function uploadFile(Request $request)
-    {
+    public function uploadFile(Request $request) {
         try {
 
             $file = upload($request->file, 'assets/netapp/' . $request->get('url'));
@@ -74,8 +80,8 @@ class NetappController extends Controller
             return response()->json(array('error' => $e->getMessage()));
         }
     }
-    public function store(NetappRequest $request)
-    {
+
+    public function store(NetappRequest $request) {
         $documentRequest = [];
         \DB::beginTransaction();
         try {
@@ -120,27 +126,30 @@ class NetappController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Netapp  $netapp
-     * @return \Illuminate\Http\Response
+     * @param string $slug
+     * @return Application|Factory|View|Response
      */
-    public function show(Netapp $netapp, $slug)
-    {
-        $netapp = Netapp::where('slug', $slug)->orWhere('id', $slug)->with(['apiEndpoints.paymentplan', 'category', 'logo', 'pdf', 'user', 'savedNetapp', 'purchasedNetapp'])->active()->get()->toArray();
-        if (!$netapp) {
+    public function show(string $slug) {
+        $netapp = Netapp::where('slug', $slug)->orWhere('id', $slug)
+            ->with(['apiEndpoints.paymentplan', 'category', 'logo', 'pdf', 'user', 'savedNetapp', 'purchasedNetapp'])
+            ->active()->first();
+        $shouldShowPriceFromForum = TMForumAPIManager::isForumAPIEnabled() && $netapp->tm_forum_id;
+        if ($shouldShowPriceFromForum)
+            $netapp->apiProduct = $this->forumAPIManager->getProductById($netapp->tm_forum_id);
+
+        if (!$netapp)
             return abort(404);
-        }
-        $netapp = $netapp[0];
-        return view('netapp-single', compact('netapp'));
+
+        return view('netapp-single', compact('netapp', 'shouldShowPriceFromForum'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Netapp  $netapp
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Netapp $netapp
+     * @return Response
      */
-    public function edit($netapp)
-    {
+    public function edit($netapp) {
         $netappType = NetappType::all();
         $categories = Category::all();
         $netapp = Netapp::where(['id' => $netapp, 'user_id' => auth()->user()->id])->with(['logo', 'license', 'pdf', 'apiEndpoints.paymentplan',])->get()->toArray();
@@ -149,15 +158,15 @@ class NetappController extends Controller
         }
         return view('edit-dashboard-temp', compact('netapp', 'netappType', 'categories'));
     }
+
     /**
      * Validate the Slug
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Netapp  $netapp
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Netapp $netapp
+     * @return Response
      */
-    public function slugValidation(Request $request)
-    {
+    public function slugValidation(Request $request) {
         $existingSlug = Netapp::where('slug', Str::slug($request->slug))->first();
         if ($request->get('editForm') && $existingSlug) {
             if ($existingSlug->id !== $request->get('id')) {
@@ -168,15 +177,15 @@ class NetappController extends Controller
         }
         return response()->json(array('message' => 'success'), 200);
     }
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Netapp  $netapp
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Netapp $netapp
+     * @return Response
      */
-    public function update(NetappRequest $request, $id)
-    {
+    public function update(NetappRequest $request, $id) {
         if ($request->user_id !== auth()->user()->id) {
             return response()->json(array('msg' => "UnAuthorized", 'error' => '402'));
         }
@@ -213,14 +222,14 @@ class NetappController extends Controller
             return response()->json(array('error' => $e->getMessage()));
         }
     }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Netapp  $netapp
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Netapp $netapp
+     * @return Response
      */
-    public function destroy(Netapp $netapp)
-    {
+    public function destroy(Netapp $netapp) {
         //
     }
 }

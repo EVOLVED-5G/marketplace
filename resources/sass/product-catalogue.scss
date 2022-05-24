@@ -15,10 +15,22 @@
 
 .product-content {
     background: linear-gradient(90deg, #ffffff 50%, var(--color-offwhite-2) 50%);
+
     .main-sidebar {
         flex: 0 0 25%;
         background-color: #ffffff;
         padding-top: 10px;
+
+        @media screen and (max-width: 991px) {
+            display: none;
+        }
+
+        .closebtn {
+          display: block;
+        }
+
+
+
         .form {
             position: relative;
 
@@ -75,6 +87,23 @@
         .btn--tertiary {
             width: 200px;
         }
+
+
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-left 0.5s;
+            padding: 20px;
+        }
+
+        /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
     }
     .products {
         flex: 1;
@@ -99,7 +128,6 @@
                     position: relative;
                     min-height: 80px;
 
-
                     img {
                         align-self: center;
                     }
@@ -112,8 +140,6 @@
                         overflow: hidden;
                         text-overflow: ellipsis;
                     }
-
-
 
                     a {
                         text-decoration: none;
@@ -173,7 +199,42 @@
             }
         }
     }
+
+    #filters-btn {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        display: none;
+
+        @media screen and (max-width: 991px) {
+            display: inline;
+        }
+    }
 }
+
+.test .product-content .main-sidebar {
+    position: fixed;
+    display: block;
+    width: 400px;
+    padding: 30px;
+    top: 66px;
+    z-index: 2;
+    height: 100%;
+    left: 0;
+    border: 1px solid red;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+
+    .closebtn {
+        display: inline;
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+}
+
+
 .tags {
     display: flex;
     flex-wrap: wrap;

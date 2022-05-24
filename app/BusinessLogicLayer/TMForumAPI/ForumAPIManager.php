@@ -8,9 +8,11 @@ interface ForumAPIManager {
 
     public function createProductCategory(string $name, string $description);
 
-    public function isForumAPIEnabled(): bool;
+    public static function isForumAPIEnabled(): bool;
 
     public function getProductById(string $id);
 
     public function createProduct(array $data);
+
+    public function updateProduct(string $api_product_id, array $data);
 }

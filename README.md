@@ -99,13 +99,65 @@ sudo nano /etc/hosts
 
 The Evolved-5G Marketplace makes use of the Ethereum Blockchain, in order to create digital signatures when a Netapp is bought.
 
-In order to do so, every time a purchase is made, the app communicates with an external Nodejs script that makes the request to the Ethereum Blockchain.
+In order to do so, every time a purchase is made, the app communicates with an external Nodejs REST API, that makes the request to the Ethereum Blockchain.
 
 This script can be found in this GitHub repository: [ETH Transaction Sender](https://github.com/PavlosIsaris/eth-transaction-sender).
 
-In order to install the script, clone the repository and then edit the `CRYPTO_TRANSACTION_SENDER_PATH` variable in the `.env` file, so that Laravel knows where to find the script. An example can be found in the `.env.example` file.
+In order to install the script, clone the repository and then set up the NodeJS/Express app in order to run on the :8000 port of the host machine.
+Then, edit the `CRYPTO_SENDER_BASE_URL` variable in the `.env` file, so that Laravel knows where to find the endpoint. An example can be found in the `.env.example` file.
 
-**NOTE #1:** the script assumes that `nodejs` is installed on the server and can be run by the same user that runs the Laravel app (group `www-data`).
+**NOTE**
 
-**NOTE #2:** Make sure to also add the `node` executable path in `.env`, in the `NODEJS_PATH` variable.
+If the `CRYPTO_SENDER_BASE_URL` variable is left empty, then the app will regard the Blockchain integration as non-functional and will not make the API call.
 
+
+## About the TM Forum Integration
+
+The Evolved-5G Marketplace makes use of the TM Forum API, in order to create product offerings when a Netapp is created.
+
+In order to do so, every time a netapp is created **and is set to have a fixed price**, the app communicates with an external TM Forum REST API, that stores the relevant information for the product offering.
+
+The TM Forum implementation can be found in this GitHub repository: [TM Forum API](https://github.com/PavlosIsaris/TMF620-API).
+
+In order to install the TM Forum Backend, clone the repository and then use the provider Docker files in order to make it available on the :8080 port of the host machine.
+Then, edit the `TM_FORUM_API_BASE_URL` variable in the `.env` file, so that Laravel knows where to find the endpoint. An example can be found in the `.env.example` file.
+
+**NOTE**
+
+If the `TM_FORUM_API_BASE_URL` variable is left empty, then the app will regard the TM Forum API integration as non-functional and will not make the API call.
+
+## Docker initialization
+
+As mentioned above, the Evolved5G Project uses a total of 3 applications (code repositories) that act as services, communicating with each other.
+
+This can (and is highly recommended to) be done via the existing Docker files that are available in each of the repositories, and that can be invoked using `docker-compose`.
+
+In general, for each of the 3 repositories, it is needed to run `docker-compose up --build -d` in order to build the relevant images and containers, and make them available
+in the docker runtime.
+
+When using Docker though, communication between containers via `localhost` is not possible, though.
+That is why in the `docker-compose.yml` file of the Laravel project (the project in which this Readme file is in), a step exists in which a Docker network is created.
+
+Then, the other 2 repositories will use the same network and deploy their containers there.
+So, when Laravel wants to communicate with the NodeJS Blockchain integration service, it will not call `http://localhost:8000`, but it will need to call
+`http://evolved5g_blockchain_sender:8000`, since the name of the Blockchain Integration app container on the Docker network is `evolved5g_blockchain_sender`.
+
+So, when running the 3 repositories via Docker, the `.env` file should be altered as such:
+
+```bash
+CRYPTO_SENDER_BASE_URL=http://evolved5g_blockchain_sender:8000/
+TM_FORUM_API_BASE_URL=http://evolved5g_pilot_tmf_api_container:8080/tmf-api/
+```
+## Laravel initialization with Docker
+
+After running `docker-compose up --build -d` in the root Laravel directory, the app will be available at [http://localhost:89](http://localhost:89).
+In order to run all Laravel installation-specific commands (like `php artisan migrate` , `npm install`, etc) we can use the utility Docker containers that are defined in `docker-compose.yml`.
+
+For example, we can run the migrations in the app that runs in the Docker container by running:
+
+```bash
+docker-compose run --rm artisan migrate
+```
+
+All the essential Laravel commands have also defined as shortcut in the `Makefile` that is in the root directory.
+So if you want to run the migrations, simply run `make migrate`.

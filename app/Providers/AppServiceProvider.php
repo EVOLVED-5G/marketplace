@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\BusinessLogicLayer\BlockchainTransaction\BlockchainTransactionManager;
+use App\BusinessLogicLayer\BlockchainTransaction\EthereumAPIBlockchainTransactionManager;
 use App\BusinessLogicLayer\TMForumAPI\ForumAPIManager;
 use App\BusinessLogicLayer\TMForumAPI\TMForumAPIManager;
 use App\Models\Netapp;
@@ -22,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(ForumAPIManager::class, function ($app) {
             return $app->make(TMForumAPIManager::class);
+        });
+        $this->app->bind(BlockchainTransactionManager::class, function ($app) {
+            return $app->make(EthereumAPIBlockchainTransactionManager::class);
         });
     }
 

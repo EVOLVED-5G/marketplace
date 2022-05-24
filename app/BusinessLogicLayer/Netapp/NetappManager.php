@@ -4,33 +4,28 @@
 namespace App\BusinessLogicLayer\Netapp;
 
 
+use App\BusinessLogicLayer\TMForumAPI\TMForumAPIManager;
+use App\Jobs\StoreNetAppAsProductInTMForum;
 use App\Models\Netapp;
-use App\Models\User;
 use App\Repository\NetappRepository;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class NetappManager
-{
+class NetappManager {
 
     protected $netappRepository;
 
-    public function __construct(NetappRepository $netappRepository)
-    {
+    public function __construct(NetappRepository $netappRepository) {
 
         $this->netappRepository = $netappRepository;
     }
 
     /**
-     * Creates a @User record and assigns the RegisteredUser role
-     * by default. If the data array includes a field for Administrator role,
-     * the role is added as well.
+     * Creates a @Netapp record
      *
      * @param array $requestData array with the form data
-     * @return User the newly created user
+     * @return Netapp the newly created netapp
      */
-    public function create(array $requestData): Netapp
-    {
+    public function create(array $requestData): Netapp {
         $tags = [];
         foreach ($requestData["service"]['tag'] as $tag) {
             array_push($tags, $tag['value']);
@@ -57,11 +52,19 @@ class NetappManager
             'pdf' => $requestData['tutorial']['pdf'],
             'user_id' => auth()->user()->id,
         ]);
-
+        if ($requestData['paymentplan'] === "onceoff" && TMForumAPIManager::isForumAPIEnabled())
+            StoreNetAppAsProductInTMForum::dispatch($netapp, false);
         return $netapp;
     }
-    public function update(array $requestData, $id): Netapp
-    {
+
+    /**
+     * Updates a @see Netapp in the DB.
+     *
+     * @param int $id the id of the netapp to be updated
+     * @param array $requestData array with the form data
+     * @return Netapp the newly created user
+     */
+    public function update(array $requestData, int $id): Netapp {
         $tags = [];
         foreach ($requestData["service"]['tag'] as $tag) {
             array_push($tags, $tag['value']);
@@ -90,18 +93,8 @@ class NetappManager
             'user_id' => auth()->user()->id,
         ], $id);
 
+        if ($requestData['paymentplan'] === "onceoff" && TMForumAPIManager::isForumAPIEnabled())
+            StoreNetAppAsProductInTMForum::dispatch($netapp);
         return $netapp;
     }
-
-
-
-    /**
-     * Updates a User in the DB.
-     * Also checks the existence of the administrator field
-     * in the request data, and adds or removes the administrator role.
-     *
-     * @param int $id the id of the user to be updated
-     * @param array $requestData array with the form data
-     * @return User the newly created user
-     */
 }

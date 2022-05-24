@@ -4,9 +4,7 @@ namespace Database\Seeders;
 
 use App\BusinessLogicLayer\TMForumAPI\ForumAPIManager;
 use App\BusinessLogicLayer\TMForumAPI\TMForumAPIManager;
-use App\Models\Category;
 use App\Repository\NetappCategoryRepository;
-use App\Repository\User\UserRepository;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder {
@@ -62,7 +60,7 @@ class CategorySeeder extends Seeder {
         ];
 
         foreach ($data as $category) {
-            if($this->forumAPIManager->isForumAPIEnabled()) {
+            if(TMForumAPIManager::isForumAPIEnabled()) {
                 $apiCategory = $this->forumAPIManager->createProductCategory($category['name'], $category['description']);
                 $category['tm_forum_id'] = $apiCategory->id;
                 echo "\nCreated Category in TMForum API: " . $category['name'] . " with id: " . $apiCategory->id . "\n";

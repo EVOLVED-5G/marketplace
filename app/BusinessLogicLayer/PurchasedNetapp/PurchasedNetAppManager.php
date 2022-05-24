@@ -3,9 +3,9 @@
 
 namespace App\BusinessLogicLayer\PurchasedNetapp;
 
+use App\BusinessLogicLayer\BlockchainTransaction\BlockchainTransactionManager;
 use App\Jobs\CreateBlockchainTransactionForPurchasedNetApp;
 use App\Models\PurchasedNetApp;
-use App\Models\User;
 use App\Notifications\NotifyBuyerAboutPurchasedNetApp;
 use App\Notifications\NotifySellerAboutPurchasedNetApp;
 use App\Repository\PurchasedNetAppRepository;
@@ -14,10 +14,12 @@ use Illuminate\Support\Collection;
 class PurchasedNetAppManager {
 
     protected $purchasedNetAppRepository;
+    protected $blockchainTransactionManager;
 
-    public function __construct(PurchasedNetAppRepository $purchasedNetAppRepository) {
-
+    public function __construct(PurchasedNetAppRepository    $purchasedNetAppRepository,
+                                BlockchainTransactionManager $blockchainTransactionManager) {
         $this->purchasedNetAppRepository = $purchasedNetAppRepository;
+        $this->blockchainTransactionManager = $blockchainTransactionManager;
     }
 
     /**
@@ -33,8 +35,8 @@ class PurchasedNetAppManager {
         $this->purchasedNetAppRepository->update([
             'hash' => $hash
         ], $purchasedNetapp->id);
-
-        CreateBlockchainTransactionForPurchasedNetApp::dispatch($purchasedNetapp);
+        if ($this->blockchainTransactionManager->isBlockchainIntegrationEnabled())
+            CreateBlockchainTransactionForPurchasedNetApp::dispatch($purchasedNetapp);
         $sellerUser = $purchasedNetapp->netapp->user;
         $buyerUser = $purchasedNetapp->user;
         $sellerUser->notify(new NotifySellerAboutPurchasedNetApp($purchasedNetapp));

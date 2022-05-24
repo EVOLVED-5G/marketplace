@@ -1,5 +1,5 @@
 <template lang="">
-    <transition name="modal" v-if="open" @click="cancel">
+     <transition name="modal" v-if="open" @click="cancel">
         <div class="modal-mask">
             <div class="modal-dialog">
                 <div class="modal-content text-center">
@@ -10,7 +10,7 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"
                     ></button>
-                    <div class="modal-header">
+                    <div class="modal-header justify-content-center">
                         <h5 class="modal-title d-flex" id="exampleModalLabel">
                             <img
                                 loading="lazy"
@@ -22,18 +22,16 @@
                     <div class="modal-body mb-5">
                       <slot></slot>
                     </div>
-                    <div class="modal-footer justify-content-center">
-                        <!-- <a :href="this.link">
+                    <div class="modal-footer justify-content-center flex-column">
                             <button
                                 type="button"
                                 class="btn btn--tertiary mb-3"
                                 data-bs-dismiss="modal"
+                                @click="hideModel"
                             >
                                 Proceed
-                            </button></a
-                        > -->
-
-                        <a :href="this.link">OK</a>
+                            </button>
+                        <a @click="cancel">Cancel</a>
                     </div>
                 </div>
             </div>
@@ -50,10 +48,13 @@ export default {
     classes: "",
   },
   methods: {
+    hideModel() {
+      this.open = false;
+      this.$emit("paymentprocess");
+    },
     cancel() {
       this.open = false;
       this.$emit("canceled");
-      window.location.reload();
     },
   },
 };

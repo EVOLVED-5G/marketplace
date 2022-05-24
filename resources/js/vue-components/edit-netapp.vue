@@ -4,7 +4,7 @@
       <div class="form_top_tabbs">
         <div class="tabs_start">
           <div class="d-flex justify-content-between">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs me-5" id="myTab" role="tablist">
               <li class="nav-item" role="presentation">
                 <button
                   class="nav-link active"
@@ -474,7 +474,7 @@
               </div>
             </div>
             <div
-              class="tab-pane fade"
+              class="tab-pane fade mb-3"
               id="Tutorial"
               role="tabpanel"
               aria-labelledby="Tutorial-tab"
@@ -952,7 +952,21 @@
         </div>
       </div>
     </div>
-  <Modal :open="this.showModal" :netappId="this.netapp[0].id" :link="'/netapp-details/'+this.netapp[0].id"> You Netapp has been Updated </Modal>
+  <Modal :open="this.showModal" :netappId="this.netapp[0].id" :link="'/edit-netapp/'+this.netapp[0].id"> You Netapp has been Updated </Modal>
+ <WarningModel @paymentprocess="processWithPayment" @canceled="processWithoutPayment" :open="showWarningModel">
+     <div v-if='this.netapp[0].fix_price > 0 && paymentplan=="paymentplan"'>
+   <h1>
+     Are you sure that you want to change the payment?
+   </h1>
+   <h4>v-if Your payment status will change to <b>pay as ypu go</b>* and you will be asked to set up your fee.</h4>
+   <p>*You will change your customer either a) a fixed price for a specific number of calls, or b) fixed price per call.</p>
+   </div>
+   <div v-else>
+   <h1>Are you sure that you want to change the payment?</h1>
+   <h3>v-else Your payment status will change to <b>once off</b>* and you will be asked to set up your fee.</h3>
+   <p>*Once they pay this amount they will be able to makie unlimited calls to your netapp API.</p>
+   </div>
+ </WarningModel>
   </section>
 </template>
 
@@ -962,9 +976,17 @@ import ckEditor from "./common/CkEditor.vue";
 import VoerroTagsInput from "@voerro/vue-tagsinput";
 import PriceTable from "./common/price-table.vue";
 import Modal from "./common/SuccessModal";
+import WarningModel from "./common/warningModel.vue";
 export default {
   name: "edit-netapp",
-  components: { ckEditor, VoerroTagsInput, VueDropzone, PriceTable, Modal },
+  components: {
+    ckEditor,
+    VoerroTagsInput,
+    VueDropzone,
+    PriceTable,
+    Modal,
+    WarningModel,
+  },
   props: {
     netapp: { type: Array, default: () => {} },
     categories: { type: Array, default: () => [] },
@@ -973,6 +995,8 @@ export default {
   data() {
     return {
       uploadLicenseFile: false,
+      showWarningModel: false,
+      processPayment: true,
       divIndex: 1,
       inputIndex: 1,
       editForm: false,
@@ -1058,6 +1082,16 @@ export default {
     },
   },
   methods: {
+    processWithPayment() {
+      this.processPayment = true;
+      this.processForm();
+    },
+    processWithoutPayment() {
+      this.processPayment = false;
+      this.form.paymentplan =
+        this.netapp[0].fix_price > 0 ? "onceoff" : "paymentplan";
+      this.processForm();
+    },
     windowScroll() {
       window.scrollTo({
         top: 100,
@@ -1174,20 +1208,40 @@ export default {
         }
       });
       this.$validator.validate("pricing.*").then((isValid) => {
+        console.log(this.paymentplan);
         if (isValid) {
-          this.processForm();
+          if (
+            (this.netapp[0].fix_price > 0 &&
+              this.form.paymentplan == "paymentplan") ||
+            (this.form.paymentplan == "onceoff" &&
+              this.netapp[0].fix_price == 0)
+          ) {
+            console.log("here");
+            this.handleLoader("hide");
+
+            this.showWarningModel = true;
+            this.processPayment = false;
+          }
+          if (!this.showWarningModel) {
+            this.processForm();
+          }
         }
         this.windowScroll();
       });
     },
     processForm(changeStatus = false) {
-      console.log("here");
+      this.showWarningModel = false;
       if (!this.editForm && changeStatus == false) {
         return;
       }
+
       this.handleLoader("show");
       let endpointIds = [];
-      if (this.form.paymentplan == "paymentplan") {
+      this.form.payAsGo = [];
+      if (
+        this.form.paymentplan == "paymentplan" &&
+        this.processPayment == true
+      ) {
         let price = this.mainDiv.map((value, index) => {
           endpointIds.push(value.endpointId);
           return {
@@ -1218,6 +1272,9 @@ export default {
         this.form.pricing.price = 0;
         this.form.endpointIds = endpointIds;
       }
+      // if (this.form.paymentplan == "onceoff" && this.processPayment == true) {
+      //   this.form.pricing.price = 0;
+      // }
       this.form.visible = this.visible;
       let slug = this.form.service.appSlug;
       this.form.service.appSlug = slug.toLowerCase().replace(/\s+/g, "-");
@@ -1317,7 +1374,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "resources/sass/modal";
+
 .form-select {
   background: transparent;
 }
@@ -1332,3 +1391,4 @@ export default {
   border-color: #76b7d6 !important;
 }
 </style>
+

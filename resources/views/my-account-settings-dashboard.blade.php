@@ -84,10 +84,10 @@
         </div>
 
         <div class="step-actions mt-5">
-            <div class="btn btn--tertiary" type="button">
+            <div class="btn btn--tertiary me-5 mb-4" type="button">
                 Cancel
             </div>
-            <div class="btn btn--blue ms-5" type="button">
+            <div class="btn btn--blue mb-4" type="button">
                 Update
             </div>
 

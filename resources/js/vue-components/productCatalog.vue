@@ -4,6 +4,10 @@
       <section class="main-sidebar">
         <div class="filters-list">
           <h4>Filters</h4>
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+            >&times;
+          </a>
+
 
           <div class="form me-4">
             <i class="fa fa-search" @click="searchNetapp"></i>
@@ -129,6 +133,10 @@
         </Pagination>
       </section>
     </div>
+    <span id="filters-btn" onclick="openNav()">
+      <!-- &#9776; -->
+      <img class="me-2" loading="lazy" alt="icon-codepen" src="/img/edit.png"
+    /></span>
   </div>
 </template>
 <script>

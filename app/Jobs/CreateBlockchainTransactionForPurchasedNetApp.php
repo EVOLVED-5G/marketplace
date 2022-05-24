@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\BusinessLogicLayer\BlockchainTransaction\EthereumAPIBlockchainTransactionManager;
+use App\BusinessLogicLayer\BlockchainTransaction\BlockchainTransactionManager;
 use App\Models\PurchasedNetApp;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -35,7 +35,7 @@ class CreateBlockchainTransactionForPurchasedNetApp implements ShouldQueue, Shou
      *
      * @return void
      */
-    public function handle(EthereumAPIBlockchainTransactionManager $blockchainTransactionManager) {
+    public function handle(BlockchainTransactionManager $blockchainTransactionManager) {
         $blockchainTransactionManager->createBlockchainTransactionForPurchasedNetapp($this->purchasedNetapp);
     }
 }

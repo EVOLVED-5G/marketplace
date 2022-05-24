@@ -52,7 +52,7 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
      */
     public function createBlockchainTransactionAndGetResponse(string $data): string {
         $this->validateEnvironment();
-        return $this->client->request('POST', $this->CRYPTO_SENDER_BASE_URL . '/create', [
+        return $this->client->request('POST', $this->CRYPTO_SENDER_BASE_URL . 'create', [
             'json' => [
                 'network' => $this->CRYPTO_NETWORK,
                 'project' => $this->CRYPTO_INFURA_PROJECT_ID,
@@ -87,4 +87,10 @@ class EthereumAPIBlockchainTransactionManager implements BlockchainTransactionMa
         if (!$this->CRYPTO_INFURA_PROJECT_ID)
             throw new Exception("Crypto Infura Project ID is null");
     }
+
+    public function isBlockchainIntegrationEnabled(): bool {
+        return $this->CRYPTO_SENDER_BASE_URL !== null
+            && strpos($this->CRYPTO_SENDER_BASE_URL, "http") !== FALSE;
+    }
+
 }
