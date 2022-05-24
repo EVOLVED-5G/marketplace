@@ -101,7 +101,7 @@ The Evolved-5G Marketplace makes use of the Ethereum Blockchain, in order to cre
 
 In order to do so, every time a purchase is made, the app communicates with an external Nodejs REST API, that makes the request to the Ethereum Blockchain.
 
-This script can be found in this GitHub repository: [ETH Transaction Sender](https://github.com/PavlosIsaris/eth-transaction-sender).
+This script can be found in this GitHub repository: [ETH Transaction Sender](https://github.com/EVOLVED-5G/marketplace-blockchain-integration).
 
 In order to install the script, clone the repository and then set up the NodeJS/Express app in order to run on the :8000 port of the host machine.
 Then, edit the `CRYPTO_SENDER_BASE_URL` variable in the `.env` file, so that Laravel knows where to find the endpoint. An example can be found in the `.env.example` file.
@@ -117,7 +117,7 @@ The Evolved-5G Marketplace makes use of the TM Forum API, in order to create pro
 
 In order to do so, every time a netapp is created **and is set to have a fixed price**, the app communicates with an external TM Forum REST API, that stores the relevant information for the product offering.
 
-The TM Forum implementation can be found in this GitHub repository: [TM Forum API](https://github.com/PavlosIsaris/TMF620-API).
+The TM Forum implementation can be found in this GitHub repository: [TM Forum API](https://github.com/EVOLVED-5G/marketplace-tmf620-api).
 
 In order to install the TM Forum Backend, clone the repository and then use the provider Docker files in order to make it available on the :8080 port of the host machine.
 Then, edit the `TM_FORUM_API_BASE_URL` variable in the `.env` file, so that Laravel knows where to find the endpoint. An example can be found in the `.env.example` file.
