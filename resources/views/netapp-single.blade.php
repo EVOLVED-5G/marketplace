@@ -174,7 +174,7 @@
                                             <h2>{{$shouldShowPriceFromForum ? $netapp->apiProduct->productOfferingPrice[0]->object->price->value : $netapp['fix_price']}} €</h2>
                                         </div>
                                     </div>
-                                    @if($netapp['purchased_netapp'] ==null)
+                                    @if($netapp['purchasedNetapp'] ==null)
                                         <div class="row">
                                             <!-- Button trigger modal -->
                                             @if(auth()->check() && $netapp['user_id']!==auth()->user()->id)

@@ -33,7 +33,7 @@
                             </button></a
                         > -->
 
-                        <a :href="this.link">OK</a>
+                        <a  class="btn btn--tertiary mb-3" :href="this.link">OK</a>
                     </div>
                 </div>
             </div>

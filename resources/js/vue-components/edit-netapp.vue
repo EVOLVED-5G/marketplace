@@ -286,7 +286,7 @@
                                 <div class="align_url_field">
                                     <input
                                         type="text"
-                                        style="width: 30%"
+                                        style="display:none"
                                         :placeholder="this.appurl"
                                         name=""
                                         class="form-control"
@@ -654,7 +654,7 @@
                         type="url"
                         class="form-control mb-3"
                         id="device-location"
-                        placeholder="http://www.test.com/"
+                        placeholder="/endpoint-that-should-be-charged"
                         v-model="maindiv.endpointInput"
                         :name="'payAsGo.' + mainIndex + '.api_url'"
                         :class="{
@@ -666,8 +666,7 @@
                         v-validate="
                           form.paymentplan == 'paymentplan'
                             ? {
-                                url: { require_protocol: true },
-                                required: true,
+                                required: true
                               }
                             : {}
                         "
@@ -728,7 +727,6 @@
                                       }
                                     : {}
                                 "
-                                data-vv-rules="required"
                                 data-vv-scope="pricing"
                               />
                               <span
@@ -878,9 +876,10 @@
                               >
                               <input
                                 type="number"
+                                step=".0001"
                                 class="form-control"
                                 id="cost-netapp"
-                                placeholder="0.005e/call"
+                                placeholder="ex: 0.005€"
                                 v-model.number="div.costInput"
                                 :name="
                                   'payAsGo.' +
@@ -901,12 +900,10 @@
                                 v-validate="
                                   form.paymentplan == 'paymentplan'
                                     ? {
-                                        numeric: true,
-                                        required: true,
+                                        decimal:4
                                       }
                                     : {}
                                 "
-                                data-vv-rules="required"
                                 data-vv-scope="pricing"
                               />
                               <span
@@ -1007,7 +1004,7 @@ export default {
         fromInput: null,
         toInput: null,
         unlimitedInput: false,
-        costInput: null,
+        costInput: 0,
         categoryInput: null,
       },
       planCategory: [
@@ -1252,16 +1249,16 @@ export default {
                   from: price.fromInput,
                   // id: price.recordId,
                   to: 0,
-                  unlimited: price.unlimitedInput,
-                  cost: price.costInput,
+                  unlimited: true,
+                  cost: price.costInput ??0,
                   plan_category: price.categoryInput,
                 };
               }
               return {
                 from: price.fromInput,
                 to: price.toInput,
-                unlimited: price.unlimitedInput,
-                cost: price.costInput,
+                unlimited: false,
+                cost: price.costInput ??0,
                 plan_category: price.categoryInput,
               };
             }),

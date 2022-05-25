@@ -29,10 +29,13 @@ class ApiPaymentPlanManager
     {
 
         $newRequest = [];
+
         foreach ($requestData as $request) {
             $request['api_endpoint_id'] = $apiEndpointId;
             array_push($newRequest, $request);
         }
+
+
         $paymentplan = $this->apipaymentPlanRepository->create($newRequest);
         return $paymentplan;
     }

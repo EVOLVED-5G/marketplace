@@ -56,6 +56,11 @@ class CategorySeeder extends Seeder {
                 'id' => 6,
                 'name' => 'Mobile carrier subscriptions',
                 'description' => 'Mobile carrier subscriptions related Netapps'
+            ],
+            [
+                'id' => 7,
+                'name' => 'Other',
+                'description' => 'Netapps that dont fall into any other category'
             ]
         ];
 

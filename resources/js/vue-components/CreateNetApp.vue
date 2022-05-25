@@ -296,7 +296,7 @@
                       <small>
                         For example (my-net-app) <br />
                         This will make your net app available at
-                        {{ this.appurl }}. You should use only alphanumeric
+                        {{ this.appurl }}/my-net-app. You should use only alphanumeric
                         characters, underscores (_) or dashes (-).</small
                       ></span
                     >
@@ -305,7 +305,7 @@
                   <div class="align_url_field">
                     <input
                       type="text"
-                      style="width: 30%"
+                      style="display:none"
                       :placeholder="this.appurl"
                       name=""
                       class="form-control"
@@ -497,7 +497,7 @@
                 id="agree-policy"
               />
               <label class="form-check-label" for="agree-policy">
-                Agree Marketplace policy
+                I Agree to the Marketplace policy
               </label>
               <span v-show="errors.has('policy.agreePolicy')" class="error-text"
                 >Check mark The Policy</span
@@ -576,7 +576,7 @@
               </div>
               <div>
                 <label for="docker-size" class="form-label text-details"
-                  >Enter Docker Size</label
+                  >Enter Docker Size (in MBs)</label
                 >
                 <input
                   type="number"
@@ -597,7 +597,7 @@
                 <span
                   v-show="errors.has('deployment.dockerSize')"
                   class="error-text"
-                  >Enter Docker Size</span
+                  >Enter Docker Size (in MBs)</span
                 >
               </div>
 
@@ -782,7 +782,7 @@
                   type="url"
                   class="form-control mb-3"
                   id="device-location"
-                  placeholder="http://www.test.com/"
+                  placeholder="/endpoint-that-should-be-charged"
                   v-model="maindiv.endpointInput"
                   :name="'payAsGo.' + mainIndex + '.api_url'"
                   :class="{
@@ -794,8 +794,7 @@
                   v-validate="
                     form.paymentplan == 'paymentplan'
                       ? {
-                          url: { require_protocol: true },
-                          required: true,
+                          required: true
                         }
                       : {}
                   "
@@ -999,9 +998,10 @@
                         >
                         <input
                           type="number"
+                          step=".0001"
                           class="form-control"
                           id="cost-netapp"
-                          placeholder="0.005e/call"
+                          placeholder="ex: 0.005€"
                           v-model="div.costInput"
                           :name="
                             'payAsGo.' +
@@ -1022,26 +1022,15 @@
                           v-validate="
                             form.paymentplan == 'paymentplan'
                               ? {
-                                  numeric: true,
-                                  required: true,
+                                  decimal:4
                                 }
                               : {}
                           "
-                          data-vv-rules="required"
                           data-vv-scope="pricing"
                         />
                         <span
-                          v-show="
-                            errors.has(
-                              'payAsGo.' +
-                                mainIndex +
-                                '.prices.' +
-                                index +
-                                '.cost'
-                            )
-                          "
-                          class="error-text"
-                          >Cost Field is Required</span
+                          v-show="errors.has('payAsGo.' +mainIndex +'.prices.' +index +'.cost')"
+                          class="error-text">{{ errors.first('payAsGo.' +mainIndex +'.prices.' +index +'.cost') }}</span
                         >
                       </div>
                     </form>
@@ -1101,11 +1090,10 @@
               :netappId="this.netappId"
               :link="'/edit-netapp/' + this.netappId"
             >
-              <h1>You are about to change your Status</h1>
-              <p>
-                Your NetApp status will change to <b>public</b> and it will be
-                visible in Marketplace
-              </p>
+                <h1>Your NetApp has been created!</h1>
+                <p>
+                    At this moment your NetApp is not visible to the Product Catalogue. You can change its status to Public in the  Edit page
+                </p>
             </Modal>
           </div>
         </div>
@@ -1140,7 +1128,7 @@ export default {
         fromInput: null,
         toInput: null,
         unlimitedInput: false,
-        costInput: null,
+        costInput: 0,
         categoryInput: null,
       },
       planCategory: [
@@ -1221,6 +1209,9 @@ export default {
     getDashboardRoute() {
       return route("welcome-dashboard");
     },
+      getEditNetappRoute() {
+          return route("edit-netapp", this.netappId);
+      },
     changeUploadStatus() {
       console.log("change upload status");
       this.uploadLicenseFile = true;
@@ -1407,16 +1398,16 @@ export default {
                 return {
                   from: price.fromInput,
                   to: 0,
-                  unlimited: price.unlimitedInput,
-                  cost: price.costInput,
+                  unlimited: true,
+                  cost: price.costInput ?? 0,
                   plan_category: price.categoryInput,
                 };
               }
               return {
                 from: price.fromInput,
                 to: price.toInput,
-                unlimited: price.unlimitedInput,
-                cost: price.costInput,
+                unlimited: false,
+                cost: price.costInput?? 0,
                 plan_category: price.categoryInput,
               };
             }),

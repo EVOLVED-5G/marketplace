@@ -23,9 +23,9 @@
                             @foreach($purchasedNetApps as $purchasedNetApp)
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td> {{\Carbon\Carbon::parse($purchasedNetApp->created_at)->isoFormat('D MMM YYYY - H:ss')}}</td>
+                                    <td> {{\Carbon\Carbon::parse($purchasedNetApp->created_at)->format('d/m/Y H:i')}}</td>
                                     <td id="digital-signature">
-                                        <a href="{{ $purchasedNetApp->blockchain_transaction_url }}" target="_blank">
+                                        <a href="{{ $purchasedNetApp->blockchain_transaction_url ?? '#' }}" target="_blank">
                                             {{ $purchasedNetApp->hash }}
                                         </a>
                                     </td>

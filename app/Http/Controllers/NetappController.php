@@ -152,7 +152,7 @@ class NetappController extends Controller {
     public function edit($netapp) {
         $netappType = NetappType::all();
         $categories = Category::all();
-        $netapp = Netapp::where(['id' => $netapp, 'user_id' => auth()->user()->id])->with(['logo', 'license', 'pdf', 'apiEndpoints.paymentplan',])->get()->toArray();
+        $netapp = Netapp::where(['id' => $netapp, 'user_id' => auth()->user()->id])->with(['logo', 'license', 'pdf', 'apiEndpoints.paymentplan', 'purchasedNetapp'])->get()->toArray();
         if (!$netapp) {
             return abort(404);
         }

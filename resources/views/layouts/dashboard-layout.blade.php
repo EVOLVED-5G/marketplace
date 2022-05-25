@@ -79,16 +79,10 @@
     @include('common.footer-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/perfect-scrollbar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nanobar/0.4.2/nanobar.min.js"></script>
-
     <script src="{{ mix('dist/js/dashboard.js') }}"></script>
     @stack('modals')
-    <<<<<<< HEAD <script src="https://cdnjs.cloudflare.com/ajax/libs/nanobar/0.4.2/nanobar.min.js">
-        </script>
+    @stack('scripts')
 
-        <script src="{{ mix('dist/js/dashboard.js') }}"></script>
-        =======
-        @stack('scripts')
-        >>>>>>> 8946bd07fbc8f74cbef7e15231c329fd84c1c61d
 </body>
 
 </html>

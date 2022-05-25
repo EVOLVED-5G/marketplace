@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 
 class CreateBlockchainTransactionForPurchasedNetApp implements ShouldQueue, ShouldBeUnique {
@@ -24,6 +25,15 @@ class CreateBlockchainTransactionForPurchasedNetApp implements ShouldQueue, Shou
     public function __construct(PurchasedNetApp $purchasedNetapp) {
         $this->onQueue('blockchain-transactions');
         $this->purchasedNetapp = $purchasedNetapp;
+    }
+
+    /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array
+     */
+    public function middleware() {
+        return [new WithoutOverlapping($this->purchasedNetapp->id)];
     }
 
     public function uniqueId() {
