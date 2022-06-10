@@ -17,13 +17,22 @@
                             Embrace the <img class="img-fluid" loading="lazy" src="{{ asset('img/5g-icon.png') }}"
                                 alt="5g-icon"> era
                         </h1>
-                        <p> We provide the tools to create, manage and connect to the next generation of 5G netapps</p>
+                        <p> We provide the tools to create, manage and connect to the next generation of 5G NetApps</p>
                     </div>
 
                     <div>
-                        <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--primary ">Explore NetApps</a>
-                        <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Create your own</a>
-                   </div>
+                        <a href="{{ route('product-catalogue') }}"
+                            class="mouse-cursor-gradient-tracking btn btn--primary ">Explore NetApps</a>
+                        <a href="https://evolved5g-cli.readthedocs.io/en/latest/"
+                            class="mouse-cursor-gradient-tracking btn btn--secondary" target="_blank">Create your own NetApp</a>
+                    </div>
+
+                    <div class="mt-5">
+                        <p>Do you already have an Evolved-5G NetApp?</p>
+
+                        <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Upload it to the marketplace</a>
+
+                    </div>
 
                 </div>
                 <div class="main-title__content--icon">
@@ -43,7 +52,8 @@
                         businesses to
                         come together to create, discover and integrate services by consuming 3GPP APIs (native APIs) as
                         well as other telco assets</p>
-                    <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--tertiary mt-5">View NetApps</a>
+                    <a href="{{ route('product-catalogue') }}"
+                        class="mouse-cursor-gradient-tracking btn btn--tertiary mt-5">View NetApps</a>
                 </div>
                 {{-- <div class="boxes">
                     <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
@@ -109,7 +119,8 @@
 
                             </li>
                         </ol>
-                        <a href="{{ route('netapp-creators') }}" class="mouse-cursor-gradient-tracking btn btn--primary mt-5">Find out more</a>
+                        <a href="{{ route('netapp-creators') }}"
+                            class="mouse-cursor-gradient-tracking btn btn--primary mt-5">Find out more</a>
                     </div>
                 </div>
 
@@ -129,7 +140,8 @@
 
                         </ol>
 
-                        <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--primary mt-5">Find out more</a>
+                        <a href="{{ route('product-catalogue') }}"
+                            class="mouse-cursor-gradient-tracking btn btn--primary mt-5">Find out more</a>
                     </div>
                     <div class="col-lg-6 for-businesses--title p-5">
                         <img class="img-fluid" loading="lazy" src="/img/businesses-line.png" alt="businesses-line">
@@ -150,7 +162,8 @@
                     <h1> Support</h1>
                     <h2>Connect tο the forum!</h2>
 
-                    <a class="mouse-cursor-gradient-tracking btn btn--secondary mt-5" href="{{ route('support') }}">Go to forum</a>
+                    <a class="mouse-cursor-gradient-tracking btn btn--secondary mt-5" href="{{ route('support') }}">Go to
+                        forum</a>
                 </div>
 
 
@@ -189,14 +202,14 @@
 
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item mb-4">
-                            <h2 class="accordion-header key-title" id="flush-headingOne">
+                            <h2 class="accordion-header key-title" id="flush-headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#key-2" aria-expanded="false" aria-controls="key-2">
                                     <i class="fas fa-plus-circle"></i>
                                     <i class="fas fa-minus-circle"></i> <b>Native Cloud technologies</b>
                                 </button>
                             </h2>
-                            <div class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                            <div class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
                                 data-bs-parent="#accordionFlushExample" id="key-2">
                                 <div class="accordion-body text-start">Cloud-native architecture and technologies are an
                                     approach to designing, constructing, and operating workloads that are built in the cloud
@@ -207,18 +220,66 @@
 
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         <div class="accordion-item mb-4">
-                            <h2 class="accordion-header key-title" id="flush-headingOne">
+                            <h2 class="accordion-header key-title" id="flush-headingThree">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#key-3" aria-expanded="false" aria-controls="key-3">
                                     <i class="fas fa-plus-circle"></i>
                                     <i class="fas fa-minus-circle"></i> <b>5G</b>
                                 </button>
                             </h2>
-                            <div class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                            <div class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
                                 data-bs-parent="#accordionFlushExample" id="key-3">
                                 <div class="accordion-body text-start">5G is the 5th generation mobile network.5G enables a
                                     new kind of network that is designed to connect virtually everyone and everything
                                     together including machines, objects, and devices.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item mb-4">
+                            <h2 class="accordion-header key-title" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#key-4" aria-expanded="false" aria-controls="key-4">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <i class="fas fa-minus-circle"></i> <b>Container</b>
+                                </button>
+                            </h2>
+                            <div class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                                data-bs-parent="#accordionFlushExample" id="key-4">
+                                <div class="accordion-body text-start">Container, is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item mb-4">
+                            <h2 class="accordion-header key-title" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#key-5" aria-expanded="false" aria-controls="key-5">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <i class="fas fa-minus-circle"></i> <b>CAPIF</b>
+                                </button>
+                            </h2>
+                            <div class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                                data-bs-parent="#accordionFlushExample" id="key-5">
+                                <div class="accordion-body text-start">Common API Framework is a single and harmonized approach for API development to unify north bound API framework across several 3GPP functions.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item mb-4">
+                            <h2 class="accordion-header key-title" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#key-6" aria-expanded="false" aria-controls="key-6">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <i class="fas fa-minus-circle"></i> <b>NEF</b>
+                                </button>
+                            </h2>
+                            <div class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                                data-bs-parent="#accordionFlushExample" id="key-6">
+                                <div class="accordion-body text-start">Network Exposure Function enables secure and robust access to the exposed network services and capabilities of the 5G network.</div>
                             </div>
                         </div>
                     </div>

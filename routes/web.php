@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/users', [MarketplaceOverviewController::class, 'userTable'])->name('marketplace.overview.userTable');
         });
     });
+    Route::get('user-details', [DashboardController::class, 'index'])->name('user.details');
+    Route::post('update-user-details', [DashboardController::class, 'update'])->name('update.user.details');
     Route::prefix('api')->group(function () {
         Route::post('/upload-file', [NetappController::class, 'uploadFile']);
         Route::post('/create-netapp', [NetappController::class, 'store']);

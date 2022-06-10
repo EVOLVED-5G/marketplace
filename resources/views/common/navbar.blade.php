@@ -12,9 +12,9 @@
 
                 <div class="order-lg-2 d-lg-flex justify-content-end w-100 pb-3 pb-lg-0 sidebar-main-navigation" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-lg-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link px-3 px-lg-2 {{ UrlMatchesMenuItem('home', 'active') }}" aria-current="page" href="{{ route('home') }}">About</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link px-3 px-lg-2" href="{{ route('product-catalogue') }}">Product
                                 Catalogue</a>
@@ -28,7 +28,7 @@
                         @endcan
                         @guest()
                         <li class="nav-item">
-                            <a class="nav-link px-3 px-lg-2 " href="{{ route('netapp-creators') }}">Net-App Creators</a>
+                            <a class="nav-link px-3 px-lg-2 " href="{{ route('netapp-creators') }}">NetApp Creators</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link ms-3 px-3 px-lg-2 " id="login" href="{{ route('login') }}">
@@ -40,14 +40,14 @@
                             <a class="nav-link px-3 px-lg-2 " href="{{ route('welcome-dashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link px-3 px-lg-2 " href="http://evolved5g-marketplace-forum.evolved-5g.gr/" target="_blank">Support</a>
+                            <a class="nav-link px-3 px-lg-2 " href="https://forum.evolved-5g.eu/" target="_blank">Support</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">
+                                <li><a class="dropdown-item" href="{{route('user.details')}}">
                                         My account
                                     </a>
                                 </li>

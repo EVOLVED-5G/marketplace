@@ -10,7 +10,7 @@
                         data-bs-dismiss="modal"
                         aria-label="Close"
                     ></button>
-                    <div class="modal-header">
+                    <div class="modal-header justify-content-center">
                         <h5 class="modal-title d-flex" id="exampleModalLabel">
                             <img
                                 loading="lazy"

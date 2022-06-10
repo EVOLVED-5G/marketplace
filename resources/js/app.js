@@ -15,7 +15,7 @@ import getLodash from "lodash/get";
 import eachRightLodash from "lodash/eachRight";
 import replaceLodash from "lodash/replace";
 import CKEditor from '@ckeditor/ckeditor5-vue2';
-import editNetapp from "./vue-components/edit-netapp.vue";
+import editNetapp from "./vue-components/editNetapp.vue";
 import ProductCatalog from "./vue-components/productCatalog.vue";
 import PurchasedNetappModal from './vue-components/common/PurchasedNetappModal.vue'
 import MarketplaceOverview from './vue-components/admin-components/marketplace-overview.vue'
@@ -60,11 +60,13 @@ Vue.mixin({
         },
         purchaseNetapp(formData, refreshPage = false) {
             this.handleLoader('show');
+            console.log('test');
             axios
                 .post(`${process.env.MIX_API_URL}/api/purchase-netapp`, formData)
                 .then((response) => {
                     this.handleLoader('hide');
                     this.showPurchasedModel = true
+                    console.log(this.showPurchasedModel);
                 })
                 .catch((error) => {
                     console.log(error);

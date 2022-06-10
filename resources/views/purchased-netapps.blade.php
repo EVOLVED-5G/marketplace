@@ -13,7 +13,7 @@
                                 <th scope="col">Date of purchase</th>
                                 <th scope="col">Digital signature</th>
                                 <th scope="col">NetApp</th>
-                                <th scope="col">Docker image <a class="ml-1" href="http://evolved5g-marketplace-forum.evolved-5g.gr/t/how-can-i-use-a-netapp-that-i-purchased-in-the-marketplace/16/5"
+                                <th scope="col">Docker image <a class="ml-1" href="https://forum.evolved-5g.eu/t/how-can-i-use-a-netapp-that-i-purchased-in-the-marketplace/16/5"
                                                                 target="_blank"
                                                                 title="Go to the forum for support in using docker images">
                                         <i class="fas fa-question-circle"></i></a></th>

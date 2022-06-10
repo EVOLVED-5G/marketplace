@@ -12,9 +12,10 @@
     background-color: var(--color-purple);
 }
 
+
 .dashboard-content {
     background: linear-gradient(90deg, #ffffff 50%, var(--color-offwhite-2) 50%);
-    padding-top: 68px;
+    padding-top: 52px;
 
     @media (max-width: 768px) {
         background: #ffffff;
@@ -96,11 +97,9 @@
 
 
             .btn--blue {
-                min-width: rem(170px);
+                min-width: rem(224px);
                 color: #ffffff;
-                @media (max-width: 871px) {
-                    min-width: rem(150px);
-                }
+
 
                 padding: 0.5rem 1rem;
             }
@@ -301,8 +300,12 @@ body {
 .form_section {
     background-color: var(--color-offwhite-2);
     flex: 1;
-    padding: 50px 0 100px 50px;
+    padding: 50px 50px 600px 50px;
     margin: 0;
+
+    @media (max-width: 900px) {
+        padding: 50px 20px 550px 20px;
+    }
 }
 
 .form_field_main input {

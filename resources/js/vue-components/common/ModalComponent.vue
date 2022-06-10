@@ -8,7 +8,7 @@
             :class="classes"
           >
             <div class="modal-content">
-              <div class="modal-header">
+              <div class="modal-header justify-content-center">
                 <slot name="header"></slot>
                 <button
                   v-if="allowClose"

@@ -296,8 +296,9 @@
                       <small>
                         For example (my-net-app) <br />
                         This will make your net app available at
-                        {{ this.appurl }}/my-net-app. You should use only alphanumeric
-                        characters, underscores (_) or dashes (-).</small
+                        {{ this.appurl }}/my-net-app. You should use only
+                        alphanumeric characters, underscores (_) or dashes
+                        (-).</small
                       ></span
                     >
                   </div>
@@ -305,7 +306,7 @@
                   <div class="align_url_field">
                     <input
                       type="text"
-                      style="display:none"
+                      style="display: none"
                       :placeholder="this.appurl"
                       name=""
                       class="form-control"
@@ -432,6 +433,7 @@
                       v-validate="{ required: true }"
                       data-vv-rules="required"
                       id="business-name"
+                      :readOnly="business !== null"
                     />
                     <span
                       v-show="errors.has('service.businessName')"
@@ -455,6 +457,7 @@
                       v-validate="{ required: true }"
                       data-vv-rules="required"
                       id="social-number"
+                      :readOnly="social !== null"
                     />
                     <span
                       v-show="errors.has('service.socialNumber')"
@@ -794,7 +797,7 @@
                   v-validate="
                     form.paymentplan == 'paymentplan'
                       ? {
-                          required: true
+                          required: true,
                         }
                       : {}
                   "
@@ -1022,15 +1025,32 @@
                           v-validate="
                             form.paymentplan == 'paymentplan'
                               ? {
-                                  decimal:4
+                                  decimal: 4,
                                 }
                               : {}
                           "
                           data-vv-scope="pricing"
                         />
                         <span
-                          v-show="errors.has('payAsGo.' +mainIndex +'.prices.' +index +'.cost')"
-                          class="error-text">{{ errors.first('payAsGo.' +mainIndex +'.prices.' +index +'.cost') }}</span
+                          v-show="
+                            errors.has(
+                              'payAsGo.' +
+                                mainIndex +
+                                '.prices.' +
+                                index +
+                                '.cost'
+                            )
+                          "
+                          class="error-text"
+                          >{{
+                            errors.first(
+                              "payAsGo." +
+                                mainIndex +
+                                ".prices." +
+                                index +
+                                ".cost"
+                            )
+                          }}</span
                         >
                       </div>
                     </form>
@@ -1070,7 +1090,6 @@
                 </div>
                 <div
                   class="btn btn--blue ms-sm-3 mb-4"
-
                   type="button"
                   @click="Validation"
                 >
@@ -1090,10 +1109,11 @@
               :netappId="this.netappId"
               :link="'/edit-netapp/' + this.netappId"
             >
-                <h1>Your NetApp has been created!</h1>
-                <p>
-                    At this moment your NetApp is not visible to the Product Catalogue. You can change its status to Public in the  Edit page
-                </p>
+              <h1>Your NetApp has been created!</h1>
+              <p>
+                At this moment your NetApp is not visible to the Product
+                Catalogue. You can change its status to Public in the Edit page
+              </p>
             </Modal>
           </div>
         </div>
@@ -1115,6 +1135,8 @@ export default {
     categories: { type: Array, default: () => [] },
     types: { type: Array, default: () => [] },
     privacy_url: { type: String },
+    business: { type: String, default: () => null },
+    social: { type: String, default: () => null },
   },
   data() {
     return {
@@ -1183,8 +1205,8 @@ export default {
           logo: null,
           version: null,
           publishedBy: null,
-          businessName: null,
-          socialNumber: null,
+          businessName: this.business,
+          socialNumber: this.social,
         },
         deployment: {
           imageUrl: null,
@@ -1209,9 +1231,9 @@ export default {
     getDashboardRoute() {
       return route("welcome-dashboard");
     },
-      getEditNetappRoute() {
-          return route("edit-netapp", this.netappId);
-      },
+    getEditNetappRoute() {
+      return route("edit-netapp", this.netappId);
+    },
     changeUploadStatus() {
       console.log("change upload status");
       this.uploadLicenseFile = true;
@@ -1407,7 +1429,7 @@ export default {
                 from: price.fromInput,
                 to: price.toInput,
                 unlimited: false,
-                cost: price.costInput?? 0,
+                cost: price.costInput ?? 0,
                 plan_category: price.categoryInput,
               };
             }),

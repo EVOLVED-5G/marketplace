@@ -72,6 +72,7 @@
     }
     &__steps {
         background-color: var(--color-blue-light-1);
+        padding-left: 110px;
 
         ol {
             list-style: none;
@@ -93,20 +94,21 @@
                     font-size: rem(24px);
                     font-weight: 800;
                     font-family: "Source Sans Pro", sans-serif;
+                    margin-left: -66px;
                 }
 
-                &:before {
-                    position: absolute;
-                    border: 1px solid var(--color-primary);
-                    width: 0;
-                    height: 20px;
-                    display: block;
-                    content: "";
-                    left: 28px;
-                    z-index: 1;
-                    top: -18px;
-                    margin-left: -1px;
-                }
+                // &:before {
+                //     position: absolute;
+                //     border: 1px solid var(--color-primary);
+                //     width: 0;
+                //     height: 20px;
+                //     display: block;
+                //     content: "";
+                //     left: 28px;
+                //     z-index: 1;
+                //     top: -18px;
+                //     margin-left: -1px;
+                // }
 
                 &:first-child:before {
                     display: none;

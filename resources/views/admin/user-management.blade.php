@@ -117,7 +117,7 @@
                 <form id="deleteUserForm" method="POST" action="{{ route('administration.users.destroy', 0) }}">
                     @method('DELETE')
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="modal-header">
+                    <div class="modal-header justify-content-center">
                         <h4 class="modal-title">Are you sure you would like to delete this account? <span
                                 id="user-name"></span></h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

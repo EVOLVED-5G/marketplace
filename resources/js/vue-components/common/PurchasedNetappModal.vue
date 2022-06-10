@@ -3,7 +3,7 @@
         <div class="modal-mask">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header justify-content-center">
                         <h5 class="modal-title d-flex" id="exampleModalLabel">
                             <img loading="lazy" src="/img/success.modal.png" alt="success.modal" />
                         </h5>

@@ -59,7 +59,7 @@
                 max-width: 450px;
             }
 
-           
+
         }
 
         &--icon {
@@ -333,9 +333,7 @@
                     .accordion-button {
                         background-color: var(--color-blue-light-1);
                     }
-                    .accordion-button:focus {
-                        display: none;
-                    }
+
                     .collapsed {
                         .fa-minus-circle {
                             display: none;

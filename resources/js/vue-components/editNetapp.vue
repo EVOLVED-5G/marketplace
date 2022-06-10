@@ -49,12 +49,20 @@
               </li>
             </ul>
             <a
+            v-if="visible==true"
               :href="
                 this.form.service.appSlug
                   ? '/netapp-details/' + this.form.service.appSlug
                   : '/netapp-details/' + this.netapp[0].id
               "
               class="edit-details"
+            >
+              View NetApp page</a
+            >
+             <a
+            v-else
+              class="edit-details"
+              @click="showErrorMessage"
             >
               View NetApp page</a
             >
@@ -75,7 +83,9 @@
                       <option value="0">Private</option>
                       <option value="1">Public</option>
                     </select>
-                    <p>Not Visible to the marketplace</p>
+                    <p v-if="visible==false">Not Visible to the marketplace</p>
+                    <p v-else>Visible to the marketplace</p>
+
                   </div>
                 </div>
               </div>
@@ -594,6 +604,7 @@
                             ? {
                                 required: true,
                                 numeric: true,
+                                min_value:1
                               }
                             : {}
                         "
@@ -951,16 +962,16 @@
     </div>
   <Modal :open="this.showModal" :netappId="this.netapp[0].id" :link="'/edit-netapp/'+this.netapp[0].id"> You Netapp has been Updated </Modal>
  <WarningModel @paymentprocess="processWithPayment" @canceled="processWithoutPayment" :open="showWarningModel">
-     <div v-if='this.netapp[0].fix_price > 0 && paymentplan=="paymentplan"'>
+     <div v-if='form.pricing.price > 0 && form.paymentplan=="paymentplan"'>
    <h1>
      Are you sure that you want to change the payment?
    </h1>
-   <h4>v-if Your payment status will change to <b>pay as ypu go</b>* and you will be asked to set up your fee.</h4>
+   <h4>Your payment status will change to <b>pay as you go</b>* and you will be asked to set up your fee.</h4>
    <p>*You will change your customer either a) a fixed price for a specific number of calls, or b) fixed price per call.</p>
    </div>
    <div v-else>
    <h1>Are you sure that you want to change the payment?</h1>
-   <h3>v-else Your payment status will change to <b>once off</b>* and you will be asked to set up your fee.</h3>
+   <h3>Your payment status will change to <b>once off</b>* and you will be asked to set up your fee.</h3>
    <p>*Once they pay this amount they will be able to makie unlimited calls to your netapp API.</p>
    </div>
  </WarningModel>
@@ -971,7 +982,7 @@
 import VueDropzone from "./common/DropZone";
 import ckEditor from "./common/CkEditor.vue";
 import VoerroTagsInput from "@voerro/vue-tagsinput";
-import PriceTable from "./common/price-table.vue";
+import PriceTable from "./common/priceTable.vue";
 import Modal from "./common/SuccessModal";
 import WarningModel from "./common/warningModel.vue";
 export default {
@@ -1079,6 +1090,9 @@ export default {
     },
   },
   methods: {
+    showErrorMessage() {
+      this.$toastr.e("Please Make Sure that Your Netapp is Public");
+    },
     processWithPayment() {
       this.processPayment = true;
       this.processForm();
@@ -1138,7 +1152,6 @@ export default {
     },
     Validation() {
       this.$validator.validate("service.*").then((isValid) => {
-        this.handleLoader("show");
         if (this.form.service.logo == null) {
           this.errors.add({
             field: "service.logo",
@@ -1205,7 +1218,6 @@ export default {
         }
       });
       this.$validator.validate("pricing.*").then((isValid) => {
-        console.log(this.paymentplan);
         if (isValid) {
           if (
             (this.netapp[0].fix_price > 0 &&
@@ -1213,9 +1225,6 @@ export default {
             (this.form.paymentplan == "onceoff" &&
               this.netapp[0].fix_price == 0)
           ) {
-            console.log("here");
-            this.handleLoader("hide");
-
             this.showWarningModel = true;
             this.processPayment = false;
           }
@@ -1250,7 +1259,7 @@ export default {
                   // id: price.recordId,
                   to: 0,
                   unlimited: true,
-                  cost: price.costInput ??0,
+                  cost: price.costInput ?? 0,
                   plan_category: price.categoryInput,
                 };
               }
@@ -1258,7 +1267,7 @@ export default {
                 from: price.fromInput,
                 to: price.toInput,
                 unlimited: false,
-                cost: price.costInput ??0,
+                cost: price.costInput ?? 0,
                 plan_category: price.categoryInput,
               };
             }),
