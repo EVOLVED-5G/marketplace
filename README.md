@@ -20,11 +20,8 @@ containing the information about your database name and credentials:
 cp .env.example .env
 ```
 
-Then, run the command to set the application unique key:
-
-```bash
-php artisan key:generate
-```
+Take a look at the `.env` file that was created. You may need to update the `DB_*` variables, in order to set up the DB connection.
+Also, make sure that the `APP_URL` is set to the correct domain and port that you will be using.
 
 <hr>
 
@@ -46,7 +43,16 @@ Make sure
 
 After the `.env` file is completed, we should run all the Laravel-related initialization commands.
 
-1. Let's begin by installing all the backend Composer dependencies:
+1. Run the command to set the application unique key:
+
+```bash
+php artisan key:generate
+```
+
+If executed successfully, it will be set in the `APP_KEY` variable in the `.env` file.
+
+
+2. Install all the backend Composer dependencies:
 
 ```bash
 composer install
@@ -54,7 +60,7 @@ composer install
 composer dump-autoload
 ```
 
-2. Then, we can set up the DB schema and populating the DB:
+3. Then, we can set up the DB schema and populating the DB:
 
 ```bash
 php artisan migrate
@@ -62,13 +68,13 @@ php artisan migrate
 php artisan db:seed
 ```
 
-3. Make the soft link from the `/public/storage` folder with the `/storage/app/public` director
+4. Make the soft link from the `/public/storage` folder with the `/storage/app/public` director
 
 ```bash
 php artisan storage:link
 ```
 
-4. Install and compile all frontend npm dependencies:
+5. Install and compile all frontend npm dependencies:
 
 ```bash
 npm install
@@ -76,7 +82,7 @@ npm install
 npm run dev
 ```
 
-5. Create folder /public/assets and allow the www-data user to create new folders there
+6. Create folder /public/assets and allow the www-data user to create new folders there
 
 ### Apache configuration example:
 
@@ -99,19 +105,19 @@ npm run dev
 </VirtualHost>
 ```
 
-6. Make the symbolic link:
+7. Make the symbolic link:
 
 ```
 % cd /etc/apache2/sites-enabled && sudo ln -s ../sites-available/evolved5g-marketplace.conf
 ```
 
-7. Enable mod_rewrite, mod_ssl and restart apache:
+8. Enable mod_rewrite, mod_ssl and restart apache:
 
 ```
 % sudo a2enmod rewrite && sudo a2enmod ssl && sudo service apache2 restart
 ```
 
-8. Fix permissions for storage directory:
+9. Fix permissions for storage directory:
 
 ```
 sudo chown -R user:www-data storage
@@ -127,7 +133,7 @@ Or run the `set-file-permissions.sh` script.
 sudo ./set-file-permissions.sh www-data currentUser .
 ```
 
-9. Change hosts file so local-dev.evolved5g-marketplace points to localhost
+10. Change hosts file so local-dev.evolved5g-marketplace points to localhost
 
 ```$xslt
 sudo nano /etc/hosts
@@ -196,6 +202,14 @@ DB_PASSWORD=secret
 ### Laravel initialization commands
 
 After the `.env` file is completed, we should run all the Laravel-related initialization commands.
+
+Run the command to set the application unique key:
+
+```bash
+docker-compose run --rm artisan key:generate
+```
+
+If executed successfully, it will be set in the `APP_KEY` variable in the `.env` file.
 
 Let's begin by installing all the backend Composer dependencies:
 
