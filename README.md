@@ -43,7 +43,15 @@ Make sure
 
 After the `.env` file is completed, we should run all the Laravel-related initialization commands.
 
-1. Run the command to set the application unique key:
+1. Install all the backend Composer dependencies:
+
+```bash
+composer install
+
+composer dump-autoload
+```
+
+2. Run the command to set the application unique key:
 
 ```bash
 php artisan key:generate
@@ -51,14 +59,6 @@ php artisan key:generate
 
 If executed successfully, it will be set in the `APP_KEY` variable in the `.env` file.
 
-
-2. Install all the backend Composer dependencies:
-
-```bash
-composer install
-
-composer dump-autoload
-```
 
 3. Then, we can set up the DB schema and populating the DB:
 
@@ -145,7 +145,7 @@ sudo nano /etc/hosts
 
 ## Installation Option #2: Docker environment
 
-### Docker initialization
+### Docker initialization - Pre-installation commands
 
 As mentioned above, the Evolved5G Project uses a total of 3 applications (code repositories) that act as services,
 communicating with each other.
@@ -174,10 +174,28 @@ CRYPTO_SENDER_BASE_URL=http://evolved5g_blockchain_sender:8000/
 TM_FORUM_API_BASE_URL=http://evolved5g_pilot_tmf_api_container:8080/tmf-api/
 ```
 
+Check out the `.env.example` file, in order to see the 2 different configurations.
+
+### Regarding the User ID and the Group ID
+
+When the docker-compose service runs to  create the docker containers, it needs to know the Linux user ID and the Linux group ID of the current user.
+In most installations this will be equal to `1000`, but in order to confirm, run:
+
+```bash
+id `whoami`
+```
+This command will output the `uid` of the user, as well as the `gid` of the user and the `gid` of the groups the user belongs to.
+So, update the `.env` file accordingly:
+
+```bash
+DOCKER_USER_ID=1000
+DOCKER_GROUP_ID=1000
+```
+
 ### Laravel initialization with Docker
 
-After running `docker-compose up --build -d` in the root Laravel directory, the app will be available
-at [http://localhost:89](http://localhost:89).
+Run `docker-compose up --build -d` in order to build all the Docker containers.
+
 In order to run all Laravel installation-specific commands (like `php artisan migrate` , `npm install`, etc) we can use
 the utility Docker containers that are defined in `docker-compose.yml`.
 
@@ -201,6 +219,14 @@ DB_PASSWORD=secret
 
 ### Laravel initialization commands
 
+Let's begin by installing all the backend Composer dependencies:
+
+```bash
+docker-compose run --rm composer install
+
+docker-compose run --rm composer dump-autoload
+```
+
 After the `.env` file is completed, we should run all the Laravel-related initialization commands.
 
 Run the command to set the application unique key:
@@ -210,15 +236,6 @@ docker-compose run --rm artisan key:generate
 ```
 
 If executed successfully, it will be set in the `APP_KEY` variable in the `.env` file.
-
-Let's begin by installing all the backend Composer dependencies:
-
-```bash
-docker-compose run --rm composer install
-
-docker-compose run --rm composer dump-autoload
-```
-
 
 Then, we can set up the DB schema and populating the DB:
 
@@ -244,6 +261,9 @@ docker-compose run --rm npm run dev
 
 All the essential Laravel commands have also defined as shortcut in the `Makefile` that is in the root directory.
 So if you want to run the migrations, simply run `make migrate`.
+
+After all the abode commands have been executed successfully, the app will be available
+at [http://localhost:89](http://localhost:89).
 
 ## How to debug
 

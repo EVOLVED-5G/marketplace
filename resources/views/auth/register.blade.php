@@ -8,6 +8,7 @@
         <div class="login-page__bck col-md-5">
         </div>
         <div class="login-page__input col-md-7">
+            <a href="{{ route('home') }}">     <i class="fas fa-home"></i></a>
             <h2 class="text-center mb-4">Register to Εvolved-5G</h2>
             <div class="sign-in-form px-3">
                 <form method="POST" action="{{ route('register') }}">

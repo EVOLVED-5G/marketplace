@@ -17,6 +17,13 @@
         position: relative;
         padding-top: 100px;
         background-color: var(--color-offwhite-2);
+
+        .fa-home {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: rem(40px);
+        }
         .sign-in-form {
             max-width: 445px;
             margin: 0 auto;

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\BusinessLogicLayer\TMForumAPI\ForumAPIManager;
 use App\BusinessLogicLayer\TMForumAPI\TMForumAPIManager;
 use App\Repository\NetappCategoryRepository;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder {
@@ -65,10 +66,14 @@ class CategorySeeder extends Seeder {
         ];
 
         foreach ($data as $category) {
-            if(TMForumAPIManager::isForumAPIEnabled()) {
-                $apiCategory = $this->forumAPIManager->createProductCategory($category['name'], $category['description']);
-                $category['tm_forum_id'] = $apiCategory->id;
-                echo "\nCreated Category in TMForum API: " . $category['name'] . " with id: " . $apiCategory->id . "\n";
+            if (TMForumAPIManager::isForumAPIEnabled()) {
+                try {
+                    $apiCategory = $this->forumAPIManager->createProductCategory($category['name'], $category['description']);
+                    $category['tm_forum_id'] = $apiCategory->id;
+                    echo "\nCreated Category in TMForum API: " . $category['name'] . " with id: " . $apiCategory->id . "\n";
+                } catch (ConnectException $e) {
+                    echo "\nException when trying to use the TM Forum API: " . $e->getMessage() . "\n";
+                }
             }
             $this->repository->updateOrCreate(['id' => $category['id']], $category);
             echo "\nAdded Category: " . $category['name'] . "\n";

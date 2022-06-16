@@ -162,7 +162,7 @@
                     <h1> Support</h1>
                     <h2>Connect tο the forum!</h2>
 
-                    <a class="mouse-cursor-gradient-tracking btn btn--secondary mt-5" href="https://forum.evolved-5g.eu/">Go to
+                    <a class="mouse-cursor-gradient-tracking btn btn--secondary mt-5" target="_blank" href="https://forum.evolved-5g.eu/">Go to
                         forum</a>
                 </div>
 

@@ -6,7 +6,7 @@ services:
       context: docker/apache_php
       dockerfile: php8.dockerfile
     container_name: evolved5g_pilot_php
-    user: "1000:1000" #this is the Laravel user. We need to set it
+    user: "${DOCKER_USER_ID}:${DOCKER_GROUP_ID}" # this is the Laravel user. We need to set it
     # this way, so that the permissions are applied correctly.
     ports:
       - "89:80"
@@ -53,6 +53,8 @@ services:
     build:
       context: ./docker/utils
       dockerfile: composer.dockerfile
+      args:
+        DOCKER_USER_ID: ${DOCKER_USER_ID}
     volumes:
       - .:/var/www/html
     networks:
@@ -63,6 +65,8 @@ services:
     build:
       context: docker/apache_php
       dockerfile: php8.dockerfile
+      args:
+        DOCKER_USER_ID: ${DOCKER_USER_ID}
     volumes:
       - .:/var/www/html
     networks:
