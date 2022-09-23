@@ -21,6 +21,8 @@ services:
     build:
       context: docker/apache_php
       dockerfile: k8s.dockerfile
+      args:
+        DOCKER_GROUP_ID: ${DOCKER_GROUP_ID}
     container_name: evolved5g_pilot_php
     user: "${DOCKER_USER_ID}:${DOCKER_GROUP_ID}" # this is the Laravel user. We need to set it
     # this way, so that the permissions are applied correctly.
