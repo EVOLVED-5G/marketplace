@@ -19,8 +19,8 @@ services:
 
   php:
     build:
-      context: docker/apache_php
-      dockerfile: k8s.dockerfile
+      context: ./
+      dockerfile: docker/apache_php/k8s.dockerfile
       args:
         DOCKER_GROUP_ID: ${DOCKER_GROUP_ID}
     container_name: evolved5g_pilot_php
