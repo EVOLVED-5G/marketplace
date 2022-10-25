@@ -23,8 +23,8 @@ COPY docker/apache_php/apache_config.conf /etc/apache2/sites-enabled/000-default
 COPY docker/apache_php/php.ini /usr/local/etc/php/php.ini
 RUN apt-get update \
     && apt-get install -y --no-install-recommends supervisor
-ADD docker/apache_php/supervisord.conf /etc/
-ADD docker/apache_php/startup.sh /root/
-RUN chmod +x /root/startup.sh
-CMD ["/bin/bash","-c","/root/startup.sh"]
+COPY docker/apache_php/supervisord.conf /etc/supervisor/supervisor.conf
+COPY docker/apache_php/startup.sh /etc/startup.sh
+RUN chmod +x /etc/startup.sh
+CMD ["/bin/bash","-c","/etc/startup.sh"]
 USER www-data
