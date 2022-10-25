@@ -92,7 +92,7 @@ services:
     container_name: supervisor
     build:
       context: ./
-      dockerfile: Dockerfile.supervisor
+      dockerfile: docker/Dockerfile.supervisor
     restart: unless-stopped
     environment:
       - APP_ROOT=/var/www/html
