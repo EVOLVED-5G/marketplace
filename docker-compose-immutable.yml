@@ -4,6 +4,7 @@ services:
   db:
     build:
       context: docker/db
+    image: evolved5g_marketplace_image_db
     container_name: evolved5g_pilot_marketplace_db
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
@@ -13,16 +14,19 @@ services:
     ports:
       - "3316:3306"
     volumes:
-      - mydata:/var/lib/mysql
+      - evolved5g_pilot_marketplace_volume:/var/lib/mysql
     networks:
       - docker_evolved5g_net
 
   app:
     build:
       context: ./
-      dockerfile: docker/apache_php/k8s.dockerfile
+      dockerfile: docker/k8s.dockerfile
       args:
         DOCKER_GROUP_ID: ${DOCKER_GROUP_ID}
+        DOCKER_USER_ID: ${DOCKER_USER_ID}
+        DOCKER_USER: laravel
+    image: evolved5g_marketplace_image_app
     container_name: evolved5g_pilot_marketplace_laravel
     user: "${DOCKER_USER_ID}:${DOCKER_GROUP_ID}" # this is the Laravel user. We need to set it
     # this way, so that the permissions are applied correctly.
@@ -56,7 +60,8 @@ services:
       - db
 
 volumes:
-  mydata:
+  evolved5g_pilot_marketplace_volume:
+    name: evolved5g_pilot_marketplace_volume
 
 networks:
   docker_evolved5g_net:

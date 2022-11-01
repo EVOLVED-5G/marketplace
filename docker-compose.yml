@@ -4,7 +4,7 @@ services:
   php:
     build:
       context: ./
-      dockerfile: docker/apache_php/php8.dockerfile
+      dockerfile: docker/php/php8.dockerfile
     container_name: evolved5g_pilot_php
     user: "${DOCKER_USER_ID}:${DOCKER_GROUP_ID}" # this is the Laravel user. We need to set it
     # this way, so that the permissions are applied correctly.
@@ -63,7 +63,7 @@ services:
     container_name: evolved5g_pilot_artisan
     build:
       context: ./
-      dockerfile: docker/apache_php/php8.dockerfile
+      dockerfile: docker/php/php8.dockerfile
       args:
         DOCKER_GROUP_ID: ${DOCKER_GROUP_ID}
     volumes:
@@ -92,7 +92,7 @@ services:
     container_name: supervisor
     build:
       context: ./
-      dockerfile: docker/Dockerfile.supervisor
+      dockerfile: docker/supervisor/Dockerfile.supervisor
     restart: unless-stopped
     environment:
       - APP_ROOT=/var/www/html

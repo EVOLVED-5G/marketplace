@@ -132,6 +132,7 @@ return [
     'crypto_transaction_sender_base_url' => env('CRYPTO_SENDER_BASE_URL'),
     'forum_url' => env('FORUM_URL'),
     'tm_forum_api_base_url' => env('TM_FORUM_API_BASE_URL'),
+    'admin_pass_seed' => env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

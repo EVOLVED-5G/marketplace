@@ -1,0 +1,7 @@
+#!/bin/bash
+
+docker container rm evolved5g_pilot_marketplace_laravel evolved5g_pilot_marketplace_db evolved5g_pilot_marketplace_phpmyadmin
+
+docker image rm evolved5g_marketplace_image_app:latest evolved5g_marketplace_image_db:latest
+
+docker volume rm evolved5g_pilot_marketplace_volume

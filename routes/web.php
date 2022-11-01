@@ -10,6 +10,8 @@ use App\Http\Controllers\Resource\CarerResourceController;
 use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\SaveNetappController;
 use App\Http\Controllers\UserController;
+use App\Jobs\TestJob;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,15 @@ Route::get('/netapp-details/{slug}', [NetappController::class, 'show'])->name('s
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {
+
+        Route::get('/phpinfo', function (Request $request) {
+            phpinfo();
+        });
+
+        Route::get('/test-queue', function (Request $request) {
+            TestJob::dispatch();
+        });
+
         Route::resource('users', UserController::class)->except([
             'create', 'edit', 'show'
         ]);

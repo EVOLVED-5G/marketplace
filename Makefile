@@ -18,5 +18,7 @@ npm_install:
 	docker-compose run --rm npm install
 npm_run_dev:
 	docker-compose run --rm npm run dev
+npm_run_prod:
+	docker-compose run --rm npm run prod
 npm_run_watch:
 	docker-compose run --rm npm run watch

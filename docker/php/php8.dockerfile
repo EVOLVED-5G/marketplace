@@ -19,9 +19,9 @@ ENV PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN node --version
 RUN npm --version
 
-COPY ./docker/apache_php/apache_config.conf /etc/apache2/sites-enabled/000-default.conf
+COPY ./docker/apache/apache_config.conf /etc/apache2/sites-enabled/000-default.conf
 
-COPY ./docker/apache_php/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
 COPY --chown=www-data:www-data ./ /var/www/html
 
 USER www-data

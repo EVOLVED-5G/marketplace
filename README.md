@@ -192,14 +192,7 @@ DOCKER_USER_ID=1000
 DOCKER_GROUP_ID=1000
 ```
 
-### Laravel initialization with Docker
-
-Run `docker-compose up --build -d` in order to build all the Docker containers.
-
-In order to run all Laravel installation-specific commands (like `php artisan migrate` , `npm install`, etc) we can use
-the utility Docker containers that are defined in `docker-compose.yml`.
-
-***Note about the DB connection***
+### About the DB connection with Docker
 
 You need first to specify a MySQL user and password of your choice in the `.env` file, and when the DB container is created, it will use these credentials from the .env file.
 
@@ -217,7 +210,22 @@ DB_USERNAME=admin
 DB_PASSWORD=secret
 ```
 
-### Laravel initialization commands
+### About the different Docker setup options
+
+This repository includes 2 different Docker setups.
+The first one is described in the `docker-compose.yml` file, and the second in the `docker-compose-immutable.yml` file.
+
+The difference between the 2 files is that in the first setup option we make use of multiple containers (also called "utility" containers),
+while in the second option everything is packed in a single container (apart from the DB).
+
+### Docker Option #1 - Multi-container setup - Laravel initialization
+
+Run `docker-compose up --build -d` in order to build all the Docker containers.
+
+In order to run all Laravel installation-specific commands (like `php artisan migrate` , `npm install`, etc) we can use
+the utility Docker containers that are defined in `docker-compose.yml`.
+
+#### Laravel initialization commands
 
 Let's begin by installing all the backend Composer dependencies:
 
@@ -256,11 +264,76 @@ Install and compile all frontend npm dependencies:
 ```bash
 docker-compose run --rm npm install
 
-docker-compose run --rm npm run dev
+docker-compose run --rm npm run dev #for development environment
+
+docker-compose run --rm npm run prod #for production environment
 ```
 
 All the essential Laravel commands have also defined as shortcut in the `Makefile` that is in the root directory.
 So if you want to run the migrations, simply run `make migrate`.
+
+### Docker Option #2 - Single-container setup - Laravel initialization
+
+In this setup, we will first build the single -monolith- container, and then we will enter the container and run all the commands from inside the container.
+
+In order to build the container, run:
+
+```bash
+docker compose -f docker-compose-immutable.yml up --build
+```
+
+Now enter the Laravel container, by running:
+
+```bash
+docker exec -it evolved5g_pilot_marketplace_laravel bash
+```
+
+**From now on, all the commands assume execution inside the container.**
+
+#### Laravel initialization commands
+
+Let's begin by installing all the backend Composer dependencies:
+
+```bash
+composer install
+
+composer dump-autoload
+```
+
+After that, we should run all the Laravel-related initialization commands.
+
+Run the command to set the application unique key:
+
+```bash
+php artisan key:generate
+```
+
+If executed successfully, it will be set in the `APP_KEY` variable in the `.env` file.
+
+Then, we can set up the DB schema and populating the DB:
+
+```bash
+php artisan migrate
+
+php artisan db:seed
+```
+
+Make the soft link from `app/storage/` to `public/storage`:
+
+```bash
+php artisan storage:link
+```
+
+Install and compile all frontend npm dependencies:
+
+```bash
+npm install
+
+npm run dev #for development environment
+
+npm run prod #for production environment
+```
+
 
 After all the abode commands have been executed successfully, the app will be available
 at [http://localhost:89](http://localhost:89).

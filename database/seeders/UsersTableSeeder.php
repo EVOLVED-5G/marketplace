@@ -23,14 +23,14 @@ class UsersTableSeeder extends Seeder {
                 'id' => 1,
                 'name' => 'Alexandros Tzoumas',
                 'email' => 'alexandros.tzoumas@gmail.com',
-                'password' => bcrypt(env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'))
+                'password' => bcrypt(config('app.admin_pass_seed'))
             ]
         ];
 
         foreach ($data as $user) {
             $user = $this->userRepository->updateOrCreate(['id' => $user['id']],
                 $user);
-            echo "\nAdded User: " . $user->name . " with email: " . $user->email . "\n";
+            echo "\nAdded User: " . $user->name . " with email: " . $user->email . " and pass: " . config('app.admin_pass_seed') . "\n";
         }
     }
 }
