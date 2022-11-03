@@ -1067,7 +1067,7 @@ export default {
           socialNumber: this.netapp[0].social_number,
         },
         deployment: {
-          imageUrl: this.netapp[0].docker_image_url,
+            githubURL: this.netapp[0].github_url,
           dockerSize: this.netapp[0].docker_size,
           licensefile: null,
           report: this.netapp[0].certificate_url,

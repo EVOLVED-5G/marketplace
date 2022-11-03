@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('layouts.dashboard-layout')
 @section('content')
     <div id="history-purchased">
@@ -13,19 +14,17 @@
                                 <th scope="col">Date of purchase</th>
                                 <th scope="col">Digital signature</th>
                                 <th scope="col">NetApp</th>
-                                <th scope="col">Docker image <a class="ml-1" href="https://forum.evolved-5g.eu/t/how-can-i-use-a-netapp-that-i-purchased-in-the-marketplace/16/5"
-                                                                target="_blank"
-                                                                title="Go to the forum for support in using docker images">
-                                        <i class="fas fa-question-circle"></i></a></th>
+                                <th scope="col">GitHub URL</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($purchasedNetApps as $purchasedNetApp)
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td> {{\Carbon\Carbon::parse($purchasedNetApp->created_at)->format('d/m/Y H:i')}}</td>
+                                    <td> {{Carbon::parse($purchasedNetApp->created_at)->format('d/m/Y H:i')}}</td>
                                     <td id="digital-signature">
-                                        <a href="{{ $purchasedNetApp->blockchain_transaction_url ?? '#' }}" target="_blank">
+                                        <a href="{{ $purchasedNetApp->blockchain_transaction_url ?? '#' }}"
+                                           target="_blank">
                                             {{ $purchasedNetApp->hash }}
                                         </a>
                                     </td>
@@ -36,8 +35,8 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @if($purchasedNetApp->netapp->docker_image_url)
-                                            <a href="{{ $purchasedNetApp->netapp->docker_image_url }}" target="_blank">
+                                        @if($purchasedNetApp->netapp->github_url)
+                                            <a href="{{ $purchasedNetApp->netapp->github_url }}" target="_blank">
                                                 URL
                                             </a>
                                         @endif

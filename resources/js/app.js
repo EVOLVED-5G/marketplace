@@ -182,7 +182,8 @@ const app = new Vue({
     // mobile menu
 
     const mainNavigation = document.querySelector(".main-navigation");
-
+    if(!mainNavigation)
+        return;
 
     const overlay = mainNavigation.querySelector(".overlay");
     const toggler = mainNavigation.querySelector(".navbar-toggler");

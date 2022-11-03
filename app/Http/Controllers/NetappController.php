@@ -18,9 +18,11 @@ use App\Models\NetappType;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use GuzzleHttp\Client;
 
 class NetappController extends Controller {
     /**
@@ -29,11 +31,12 @@ class NetappController extends Controller {
      * @return Response
      */
 
-    protected $netappManager;
-    protected $documentManager;
-    protected $imageManager;
-    protected $apiPaymentPlanManager;
-    protected $forumAPIManager;
+    protected NetappManager $netappManager;
+    protected DocumentManager $documentManager;
+    protected ImageManager $imageManager;
+    protected ApiPaymentPlanManager $apiPaymentPlanManager;
+    protected ForumAPIManager $forumAPIManager;
+    protected ApiEndpointManager $apiEndpointManager;
 
     public function __construct(
         NetappManager         $netappManager,
@@ -231,5 +234,42 @@ class NetappController extends Controller {
      */
     public function destroy(Netapp $netapp) {
         //
+    }
+
+    public function checkValidityOfURL(Request $request): JsonResponse {
+        $request->validate([
+            'url' => 'required|url',
+        ]);
+        $url = $request->url;
+        $client = new Client(['base_uri' => $url, 'verify' => false]);
+        try {
+            $response = $client->request('GET', $url, [
+                // If you want more information during request
+                'debug' => false,
+                'headers' => $this->getCommonHeaders()
+            ]);
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400)
+                return response()->json(['status' => 'success']);
+            return response()->json([
+                'success' => false,
+                'code' => $statusCode,
+                'message' => $response->getBody(),
+
+            ], $statusCode);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage() . ": This GitHub URL is not valid.",
+            ], $exception->getCode());
+        }
+    }
+
+    protected function getCommonHeaders(): array {
+        return [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ];
     }
 }

@@ -5,14 +5,10 @@ use App\Http\Controllers\MarketplaceOverviewController;
 use App\Http\Controllers\NetappController;
 use App\Http\Controllers\ProductCatalogueController;
 use App\Http\Controllers\PurchasedNetAppController;
-use App\Http\Controllers\Resource\PatientResourceController;
-use App\Http\Controllers\Resource\CarerResourceController;
-use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\SaveNetappController;
 use App\Http\Controllers\UserController;
 use App\Jobs\TestJob;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +33,7 @@ Route::view('/admin-dashboard', 'admin-dashboard')->name('admin-dashboard');
 Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
 Route::post('api/filter-netapp', [ProductCatalogueController::class, 'filter'])->name('filter-netapp');
 Route::get('/netapp-details/{slug}', [NetappController::class, 'show'])->name('show-netapp');
+Route::get('/validate-url', [NetappController::class, 'checkValidityOfURL'])->name('validate-url');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {

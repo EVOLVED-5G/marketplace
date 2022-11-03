@@ -17,7 +17,7 @@ class Netapp extends Model
         'version',
         'business_name',
         'social_number',
-        'docker_image_url',
+        'github_url',
         'docker_size',
         'certificate_url',
         'policy',
@@ -45,7 +45,7 @@ class Netapp extends Model
     }
     public function scopeActive($query)
     {
-     
+
         // if (auth()->check()) {
         //     if ($this->user_id == auth()->user()->id) {
         //         return $query->where('user_id', auth()->user()->id);

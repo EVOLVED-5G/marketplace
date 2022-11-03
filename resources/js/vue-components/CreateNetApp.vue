@@ -526,17 +526,16 @@
             <form class="row g-3">
               <div>
                 <label for="netapp-image-url" class="form-label text-details"
-                  >Copy paste the net app image url from the Open
-                  Repository</label
-                >
+                  >Please paste the GitHub url of your NetApp:</label>
                 <input
                   type="url"
                   class="form-control"
                   id="netapp-image-url"
-                  name="imageUrl"
-                  v-model="form.deployment.imageUrl"
+                  name="githubURL"
+                  placeholder="(ex.https://github.com/EVOLVED-5G/FogusNetApp)"
+                  v-model="form.deployment.githubURL"
                   :class="{
-                    customError: errors.has('deployment.imageUrl'),
+                    customError: errors.has('deployment.githubURL'),
                   }"
                   data-vv-scope="deployment"
                   v-validate="{
@@ -546,9 +545,9 @@
                   data-vv-rules="required"
                 />
                 <span
-                  v-show="errors.has('deployment.imageUrl')"
+                  v-show="errors.has('deployment.githubURL')"
                   class="error-text"
-                  >Add image Url of Net App</span
+                  >Add GitHub URL of Net App</span
                 >
               </div>
               <div>
@@ -1073,6 +1072,11 @@
 
         <div class="step-actions mt-5">
           <div class="container-fluid p-0">
+              <div class="row mb-2">
+                  <div class="col">
+                      <p class="text-danger" v-if="generalFormError"><b>Error:</b> <span v-html="generalFormError"></span></p>
+                  </div>
+              </div>
             <div class="row">
               <div class="col-lg-3 col-md-12 text-start mb-4">
                 <a style="font-weight: bold" :href="getDashboardRoute()"
@@ -1140,6 +1144,7 @@ export default {
   },
   data() {
     return {
+        generalFormError: null,
       uploadLicenseFile: false,
       divIndex: 1,
       inputIndex: 1,
@@ -1209,7 +1214,7 @@ export default {
           socialNumber: this.social,
         },
         deployment: {
-          imageUrl: null,
+          githubURL: null,
           dockerSize: null,
           licensefile: null,
           report: null,
@@ -1227,7 +1232,32 @@ export default {
     };
   },
 
+    mounted() {
+        this.form.service.name = "Test netapp";
+        this.form.service.appSlug = "test-netapp";
+        this.form.service.version= "1.0";
+        this.form.service.about = "Test about";
+        this.form.service.type = 1;
+        this.form.service.category = 1;
+        this.form.service.publishedBy = "user";
+        this.form.service.logo = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
+        this.form.deployment.dockerSize = 5;
+        this.form.deployment.licensefile = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
+        this.form.deployment.report = "https://www.scify.gr/site/en/";
+        this.form.deployment.githubURL = "https://github.com/scify/Mentorship-matching-backend";
+    },
+
   methods: {
+      getErrorMessage(error) {
+          if (error.response) {
+              // The request was made and the server responded with a status code
+              // that falls out of the range of 2xx
+              const message = error.response.data ? error.response.data.message : error.response.data;
+              return error.response.status + " " + message;
+          }
+          // Something happened in setting up the request that triggered an Error
+          return error.message;
+      },
     getDashboardRoute() {
       return route("welcome-dashboard");
     },
@@ -1235,7 +1265,6 @@ export default {
       return route("edit-netapp", this.netappId);
     },
     changeUploadStatus() {
-      console.log("change upload status");
       this.uploadLicenseFile = true;
     },
     windowScroll() {
@@ -1251,14 +1280,14 @@ export default {
       this.readPrivacyError = null;
     },
     Validation() {
-      if (this.progressValue == this.stepsValue.service) {
+      if (this.progressValue === this.stepsValue.service) {
         this.$validator.validate("service.*").then((isValid) => {
           this.handleLoader("show");
           axios
             .post("api/slug-validation", { slug: this.form.service.appSlug })
             .then((respnose) => {
               this.handleLoader("hide");
-              if (respnose.data.message == "success") {
+              if (respnose.data.message === "success") {
                 if (this.form.service.logo == null) {
                   this.errors.add({
                     field: "service.logo",
@@ -1268,7 +1297,6 @@ export default {
                 if (isValid && this.form.service.logo !== null) {
                   this.errors.remove("service.logo");
                   this.progressValue = this.stepsValue.policy;
-                  console.log(this.progressValue);
                   this.windowScroll();
                 }
               }
@@ -1282,7 +1310,7 @@ export default {
             });
         });
       }
-      if (this.progressValue == this.stepsValue.policy) {
+      if (this.progressValue === this.stepsValue.policy) {
         this.$validator.validate("policy.*").then((isValid) => {
           if (isValid) {
             this.progressValue = this.stepsValue.deployment;
@@ -1294,7 +1322,7 @@ export default {
           // }
         });
       }
-      if (this.progressValue == this.stepsValue.deployment) {
+      if (this.progressValue === this.stepsValue.deployment) {
         this.$validator.validate("deployment.*").then((isValid) => {
           if (
             this.uploadLicenseFile == true &&
@@ -1306,7 +1334,31 @@ export default {
             });
           } else {
             if (isValid) {
-              this.progressValue = this.stepsValue.tutorial;
+                this.generalFormError = null;
+                this.handleLoader("show");
+                axios.defaults.withCredentials = true;
+                axios
+                    .get(route("validate-url") + "?url=" + this.form.deployment.githubURL)
+                    .then((response) => {
+                        if(response.status >= 200 && response.status < 400) {
+                            this.progressValue = this.stepsValue.tutorial;
+                        } else {
+                            this.generalFormError = "The GitHub URL does not exist.";
+                            this.errors.add({
+                                field: "deployment.githubURL",
+                                msg: "The GitHub URL does not exist",
+                            });
+                        }
+                    }).catch(error => {
+                        this.generalFormError = this.getErrorMessage(error);
+                        this.errors.add({
+                            field: "deployment.githubURL",
+                            msg: "The GitHub URL does not exist",
+                        });
+                }).finally(() => {
+                    this.handleLoader("hide");
+                });
+              //
             }
           }
         });
@@ -1322,15 +1374,9 @@ export default {
             this.errors.remove("tutorial.pdf");
             this.windowScroll();
           } else {
-            // if (this.form.tutorial.pdf == null) {
-            //   this.errors.add({
-            //     field: "tutorial.pdf",
-            //     msg: "Add Tutorial File",
-            //   });
-            // }
             if (
               this.form.tutorial.docs == null ||
-              this.form.tutorial.docs == ""
+              this.form.tutorial.docs === ""
             ) {
               this.errors.add({
                 field: "tutorial.docs",
