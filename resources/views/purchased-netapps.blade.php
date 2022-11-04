@@ -43,7 +43,7 @@
                                         @if($purchasedNetApp->netapp->license
                                             && $purchasedNetApp->netapp->license->first()
                                             && $purchasedNetApp->netapp->license->first()->url
-                                            && $purchasedNetApp->netapp->certificate_url)
+                                            && $purchasedNetApp->netapp->docker_image_url)
                                             ,
                                         @endif
                                         @if($purchasedNetApp->netapp->license

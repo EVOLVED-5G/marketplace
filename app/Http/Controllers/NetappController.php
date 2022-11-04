@@ -266,6 +266,39 @@ class NetappController extends Controller {
         }
     }
 
+    public function checkValidityOfNetappFingerprint(Request $request): JsonResponse {
+        $request->validate([
+            'netapp_name' => 'required|string',
+            'version' => 'required|string',
+            'fingerprint_code' => 'required|string'
+        ]);
+        if(!app()->environment('production'))
+            return response()->json([
+                'success' => true
+            ]);
+
+        $url = config("app.netapp_fingerprint_base_url") . $request->netapp_name . "/" . $request->version . "/fingerprint.json";
+        $client = new Client(['base_uri' => $url, 'verify' => false]);
+        try {
+            $response = $client->request('GET', $url, [
+                // If you want more information during request
+                'debug' => true,
+                'headers' => $this->getCommonHeaders()
+            ]);
+            $data = json_decode($response->getBody());
+            $success = $data['certificationid'] === $request->fingerprint_code;
+            return response()->json([
+                'success' => $success
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage() . ": This GitHub URL is not valid.",
+            ], $exception->getCode());
+        }
+    }
+
     protected function getCommonHeaders(): array {
         return [
             'Content-Type' => 'application/json',

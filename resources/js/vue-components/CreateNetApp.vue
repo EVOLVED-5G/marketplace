@@ -525,12 +525,12 @@
           <div class="step-card__content p-3">
             <form class="row g-3">
               <div>
-                <label for="netapp-image-url" class="form-label text-details"
+                <label for="netapp-github-url" class="form-label text-details"
                   >Please paste the GitHub url of your NetApp:</label>
                 <input
                   type="url"
                   class="form-control"
-                  id="netapp-image-url"
+                  id="netapp-github-url"
                   name="githubURL"
                   placeholder="(ex.https://github.com/EVOLVED-5G/FogusNetApp)"
                   v-model="form.deployment.githubURL"
@@ -549,32 +549,52 @@
                   class="error-text"
                   >Add GitHub URL of Net App</span
                 >
+                  <label for="netapp-fingerprint-code" class="form-label text-details"
+                  >Please copy paste the certification fingerprint code, form the certification report you received when deployed your net app</label>
+                  <input
+                      type="url"
+                      class="form-control"
+                      id="netapp-fingerprint-code"
+                      name="fingerprint_code"
+                      placeholder="(ex.FG_CODE_A"
+                      v-model="form.deployment.fingerprint_code"
+                      :class="{
+                    customError: errors.has('deployment.fingerprint_code'),
+                  }"
+                      data-vv-scope="deployment"
+                      v-validate="{
+                    required: true,
+                  }"
+                      data-vv-rules="required"
+                  />
+                  <span
+                      v-show="errors.has('deployment.fingerprint_code')"
+                      class="error-text"
+                  >The fingerprint code is invalid.</span
+                  >
               </div>
               <div>
-                <label for="report-url" class="form-label text-details"
-                  >Copy paste the Certification/Validation report URL</label
-                >
-                <input
-                  type="url"
-                  class="form-control"
-                  id="report-url"
-                  name="report"
-                  v-model="form.deployment.report"
-                  :class="{
-                    customError: errors.has('deployment.report'),
+                  <label for="netapp-image-url" class="form-label text-details">Copy paste the netapp Docker image url from the Open Repository</label>
+                  <input
+                      type="url"
+                      class="form-control"
+                      id="netapp-image-url"
+                      name="imageUrl"
+                      v-model="form.deployment.imageUrl"
+                      :class="{
+                    customError: errors.has('deployment.imageUrl'),
                   }"
-                  data-vv-scope="deployment"
-                  v-validate="{
+                      data-vv-scope="deployment"
+                      v-validate="{
                     url: { require_protocol: true },
                     required: true,
                   }"
-                  data-vv-rules="required"
-                />
-                <span
-                  v-show="errors.has('deployment.report')"
-                  class="error-text"
-                  >Add Certification/Validation report URL</span
-                >
+                      data-vv-rules="required"
+                  />
+                  <span
+                      v-show="errors.has('deployment.imageUrl')"
+                      class="error-text"
+                  >Add Docker image Url of Net App</span>
               </div>
               <div>
                 <label for="docker-size" class="form-label text-details"
@@ -1217,7 +1237,8 @@ export default {
           githubURL: null,
           dockerSize: null,
           licensefile: null,
-          report: null,
+          imageUrl: null,
+          fingerprint_code: null,
         },
         policy: { agreePolicy: null },
         tutorial: {
@@ -1234,7 +1255,7 @@ export default {
 
     mounted() {
         this.form.service.name = "Test netapp";
-        this.form.service.appSlug = "test-netapp";
+        this.form.service.appSlug = "test-netapp-1";
         this.form.service.version= "1.0";
         this.form.service.about = "Test about";
         this.form.service.type = 1;
@@ -1243,8 +1264,9 @@ export default {
         this.form.service.logo = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
         this.form.deployment.dockerSize = 5;
         this.form.deployment.licensefile = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
-        this.form.deployment.report = "https://www.scify.gr/site/en/";
+        this.form.deployment.imageUrl = "https://www.scify.gr/site/en/";
         this.form.deployment.githubURL = "https://github.com/scify/Mentorship-matching-backend";
+        this.form.deployment.fingerprint_code = "test123";
     },
 
   methods: {
@@ -1315,11 +1337,9 @@ export default {
           if (isValid) {
             this.progressValue = this.stepsValue.deployment;
           }
-          // else {
-          //   if (this.checkPrivacy == false) {
-          //     this.readPrivacyError = "Please Read the privacy policy before";
-          //   }
-          // }
+          else {
+            this.readPrivacyError = "Please Read the privacy policy before";
+          }
         });
       }
       if (this.progressValue === this.stepsValue.deployment) {
@@ -1341,7 +1361,31 @@ export default {
                     .get(route("validate-url") + "?url=" + this.form.deployment.githubURL)
                     .then((response) => {
                         if(response.status >= 200 && response.status < 400) {
-                            this.progressValue = this.stepsValue.tutorial;
+                            axios
+                                .get(route("netapp.fingerprint-check")
+                                    + "?netapp_name=" + this.form.service.name
+                                    + "&version=" + this.form.service.version
+                                    + "&fingerprint_code=" + this.form.deployment.fingerprint_code)
+
+                                .then((response) => {
+                                    if(response.data.success) {
+                                        this.progressValue = this.stepsValue.tutorial;
+                                    } else {
+                                        this.generalFormError = "The Fingerprint code is invalid.";
+                                        this.errors.add({
+                                            field: "deployment.fingerprint_code",
+                                            msg: "The GitHub URL does not exist",
+                                        });
+                                    }
+                                }).catch(error => {
+                                this.generalFormError = this.getErrorMessage(error);
+                                this.errors.add({
+                                    field: "deployment.fingerprint_code",
+                                    msg: "The GitHub URL does not exist",
+                                });
+                            }).finally(() => {
+                                this.handleLoader("hide");
+                            });
                         } else {
                             this.generalFormError = "The GitHub URL does not exist.";
                             this.errors.add({
@@ -1355,7 +1399,6 @@ export default {
                             field: "deployment.githubURL",
                             msg: "The GitHub URL does not exist",
                         });
-                }).finally(() => {
                     this.handleLoader("hide");
                 });
               //

@@ -133,6 +133,7 @@ return [
     'forum_url' => env('FORUM_URL'),
     'tm_forum_api_base_url' => env('TM_FORUM_API_BASE_URL'),
     'admin_pass_seed' => env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'),
+    'netapp_fingerprint_base_url' => env('NETAPP_FINGERPRINT_BASE_URL'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

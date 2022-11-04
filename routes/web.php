@@ -34,6 +34,7 @@ Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
 Route::post('api/filter-netapp', [ProductCatalogueController::class, 'filter'])->name('filter-netapp');
 Route::get('/netapp-details/{slug}', [NetappController::class, 'show'])->name('show-netapp');
 Route::get('/validate-url', [NetappController::class, 'checkValidityOfURL'])->name('validate-url');
+Route::get('/netapp-check-fingerprint', [NetappController::class, 'checkValidityOfNetappFingerprint'])->name('netapp.fingerprint-check');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {
