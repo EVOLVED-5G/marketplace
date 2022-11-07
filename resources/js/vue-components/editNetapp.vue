@@ -1068,7 +1068,6 @@ export default {
         },
         deployment: {
             githubURL: this.netapp[0].github_url,
-          dockerSize: this.netapp[0].docker_size,
           licensefile: null,
             docker_image_url: this.netapp[0].docker_image_url,
         },

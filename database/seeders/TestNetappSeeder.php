@@ -35,7 +35,6 @@ class TestNetappSeeder extends Seeder {
             'url_site' => 'https://scify.org',
             'github_url' => 'https://scify.org',
             'docker_image_url' => 'https://scify.org',
-            'docker_size' => 1024,
             'type_id' => 1,
             'user_id' => 1,
             'tutorial_docs' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',

@@ -534,6 +534,8 @@
                   name="githubURL"
                   placeholder="(ex.https://github.com/EVOLVED-5G/FogusNetApp)"
                   v-model="form.deployment.githubURL"
+                  @paste="setDockerImageURLValue"
+                  @input="setDockerImageURLValue"
                   :class="{
                     customError: errors.has('deployment.githubURL'),
                   }"
@@ -574,16 +576,17 @@
                   >
               </div>
               <div>
-                  <label for="netapp-image-url" class="form-label text-details">Copy paste the netapp Docker image url from the Open Repository</label>
+                  <label for="netapp-image-url" class="form-label text-details">Open Repository Docker image url for the Netapp</label>
                   <input
+                      disabled
                       type="url"
                       class="form-control"
                       id="netapp-image-url"
                       name="imageUrl"
                       v-model="form.deployment.imageUrl"
                       :class="{
-                    customError: errors.has('deployment.imageUrl'),
-                  }"
+                            customError: errors.has('deployment.imageUrl'),
+                        }"
                       data-vv-scope="deployment"
                       v-validate="{
                     url: { require_protocol: true },
@@ -596,33 +599,6 @@
                       class="error-text"
                   >Add Docker image Url of Net App</span>
               </div>
-              <div>
-                <label for="docker-size" class="form-label text-details"
-                  >Enter Docker Size (in MBs)</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="docker-size"
-                  name="dockerSize"
-                  v-model.number="form.deployment.dockerSize"
-                  :class="{
-                    customError: errors.has('deployment.dockerSize'),
-                  }"
-                  data-vv-scope="deployment"
-                  v-validate="{
-                    required: true,
-                    numeric: true,
-                  }"
-                  data-vv-rules="required"
-                />
-                <span
-                  v-show="errors.has('deployment.dockerSize')"
-                  class="error-text"
-                  >Enter Docker Size (in MBs)</span
-                >
-              </div>
-
               <div class="mb-3">
                 <label
                   for="deployment-tutorial-pdf"
@@ -1235,7 +1211,6 @@ export default {
         },
         deployment: {
           githubURL: null,
-          dockerSize: null,
           licensefile: null,
           imageUrl: null,
           fingerprint_code: null,
@@ -1262,9 +1237,7 @@ export default {
         this.form.service.category = 1;
         this.form.service.publishedBy = "user";
         this.form.service.logo = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
-        this.form.deployment.dockerSize = 5;
         this.form.deployment.licensefile = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
-        this.form.deployment.imageUrl = "https://www.scify.gr/site/en/";
         this.form.deployment.githubURL = "https://github.com/scify/Mentorship-matching-backend";
         this.form.deployment.fingerprint_code = "test123";
     },
@@ -1300,6 +1273,13 @@ export default {
       window.open("/privacy-policy", "_blank");
       this.checkPrivacy = true;
       this.readPrivacyError = null;
+    },
+    setDockerImageURLValue() {
+        this.form.deployment.imageUrl = process.env.MIX_NETAPP_OPEN_REPOSITORY_DOCKER_IMAGE_BASE_URL
+            + this.getNetappNameFromGitHubURL() + "/images:" + this.form.service.version;
+    },
+    getNetappNameFromGitHubURL() {
+        return this.form.deployment.githubURL.split("/").pop();
     },
     Validation() {
       if (this.progressValue === this.stepsValue.service) {
@@ -1363,18 +1343,18 @@ export default {
                         if(response.status >= 200 && response.status < 400) {
                             axios
                                 .get(route("netapp.fingerprint-check")
-                                    + "?netapp_name=" + this.form.service.name
+                                    + "?netapp_name=" + this.getNetappNameFromGitHubURL()
                                     + "&version=" + this.form.service.version
                                     + "&fingerprint_code=" + this.form.deployment.fingerprint_code)
-
                                 .then((response) => {
                                     if(response.data.success) {
+                                        this.setDockerImageURLValue();
                                         this.progressValue = this.stepsValue.tutorial;
                                     } else {
                                         this.generalFormError = "The Fingerprint code is invalid.";
                                         this.errors.add({
                                             field: "deployment.fingerprint_code",
-                                            msg: "The GitHub URL does not exist",
+                                            msg: "The fingerprint code is invalid",
                                         });
                                     }
                                 }).catch(error => {

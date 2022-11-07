@@ -35,7 +35,6 @@ class NetappRequest extends FormRequest
             "policy.agreePolicy" => "required|boolean",
             "deployment.githubURL" => 'required|url',
             "deployment.docker_image_url" => 'required|url',
-            "deployment.dockerSize" => 'required|integer',
             "pricing.price" => 'required|integer',
             "tutorial.docs" => 'required|string',
             // "tutorial.pdf" => 'required|string',
@@ -74,7 +73,6 @@ class NetappRequest extends FormRequest
             "policy.agreePolicy" => "Check on the policy",
             "deployment.githubURL" => 'GitHub URL is Required',
             "deployment.docker_image_url" => 'Docker image URL is Required',
-            "deployment.dockerSize" => 'Docker Size is Required',
             "pricing.price" => 'Price is Required',
             "tutorial.docs" => 'Tutorial Note is Required',
         ];

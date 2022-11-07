@@ -19,7 +19,6 @@ class Netapp extends Model
         'social_number',
         'github_url',
         'docker_image_url',
-        'docker_size',
         'fingerprint_code',
         'policy',
         'tutorial_docs',
