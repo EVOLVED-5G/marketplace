@@ -583,9 +583,9 @@
                       class="form-control"
                       id="netapp-image-url"
                       name="imageUrl"
-                      v-model="form.deployment.imageUrl"
+                      v-model="form.deployment.docker_image_url"
                       :class="{
-                            customError: errors.has('deployment.imageUrl'),
+                            customError: errors.has('deployment.docker_image_url'),
                         }"
                       data-vv-scope="deployment"
                       v-validate="{
@@ -595,7 +595,7 @@
                       data-vv-rules="required"
                   />
                   <span
-                      v-show="errors.has('deployment.imageUrl')"
+                      v-show="errors.has('deployment.docker_image_url')"
                       class="error-text"
                   >Add Docker image Url of Net App</span>
               </div>
@@ -1212,7 +1212,7 @@ export default {
         deployment: {
           githubURL: null,
           licensefile: null,
-          imageUrl: null,
+          docker_image_url: null,
           fingerprint_code: null,
         },
         policy: { agreePolicy: null },
@@ -1275,7 +1275,7 @@ export default {
       this.readPrivacyError = null;
     },
     setDockerImageURLValue() {
-        this.form.deployment.imageUrl = process.env.MIX_NETAPP_OPEN_REPOSITORY_DOCKER_IMAGE_BASE_URL
+        this.form.deployment.docker_image_url = process.env.MIX_NETAPP_OPEN_REPOSITORY_DOCKER_IMAGE_BASE_URL
             + this.getNetappNameFromGitHubURL() + "/images:" + this.form.service.version;
     },
     getNetappNameFromGitHubURL() {
