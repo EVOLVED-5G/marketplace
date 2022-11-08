@@ -1229,17 +1229,17 @@ export default {
   },
 
     mounted() {
-        this.form.service.name = "Test netapp";
-        this.form.service.appSlug = "test-netapp-1";
-        this.form.service.version= "1.0";
-        this.form.service.about = "Test about";
-        this.form.service.type = 1;
-        this.form.service.category = 1;
-        this.form.service.publishedBy = "user";
-        this.form.service.logo = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
-        this.form.deployment.licensefile = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
-        this.form.deployment.githubURL = "https://github.com/scify/Mentorship-matching-backend";
-        this.form.deployment.fingerprint_code = "test123";
+        // this.form.service.name = "Test netapp";
+        // this.form.service.appSlug = "test-netapp-1";
+        // this.form.service.version= "1.0";
+        // this.form.service.about = "Test about";
+        // this.form.service.type = 1;
+        // this.form.service.category = 1;
+        // this.form.service.publishedBy = "user";
+        // this.form.service.logo = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
+        // this.form.deployment.licensefile = "http://localhost:8001/assets/netapp/logo/1667397410.jpgflower.png";
+        // this.form.deployment.githubURL = "https://github.com/scify/Mentorship-matching-backend";
+        // this.form.deployment.fingerprint_code = "test123";
     },
 
   methods: {
