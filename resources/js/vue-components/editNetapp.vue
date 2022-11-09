@@ -1070,11 +1070,12 @@ export default {
             githubURL: this.netapp[0].github_url,
           licensefile: null,
             docker_image_url: this.netapp[0].docker_image_url,
+            fingerprint_code: this.netapp[0].fingerprint_code
         },
         policy: { agreePolicy: true },
         tutorial: {
           docs: this.netapp[0].tutorial_docs,
-          pdf: "http://localhost:89/assets/netapp/logo/1646236314.jpgdownload.jpeg",
+          pdf: null,
         },
         pricing: {
           price: this.netapp[0].fix_price,
