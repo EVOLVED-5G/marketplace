@@ -15,6 +15,7 @@
                                 <th scope="col">Digital signature</th>
                                 <th scope="col">NetApp</th>
                                 <th scope="col">GitHub URL</th>
+                                <th scope="col">Docker image URL</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -54,6 +55,10 @@
                                                 licence
                                             </a>
                                         @endif
+                                    </td>
+                                    <td><a href="{{ $purchasedNetApp->netapp->docker_image_url }}" target="_blank">
+                                            URL
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
