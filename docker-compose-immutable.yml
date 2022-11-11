@@ -43,6 +43,8 @@ services:
       - docker_evolved5g_net
     depends_on:
       - db
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   phpmyadmin:
     container_name: evolved5g_pilot_marketplace_phpmyadmin

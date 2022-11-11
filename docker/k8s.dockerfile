@@ -36,6 +36,10 @@ RUN usermod -aG root $DOCKER_USER
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
+# Install Xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY docker/php/xdebug.ini "${PHP_INI_DIR}/conf.d"
+
 # Install NodeJS and npm
 RUN apt install -y curl
 RUN curl https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz | tar -xz -C /usr/local --strip-components 1
