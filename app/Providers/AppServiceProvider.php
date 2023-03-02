@@ -37,9 +37,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //        if($this->app->environment('production')) {
-        //            URL::forceScheme('https');
-        //        }
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
         if (\Auth::check() !== null) {
             View::Composer('*', function ($view) {
                 $netapps = Netapp::where('user_id', \Auth::id())->get();
