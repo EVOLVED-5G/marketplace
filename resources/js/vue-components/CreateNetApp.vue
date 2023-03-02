@@ -575,7 +575,7 @@
                   >The fingerprint code is invalid.</span
                   >
               </div>
-              <div>
+              <div class="d-none">
                   <label for="netapp-image-url" class="form-label text-details">Open Repository Docker image url for the Netapp</label>
                   <input
                       disabled

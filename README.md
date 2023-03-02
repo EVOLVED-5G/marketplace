@@ -20,8 +20,10 @@ containing the information about your database name and credentials:
 cp .env.example .env
 ```
 
-Take a look at the `.env` file that was created. You may need to update the `DB_*` variables, in order to set up the DB connection.
+Take a look at the `.env` file that was created. 
+You may need to update the `DB_*` variables, in order to set up the DB connection.
 Also, make sure that the `APP_URL` is set to the correct domain and port that you will be using.
+Finally don't forget to set a password for `DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED` which will be the administration panel password of the Marketplace UI
 
 <hr>
 
