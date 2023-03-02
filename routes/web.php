@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/saved-netapp', [SaveNetappController::class, 'index'])->name('saved-netapp');
     Route::get('/revenue-page/{id}', [PurchasedNetAppController::class, 'showRevenue'])->name('revenue-page');
     Route::get('/netapps/purchased', [PurchasedNetAppController::class, 'myPurchasedNetApps'])->name('my-purchased-netapps');
+    Route::get('/netapps/purchased/download', [PurchasedNetAppController::class, 'download'])->name('my-purchased-netapps-download');
     Route::view('/support', 'support')->name('support');
     Route::get('/create-netapp', [NetappController::class, 'index'])->name('create-netapp');
     Route::get('/edit-netapp/{id}', [NetappController::class, 'edit'])->name('edit-netapp');

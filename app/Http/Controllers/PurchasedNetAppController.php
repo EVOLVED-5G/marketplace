@@ -24,25 +24,6 @@ class PurchasedNetAppController extends Controller
         $this->purchasedNetAppManager = $purchasedNetAppManager;
         $this->purchasedNetAppRepository = $purchasedNetAppRepository;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -77,26 +58,25 @@ class PurchasedNetAppController extends Controller
         return view('purchased-netapps', compact('purchasedNetApps'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
+    public function download(Request $request): \Symfony\Component\HttpFoundation\StreamedResponse
     {
-        //
+        $url = $request->query->get("url");
+        $headers = [
+            'Content-Type' => 'application/vnd.docker.distribution.manifest.v2+json',
+            'Content-Disposition' => 'attachment; filename="docker-image"',
+        ];
+        return response()->streamDownload(function() use ($url) {
+
+            $file = fopen($url, 'rb');
+
+            while(!feof($file)) {
+                echo fread($file, 1024*8);
+                flush();
+            }
+
+            fclose($file);
+        }, "docker-image", $headers);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
 }
