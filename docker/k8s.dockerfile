@@ -68,8 +68,6 @@ WORKDIR /var/www/html
 
 USER $DOCKER_USER
 
-$DOCKER_USER
-
 RUN chown $DOCKER_USER -R storage/logs
 # Run Laravel dependencies
 RUN composer install
