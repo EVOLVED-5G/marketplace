@@ -67,6 +67,10 @@ RUN chmod +x /etc/startup.sh
 WORKDIR /var/www/html
 
 USER $DOCKER_USER
+
+$DOCKER_USER
+
+RUN chown $DOCKER_USER -R storage/logs
 # Run Laravel dependencies
 RUN composer install
 RUN composer dump-autoload
@@ -76,5 +80,10 @@ RUN npm install
 RUN npm run prod
 
 USER root
+
+RUN chmod 777 -R storage/logs
+RUN chmod 777 -R storage/framework
+RUN chmod 777 -R public/assets/netapp/logo
+
 
 CMD ["/bin/bash","-c","/etc/startup.sh"]
