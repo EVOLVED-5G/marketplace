@@ -48,7 +48,7 @@
     <div class="product-list__card--content">
       <p
         class="text-note mb-5"
-        v-html="renderHmtl(this.netapp.about.substring(0, 150))"
+        v-html="renderHmtl(this.netapp.about.substring(0, 150)) + '...'"
       ></p>
       <div class="tags">
         <a
