@@ -5,9 +5,9 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Net app name</th>
+            <th scope="col">Network App name</th>
             <th scope="col">Date of Purchase</th>
-            <th scope="col">Net app creator email</th>
+            <th scope="col">Network App creator email</th>
             <th scope="col">Buyer’s email</th>
             <th scope="col">Blockchain confirmation</th>
           </tr>

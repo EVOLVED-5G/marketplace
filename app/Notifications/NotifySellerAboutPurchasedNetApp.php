@@ -54,7 +54,7 @@ class NotifySellerAboutPurchasedNetApp extends Notification implements ShouldQue
             ->subject('Your evolved-5G netapp has been purchased!')
             ->line('Congratulations, the Evolved-5G user with email ' .
                 $this->purchasedNetapp->user->email
-                . ' has purchased your net app: <a href="' . route('show-netapp', ['slug' => $this->purchasedNetapp->netapp->slug])
+                . ' has purchased your Network App: <a href="' . route('show-netapp', ['slug' => $this->purchasedNetapp->netapp->slug])
                 . '" target="_blank">' . $this->purchasedNetapp->netapp->name . '</a>')
             ->line("Go to your dashboard to see it:")
             ->action('Visit your dashboard', route('welcome-dashboard'))

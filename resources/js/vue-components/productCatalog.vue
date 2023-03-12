@@ -95,7 +95,7 @@
 
           <div class="filter-group mb-5">
             <div class="filter-group-title">
-              <p>Type of net app</p>
+              <p>Type of Network App</p>
             </div>
             <ul>
               <li v-for="(type, index) in this.types" :key="index">

@@ -105,14 +105,14 @@
                     <div class="col-lg-6 for-creators--list ">
                         <ol>
                             <li>
-                                <p> <span>1</span>Download SKD to create your first net app</p>
+                                <p> <span>1</span>Download SKD to create your first Network App</p>
 
                             </li>
                             <li>
-                                <p> <span>2</span>Use Evolved-5G CI/CD tools to build your net app</p>
+                                <p> <span>2</span>Use Evolved-5G CI/CD tools to build your Network App</p>
                             </li>
                             <li>
-                                <p> <span>3</span>Certify and validate your net app</p>
+                                <p> <span>3</span>Certify and validate your Network App</p>
                             </li>
                             <li>
                                 <p> <span>4</span>Release to open repository and to marketplace</p>

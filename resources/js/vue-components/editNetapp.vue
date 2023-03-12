@@ -109,7 +109,7 @@
                       <div class="col-md-12">
                         <div class="form_field_main">
                           <div class="form_title">
-                            <label>Net app name</label>
+                            <label>Network App name</label>
                           </div>
                           <input
                             type="text"
@@ -162,7 +162,7 @@
                         <label
                           for="type-of-netapp"
                           class="form-label text-details"
-                          >Type of Net app</label
+                          >Type of Network App</label
                         >
                         <select
                           id="type-of-netapp"
@@ -195,7 +195,7 @@
                         <label
                           for="category-of-netapp"
                           class="form-label text-details"
-                          >Category of Net app</label
+                          >Category of Network App</label
                         >
                         <select
                           id="category-of-netapp"

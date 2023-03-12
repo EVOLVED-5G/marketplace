@@ -26,7 +26,7 @@
 
                                 <li class="mb-2"><a href="https://github.com/EVOLVED-5G/SDK-CLI" target="_blank">EVOLVED-5G SDK</a></li>
                                 <li class="mb-2"><a href="https://evolved-5g.eu/" target="_blank">Project webpage</a></li>
-                                <li class="mb-2"><a href="https://evolved5g-cli.readthedocs.io/en/latest/" target="_blank">NetApp development instructions</a></li>
+                                <li class="mb-2"><a href="https://evolved5g-cli.readthedocs.io/en/latest/" target="_blank">Network App development instructions</a></li>
                             </ul>
                         </div>
                         {{-- <div class="col-md-6 d-flex justify-content-md-end justify-content-sm-start">

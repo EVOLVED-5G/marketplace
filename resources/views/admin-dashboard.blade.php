@@ -114,8 +114,8 @@
                             <tr>
                                 <th scope="col">User Name</th>
                                 <th scope="col">e-mail</th>
-                                <th scope="col">Number of Net apps created</th>
-                                <th scope="col">Number of Net apps purchased</th>
+                                <th scope="col">Number of Network Apps created</th>
+                                <th scope="col">Number of Network Apps purchased</th>
                                 <th scope="col">Last Login</th>
 
                             </tr>
@@ -251,9 +251,9 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Net app name</th>
+                                <th scope="col">Network App name</th>
                                 <th scope="col">Date of Purchase</th>
-                                <th scope="col">Net app creator email</th>
+                                <th scope="col">Network App creator email</th>
                                 <th scope="col">Buyer’s email</th>
                                 <th scope="col">Blockchain confirmation</th>
 

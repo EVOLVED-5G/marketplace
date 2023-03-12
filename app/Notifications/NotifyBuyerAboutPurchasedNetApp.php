@@ -52,7 +52,7 @@ class NotifyBuyerAboutPurchasedNetApp extends Notification implements ShouldQueu
     public function toMail($notifiable) {
         return (new MailMessage)
             ->subject('Your evolved-5G netapp purchase is completed!')
-            ->line('Congratulations, you have purchased net app: <a href="' . route('show-netapp', ['slug' => $this->purchasedNetapp->netapp->slug]) . '" target="_blank">' . $this->purchasedNetapp->netapp->name . '</a>')
+            ->line('Congratulations, you have purchased a Network App: <a href="' . route('show-netapp', ['slug' => $this->purchasedNetapp->netapp->slug]) . '" target="_blank">' . $this->purchasedNetapp->netapp->name . '</a>')
             ->line("Go to your dashboard to see it:")
             ->action('Visit your dashboard', route('welcome-dashboard'))
             ->line('Thank you for using Evolved-5G Marketplace!');

@@ -27,8 +27,8 @@ class TestNetappSeeder extends Seeder {
 
         $data = [
             'id' => 1,
-            'name' => 'Test Net app #1',
-            'about' => 'This is a test net app',
+            'name' => 'Test Network App #1',
+            'about' => 'This is a Network App app',
             'category_id' => $this->netappCategoryRepository->find(1)->id,
             'published_by' => 'user',
             'version' => '1.0',

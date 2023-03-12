@@ -13,7 +13,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Date of purchase</th>
                                 <th scope="col">Digital signature</th>
-                                <th scope="col">NetApp</th>
+                                <th scope="col">Network App</th>
                                 <th scope="col">GitHub URL</th>
                                 <th scope="col">Download Docker image </th>
                             </tr>

@@ -21,7 +21,7 @@
                                    {{ UrlMatchesMenuItem('revenue-page', 'active link-current') }}">
                                     <span class="list-icon">
                                         <img class="me-2" loading="lazy" src="/img/netapp-icon.png" alt="netapp-icon"/></span>
-                                    My NetApps
+                                    My Network Apps
                                 </a>
                                 <!-- list items, second level -->
                                 <ul class="list-unstyled list-hidden p-2">
@@ -60,7 +60,7 @@
                                 <a href="{{route('my-purchased-netapps')}}"
                                    class="list-link {{ UrlMatchesMenuItem('my-purchased-netapps', 'link-current') }}">
                                     <span class="list-icon"><i class="fas fa-cloud-download-alt"></i></span>
-                                    My purchased NetApps
+                                    My purchases
                                 </a>
                             </li>
                             <li>
@@ -74,7 +74,7 @@
                 <hr/>
                 <p class="text-note"><b>Action</b></p>
                 <a class="mouse-cursor-gradient-tracking btn btn--tertiary mt-2" href="{{ route('create-netapp') }}">
-                    Create new NetApp
+                    Create new Network App
                 </a>
             </div>
         </div>
