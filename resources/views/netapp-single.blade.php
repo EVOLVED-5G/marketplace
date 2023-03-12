@@ -177,6 +177,8 @@
                         <div id="once-off">
                             <h3>Once-off</h3>
                             <p>Purchase and get unlimited access to the net-app's functionality</p>
+                            <small>Notice that this is simulated environment. Evolved-5G project does not support actual payments.<br>
+                                For this reason you will not actually pay if you click the purchase button.</small>
 
                             <div class="calls-choices mt-5">
                                 <div class="container mb-5">
