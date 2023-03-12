@@ -49,7 +49,7 @@
                 <div class="col-lg-8 col-md-5 text-md-start text-sm-center mb-2">©Evolved-5G {{ now()->year }} | <small>{{ config('app.version') }}</small>
                 </div>
 
-                <div class="col-lg-4 col-md-4 text-md-end text-sm-center"><a href="{{ route('privacy-policy') }}"><b>Terms and Conditions & Privacy Policy</b></a></div>
+                <div class="col-lg-4 col-md-4 text-md-end text-sm-center"><a href="https://docs.google.com/document/d/1KRh0FJYKRkgoACg7ivITPIWoQ1A1KhAC/edit?usp=sharing&ouid=100983700907542471121&rtpof=true&sd=true" target="_blank"><b>Terms and Conditions & Privacy Policy</b></a></div>
             </div>
         </div>
     </footer>
