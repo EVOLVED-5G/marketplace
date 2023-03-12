@@ -53,7 +53,7 @@
                         come together to create, discover and integrate services by consuming 3GPP APIs (native APIs) as
                         well as other telco assets</p>
                     <a href="{{ route('product-catalogue') }}"
-                        class="mouse-cursor-gradient-tracking btn btn--tertiary mt-5">View NetApps</a>
+                        class="mouse-cursor-gradient-tracking btn btn--tertiary mt-5">View Network Apps</a>
                 </div>
                 {{-- <div class="boxes">
                     <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
