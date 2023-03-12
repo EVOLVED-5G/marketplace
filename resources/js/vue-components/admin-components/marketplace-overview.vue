@@ -18,7 +18,7 @@
               justify-content-center
             "
           >
-            <p class="text-note">Total NetApps have been created</p>
+            <p class="text-note">Total Network Apps have been created</p>
             <h2>{{ this.totalNetapps }}</h2>
           </div>
         </div>

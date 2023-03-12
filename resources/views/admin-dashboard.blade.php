@@ -10,7 +10,7 @@
             <div class="d-flex flex-wrap  justify-content-between">
                 <div id="total-netapps-created-box" class="box-template">
                     <div class="box-template__number ps-3  mb-5 d-flex flex-column justify-content-center">
-                        <p class="text-note">Total NetApps have been created</p>
+                        <p class="text-note">Total Network Apps have been created</p>
                         <h2>2</h2>
                     </div>
                 </div>

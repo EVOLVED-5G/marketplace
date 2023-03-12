@@ -33,7 +33,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr>You haven't sold any NetApps, yet.</tr>
+                        <tr>You haven't sold any Network Apps, yet.</tr>
                     @endforelse
                     </tbody>
                 </table>

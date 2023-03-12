@@ -51,7 +51,7 @@
                                         </li>
                                     @empty
                                         <li class="list-item">
-                                            <p>You haven’t created any NetApps yet</p>
+                                            <p>You haven’t created any Network Apps yet</p>
                                         </li>
                                     @endforelse
                                 </ul>

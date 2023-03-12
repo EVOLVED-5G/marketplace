@@ -72,7 +72,7 @@
                 <div class="row mt-5">
                     <div class="col p-5 bg-white">
                         <div class="text-center">
-                            <h6 id="no-net-apps">You haven't purchased any NetApps, yet.</h6>
+                            <h6 id="no-net-apps">You haven't purchased any Network Apps, yet.</h6>
                             <h4><a href="{{ route('product-catalogue') }}">Go to the product catalogue!</a></h4>
                         </div>
                     </div>

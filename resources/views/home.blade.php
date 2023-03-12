@@ -17,14 +17,14 @@
                             Embrace the <img class="img-fluid" loading="lazy" src="{{ asset('img/5g-icon.png') }}"
                                 alt="5g-icon"> era
                         </h1>
-                        <p> We provide the tools to create, manage and connect to the next generation of 5G NetApps</p>
+                        <p> We provide the tools to create, manage and connect to the next generation of 5G Network Apps</p>
                     </div>
 
                     <div>
                         <a href="{{ route('product-catalogue') }}"
-                            class="mouse-cursor-gradient-tracking btn btn--primary ">Explore NetApps</a>
+                            class="mouse-cursor-gradient-tracking btn btn--primary ">Explore Network Apps</a>
                         <a href="https://evolved5g-cli.readthedocs.io/en/latest/"
-                            class="mouse-cursor-gradient-tracking btn btn--secondary" target="_blank">Create your own NetApp</a>
+                            class="mouse-cursor-gradient-tracking btn btn--secondary" target="_blank">Create your own Network Apps</a>
                     </div>
 
                     <div class="mt-5">
@@ -100,7 +100,7 @@
                 <div class="row  for-creators">
                     <div class="col-lg-6 for-creators--title p-5">
                         <img class="img-fluid" loading="lazy" src="/img/creators-line.png" alt="creators-line">
-                        <h1>For NetApps creators</h1>
+                        <h1>For Network Apps creators</h1>
                     </div>
                     <div class="col-lg-6 for-creators--list ">
                         <ol>
@@ -132,10 +132,10 @@
 
                             </li>
                             <li>
-                                <p> <span>2</span>Purchase netapps of interest</p>
+                                <p> <span>2</span>Purchase Network Apps of interest</p>
                             </li>
                             <li>
-                                <p> <span>3</span>Integrate netapps to your applications / infrastructure</p>
+                                <p> <span>3</span>Integrate Network Apps to your applications / infrastructure</p>
                             </li>
 
                         </ol>

@@ -12,7 +12,7 @@
                 <h1 class="mb-3">
                     Explore your possibilities
                 </h1>
-                <p> Find out how to sell or buy your NetApps in marketplace.</p>
+                <p> Find out how to sell or buy your Network Apps in marketplace.</p>
             </div>
             <div class="main-title__content--icon">
                 <img class="img-fluid" loading="lazy" src="/img/netapp-creators-title.png" alt="title-image">
@@ -25,7 +25,7 @@
         <div class="how-to-sell__content text-center mb-5 d-flex align-items-center flex-column">
             <img class="img-fluid mb-3" loading="lazy" src="/img/line-icon.png" alt="line-icon">
             <h1>How to sell</h1>
-            <p>Use the marketplace to upload your Evolved5G- NetApps, configure pricing quotes, branding and marketing material. Activate your NetApp and start selling!</p>
+            <p>Use the marketplace to upload your Evolved5G- Network Apps, configure pricing quotes, branding and marketing material. Activate your NetApp and start selling!</p>
         </div>
         <div class="how-to-sell__steps py-5">
             <h3 class="mb-3">Take the steps</h3>
