@@ -18,7 +18,7 @@ class PurchasedNetappResource extends JsonResource
             'id' => $this->id,
             'created_at' => $this->created_at->format('j F Y'),
             'user' => new UserResource($this->whenLoaded('user')),
-            'netapp' => new NetAppResource($this->whenLoaded('netapp')),
+            'netapp' => new NetappResource($this->whenLoaded('netapp')),
         ];;
     }
 }
