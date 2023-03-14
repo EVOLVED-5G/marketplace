@@ -60,6 +60,11 @@ class CategorySeeder extends Seeder {
             ],
             [
                 'id' => 7,
+                'name' => 'Robotics',
+                'description' => 'Robotics'
+            ],
+            [
+                'id' => 8,
                 'name' => 'Other',
                 'description' => 'Netapps that dont fall into any other category'
             ]
