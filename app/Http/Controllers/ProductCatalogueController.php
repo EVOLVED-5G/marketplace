@@ -34,7 +34,7 @@ class ProductCatalogueController extends Controller
                 \App\QueryFilters\NetappFilter\Tags::class,
                 \App\QueryFilters\NetappFilter\TypeId::class,
 
-            ])->thenReturn()->with(['category', 'logo', 'pdf', 'user', 'savedNetapp'])->active()->paginate(10);
+            ])->thenReturn()->with(['category', 'logo', 'pdf', 'user', 'savedNetapp'])->active()->paginate(12);
             return response()->json(array('data' => $netapps));
         } catch (\Exception $e) {
             return response()->json(array('error' => $e->getMessage()));
