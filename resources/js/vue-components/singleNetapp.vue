@@ -5,7 +5,6 @@
         class="me-2"
         loading="lazy"
         alt="icon-codepen"
-        style="border-radius: 50%; height: 57px; width: 70px"
         :src="netapp.logo[0].url"
         v-if="netapp.logo.length > 0"
       />
@@ -103,3 +102,11 @@ export default {
   },
 };
 </script>
+
+<style>
+.product-list__card--name img{
+    max-height: 57px;
+    max-width: 70px;
+    align-self:start;
+}
+</style>
