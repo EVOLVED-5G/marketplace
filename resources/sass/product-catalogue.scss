@@ -117,7 +117,7 @@
 
             &__card {
                 border: 2px solid var(--color-purple-2);
-                width: 255px;
+                width: 380px;
                 height: auto;
                 background-color: var(--color-blue-light-1);
 
@@ -135,10 +135,8 @@
                     h5,
                     p {
                         margin-bottom: 0;
-                        white-space: nowrap;
-                        width: 132px;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
+                        width: 258px;
+
                     }
 
                     a {

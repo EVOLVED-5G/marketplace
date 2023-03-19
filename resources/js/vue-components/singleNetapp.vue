@@ -26,12 +26,12 @@
       >
         <div style="width: 90%">
           <h5>{{ this.netapp.name }}</h5>
-          <p v-if="this.netapp.published_by == 'user'">
-            {{ this.netapp["user"].name }}
-          </p>
-          <p v-if="this.netapp.published_by == 'business'">
-            {{ this.netapp.business_name }}
-          </p>
+<!--          <p v-if="this.netapp.published_by == 'user'">-->
+<!--            {{ this.netapp["user"].name }}-->
+<!--          </p>-->
+<!--          <p v-if="this.netapp.published_by == 'business'">-->
+<!--            {{ this.netapp.business_name }}-->
+<!--          </p>-->
         </div>
       </a>
       <a
@@ -47,8 +47,9 @@
     <div class="product-list__card--content">
       <p
         class="text-note mb-5"
-        v-html="renderHmtl(this.netapp.about.substring(0, 150)) + '...'"
-      ></p>
+      >
+          {{this.netapp.about.length>200? this.netapp.about.substring(0, 200) + '...' : this.netapp.about }}
+      </p>
       <div class="tags">
         <a
           href="#"
