@@ -23,7 +23,7 @@
                                     <h2><b>Useful links</b></h2>
                                 </li>
                                 <li class="mb-2"><a href="https://forum.evolved-5g.eu/" target="_blank">Forum</a></li>
-
+                                <li class="mb-2"><a href="https://wiki.evolved-5g.eu/" target="_blank">Wiki</a></li>
                                 <li class="mb-2"><a href="https://github.com/EVOLVED-5G/SDK-CLI" target="_blank">EVOLVED-5G SDK</a></li>
                                 <li class="mb-2"><a href="https://evolved-5g.eu/" target="_blank">Project webpage</a></li>
                                 <li class="mb-2"><a href="https://evolved5g-cli.readthedocs.io/en/latest/" target="_blank">Network App development instructions</a></li>

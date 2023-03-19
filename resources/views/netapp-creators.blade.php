@@ -31,10 +31,10 @@
             <h3 class="mb-3">Take the steps</h3>
             <ol>
                 <li>
-                    <p> <span>1</span>Follow the <a href="https://forum.evolved-5g.eu/c/how-to-build/6" target="_blank">documentation</a>  to learn how to start creating your NetApp in the EVOLVED-5G ecosystem. In case or doubt, please ask for support at <a href="https://forum.evolved-5g.eu/" target="_blank">EVOLVED-5G forum</a>.</p>
+                    <p> <span>1</span>Follow the <a href="https://forum.evolved-5g.eu/c/how-to-build/6" target="_blank">documentation</a>  to learn how to start creating your Network App in the EVOLVED-5G ecosystem. In case or doubt, please ask for support at <a href="https://forum.evolved-5g.eu/" target="_blank">EVOLVED-5G forum</a>.</p>
                 </li>
                 <li>
-                    <p> <span>2</span>Verify your NetApp in a by making use of the
+                    <p> <span>2</span>Verify your Network App in a by making use of the
                         <a href="https://evolved5g-cli.readthedocs.io/en/latest/" target="_blank">EVOLVED-5G SDK tools</a>.
                         </p>
                 </li>
@@ -43,15 +43,15 @@
                     </p>
                 </li>
                 <li>
-                    <p> <span>4</span>Publish your NetApp to the marketplace.</p>
+                    <p> <span>4</span>Publish your NetNetwork AppApp to the marketplace.</p>
 
                 </li>
                 <li>
-                    <p> <span>5</span>Configure your pricing quotes and make your NetApp available to anyone.</p>
+                    <p> <span>5</span>Configure your pricing quotes and make your Network App available to anyone.</p>
 
                 </li>
                 <li>
-                    <p> <span>6</span>Your NetApp is already in the market, ready to be download and use!</p>
+                    <p> <span>6</span>Your Network App is already in the market, ready to be download and use!</p>
 
                 </li>
             </ol>
@@ -66,7 +66,7 @@
     <div class="section-bck pt-5">
 
         <section class="buy-a-netapp u-margin-bottom-big content text-center p-5">
-            <h1> Buy a NetApp</h1>
+            <h1> Buy a Network App</h1>
             <a href="{{ route('product-catalogue') }}" class="mouse-cursor-gradient-tracking btn btn--tertiary mt-5">Find NetApp</a>
 
         </section>

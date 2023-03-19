@@ -28,7 +28,7 @@
                         @endcan
                         @guest()
                         <li class="nav-item">
-                            <a class="nav-link px-3 px-lg-2 " href="{{ route('netapp-creators') }}">NetApp Creators</a>
+                            <a class="nav-link px-3 px-lg-2 " href="{{ route('netapp-creators') }}">Network App Creators</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link ms-3 px-3 px-lg-2 " id="login" href="{{ route('login') }}">

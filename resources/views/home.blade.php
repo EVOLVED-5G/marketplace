@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="mt-5">
-                        <p>Do you already have an Evolved-5G NetApp?</p>
+                        <p>Do you already have an Evolved-5G Network App?</p>
 
                         <a href="{{ route('welcome-dashboard') }}" class="mouse-cursor-gradient-tracking btn btn--secondary">Upload it to the marketplace</a>
 

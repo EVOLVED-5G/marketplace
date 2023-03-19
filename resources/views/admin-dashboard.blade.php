@@ -54,7 +54,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">NetApp 1</th>
+                                <th scope="row">Network App 1</th>
                                 <td> V 0.2</td>
                                 <td>
                                     4 Dec 2021
@@ -68,7 +68,7 @@
 
                             </tr>
                             <tr>
-                                <th scope="row">NetApp 2</th>
+                                <th scope="row">Network App 2</th>
                                 <td> V 0.1</td>
                                 <td>
                                     1 Dec 2020
@@ -84,7 +84,7 @@
                             </tr>
 
                             <tr>
-                                <th scope="row">NetApp 3</th>
+                                <th scope="row">Network App 3</th>
                                 <td> V 0.1</td>
                                 <td>
                                     1 Nov 2019

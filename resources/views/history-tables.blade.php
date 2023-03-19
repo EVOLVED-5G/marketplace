@@ -75,7 +75,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <td> NetApp 1</td>
+                        <td> Network App 1</td>
                         <td>
                             <a href="#">View NetApp</a>
                         </td>
