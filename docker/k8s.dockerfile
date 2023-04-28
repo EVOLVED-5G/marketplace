@@ -48,7 +48,7 @@ RUN npm --version
 
 # Install and configure Apache
 RUN chown -R $DOCKER_USER:www-data /var/www/html
-RUN a2enmod rewrite && service apache2 restart
+RUN a2enmod rewrite
 
 COPY docker/apache/apache_config.conf /etc/apache2/sites-enabled/000-default.conf
 COPY docker/php/php.ini /usr/local/etc/php/php.ini
