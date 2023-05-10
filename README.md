@@ -331,7 +331,7 @@ Install and compile all frontend npm dependencies:
 ```bash
 npm install
 
-npm run dev #for development environment
+npm run development #for development environment
 
 npm run prod #for production environment
 ```
