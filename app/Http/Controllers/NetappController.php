@@ -294,7 +294,7 @@ class NetappController extends Controller {
             return response()->json([
                 'success' => false,
                 'code' => $exception->getCode(),
-                'message' => $exception->getMessage() . ": This GitHub URL is not valid.",
+                'message' => $exception->getMessage() . ": This GitHub URL or the Fingerprint code is not valid.",
             ], $exception->getCode());
         }
     }
