@@ -604,7 +604,7 @@
                             ? {
                                 required: true,
                                 numeric: true,
-                                min_value:1
+                                min_value:0
                               }
                             : {}
                         "
@@ -1047,7 +1047,7 @@ export default {
       form: {
         editRequest: true,
         user_id: null,
-        paymentplan: this.netapp[0].fix_price > 0 ? "onceoff" : "paymentplan",
+        paymentplan: this.netapp[0].fix_price >= 0 ? "onceoff" : "paymentplan",
         service: {
           appSlug: this.netapp[0].slug,
           type: this.netapp[0].type_id,
@@ -1100,7 +1100,7 @@ export default {
     processWithoutPayment() {
       this.processPayment = false;
       this.form.paymentplan =
-        this.netapp[0].fix_price > 0 ? "onceoff" : "paymentplan";
+        this.netapp[0].fix_price >= 0 ? "onceoff" : "paymentplan";
       this.processForm();
     },
     windowScroll() {
