@@ -24,7 +24,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
 
-class NetappController extends Controller {
+class NetappController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +46,8 @@ class NetappController extends Controller {
         ApiPaymentPlanManager $apiPaymentPlanManager,
         ApiEndpointManager    $apiEndpointManager,
         ForumAPIManager       $forumAPIManager
-    ) {
+    )
+    {
         $this->documentManager = $documentManager;
         $this->netappManager = $netappManager;
         $this->imageManager = $imageManager;
@@ -54,7 +56,8 @@ class NetappController extends Controller {
         $this->forumAPIManager = $forumAPIManager;
     }
 
-    public function index() {
+    public function index()
+    {
         $categories = Category::all();
         $types = NetappType::all();
         return view('netapp-create', compact('categories', 'types'));
@@ -65,7 +68,8 @@ class NetappController extends Controller {
      *
      * @return Response
      */
-    public function create(NetappRequest $request) {
+    public function create(NetappRequest $request)
+    {
     }
 
     /**
@@ -74,7 +78,8 @@ class NetappController extends Controller {
      * @param \Illuminate\Http\Request $request
      * @return Response
      */
-    public function uploadFile(Request $request) {
+    public function uploadFile(Request $request)
+    {
         try {
 
             $file = upload($request->file, 'assets/netapp/' . $request->get('url'));
@@ -84,7 +89,8 @@ class NetappController extends Controller {
         }
     }
 
-    public function store(NetappRequest $request) {
+    public function store(NetappRequest $request)
+    {
         $documentRequest = [];
         \DB::beginTransaction();
         try {
@@ -132,7 +138,8 @@ class NetappController extends Controller {
      * @param string $slug
      * @return Application|Factory|View|Response
      */
-    public function show(string $slug) {
+    public function show(string $slug)
+    {
         $netapp = Netapp::where('slug', $slug)->orWhere('id', $slug)
             ->with(['apiEndpoints.paymentplan', 'category', 'logo', 'pdf', 'user', 'savedNetapp', 'purchasedNetapp'])
             ->active()->first();
@@ -152,7 +159,8 @@ class NetappController extends Controller {
      * @param \App\Models\Netapp $netapp
      * @return Response
      */
-    public function edit($netapp) {
+    public function edit($netapp)
+    {
         $netappType = NetappType::all();
         $categories = Category::all();
         $netapp = Netapp::where(['id' => $netapp, 'user_id' => auth()->user()->id])->with(['logo', 'license', 'pdf', 'apiEndpoints.paymentplan', 'purchasedNetapp'])->get()->toArray();
@@ -169,7 +177,8 @@ class NetappController extends Controller {
      * @param \App\Models\Netapp $netapp
      * @return Response
      */
-    public function slugValidation(Request $request) {
+    public function slugValidation(Request $request)
+    {
         $existingSlug = Netapp::where('slug', Str::slug($request->slug))->first();
         if ($request->get('editForm') && $existingSlug) {
             if ($existingSlug->id !== $request->get('id')) {
@@ -188,7 +197,8 @@ class NetappController extends Controller {
      * @param \App\Models\Netapp $netapp
      * @return Response
      */
-    public function update(NetappRequest $request, $id) {
+    public function update(NetappRequest $request, $id)
+    {
         if ($request->user_id !== auth()->user()->id) {
             return response()->json(array('msg' => "UnAuthorized", 'error' => '402'));
         }
@@ -232,11 +242,13 @@ class NetappController extends Controller {
      * @param \App\Models\Netapp $netapp
      * @return Response
      */
-    public function destroy(Netapp $netapp) {
+    public function destroy(Netapp $netapp)
+    {
         //
     }
 
-    public function checkValidityOfURL(Request $request): JsonResponse {
+    public function checkValidityOfURL(Request $request): JsonResponse
+    {
         $request->validate([
             'url' => 'required|url',
         ]);
@@ -266,13 +278,14 @@ class NetappController extends Controller {
         }
     }
 
-    public function checkValidityOfNetappFingerprint(Request $request): JsonResponse {
+    public function checkValidityOfNetappFingerprint(Request $request): JsonResponse
+    {
         $request->validate([
             'netapp_name' => 'required|string',
             'version' => 'required|string',
             'fingerprint_code' => 'required|string'
         ]);
-        if(!app()->environment('production'))
+        if (!app()->environment('production'))
             return response()->json([
                 'success' => true
             ]);
@@ -299,7 +312,34 @@ class NetappController extends Controller {
         }
     }
 
-    protected function getCommonHeaders(): array {
+
+    public function test_finger_print_01()
+    {
+        $url = "http://artifactory.hi.inet/artifactory/misc-evolved5g/certification/4.0/fingerprint.json";
+        $client = new Client();
+        $response = $client->request('GET', $url);
+        $data = json_decode($response->getBody());
+        return response()->json($data);
+
+    }
+
+    public function test_finger_print_02()
+    {
+        $url = "http://artifactory.hi.inet/artifactory/misc-evolved5g/certification/4.0/fingerprint.json";
+        $client = new Client();
+
+        $response = $client->request('GET', $url, [
+            // If you want more information during request
+            'debug' => true,
+            'headers' => $this->getCommonHeaders()
+        ]);
+        $data = json_decode($response->getBody());
+        return response()->json($data);
+
+    }
+
+    protected function getCommonHeaders(): array
+    {
         return [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
