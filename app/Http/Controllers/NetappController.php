@@ -291,13 +291,9 @@ class NetappController extends Controller
             ]);
 
         $url = config("app.netapp_fingerprint_base_url") . $request->netapp_name . "/" . $request->version . "/fingerprint.json";
-        $client = new Client(['base_uri' => $url, 'verify' => false]);
+        $client = new Client();
         try {
-            $response = $client->request('GET', $url, [
-                // If you want more information during request
-                'debug' => true,
-                'headers' => $this->getCommonHeaders()
-            ]);
+            $response = $client->request('GET', $url);
             $data = json_decode($response->getBody());
             $success = $data['certificationid'] === $request->fingerprint_code;
             return response()->json([
@@ -312,27 +308,11 @@ class NetappController extends Controller
         }
     }
 
-
     public function test_finger_print_01()
     {
-        $url = "http://artifactory.hi.inet/artifactory/misc-evolved5g/certification/4.0/fingerprint.json";
+        $url = "http://artifactory.hi.inet/artifactory/misc-evolved5g/certification/dummy-network-application/4.0/fingerprint.json";
         $client = new Client();
         $response = $client->request('GET', $url);
-        $data = json_decode($response->getBody());
-        return response()->json($data);
-
-    }
-
-    public function test_finger_print_02()
-    {
-        $url = "http://artifactory.hi.inet/artifactory/misc-evolved5g/certification/4.0/fingerprint.json";
-        $client = new Client();
-
-        $response = $client->request('GET', $url, [
-            // If you want more information during request
-            'debug' => true,
-            'headers' => $this->getCommonHeaders()
-        ]);
         $data = json_decode($response->getBody());
         return response()->json($data);
 

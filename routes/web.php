@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test-fingerprint-01', [NetappController::class, 'test_finger_print_01']);
-Route::get('/test-fingerprint-02', [NetappController::class, 'test_finger_print_02']);
 
 Route::view('/', 'home')->name('home');
 Route::get('/product-catalogue', [ProductCatalogueController::class, 'index'])->name('product-catalogue');
