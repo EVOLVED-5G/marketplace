@@ -295,7 +295,7 @@ class NetappController extends Controller
         try {
             $response = $client->request('GET', $url);
             $data = json_decode($response->getBody());
-            $success = $data['certificationid'] === $request->fingerprint_code;
+            $success = $data->certificationid === $request->fingerprint_code;
             return response()->json([
                 'success' => $success
             ]);
