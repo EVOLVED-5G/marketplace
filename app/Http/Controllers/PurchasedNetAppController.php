@@ -67,7 +67,13 @@ class PurchasedNetAppController extends Controller
         ];
         return response()->streamDownload(function() use ($url) {
 
-            $file = fopen($url, 'rb');
+            $opts=array(
+                "ssl"=>array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+            );
+            $file = fopen($url, 'rb', false, stream_context_create($opts));
 
             while(!feof($file)) {
                 echo fread($file, 1024*8);
