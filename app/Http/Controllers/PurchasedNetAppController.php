@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BusinessLogicLayer\PurchasedNetapp\PurchasedNetAppManager;
+use App\Models\Netapp;
 use App\Models\PurchasedNetApp;
 use App\Models\User;
 use App\Repository\PurchasedNetAppRepository;
@@ -60,10 +61,16 @@ class PurchasedNetAppController extends Controller
 
     public function download(Request $request): \Symfony\Component\HttpFoundation\StreamedResponse
     {
-        $url = $request->query->get("url");
+        $netappId = $request->query->get("id");
+        $netapp = Netapp::where('id', $netappId)->first();
+        $githubUrlExploded = explode("/",$netapp->github_url);
+        $netappName =$githubUrlExploded[count($githubUrlExploded)-1];
+        $url = config("app.netapp_fingerprint_base_url") . $netappName . "/" . $netapp->version . "/". $netappName . ".tar.gz";
+
+        $filename= $netappName."docker_images";
         $headers = [
-            'Content-Type' => 'application/vnd.docker.distribution.manifest.v2+json',
-            'Content-Disposition' => 'attachment; filename="docker-image"',
+            'Content-Type' => 'application/gzip',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ];
         return response()->streamDownload(function() use ($url) {
 
@@ -81,7 +88,7 @@ class PurchasedNetAppController extends Controller
             }
 
             fclose($file);
-        }, "docker-image", $headers);
+        }, $filename, $headers);
     }
 
 
