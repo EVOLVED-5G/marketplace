@@ -310,8 +310,8 @@ class NetappController extends Controller
 
     public function test_finger_print_01()
     {
-        $url = "http://artifactory.hi.inet/artifactory/misc-evolved5g/certification/dummy-network-application/4.0/fingerprint.json";
-        $client = new Client();
+        $url = "https://artifactory.hi.inet/artifactory/misc-evolved5g/certification/dummy-network-application/4.0/fingerprint.json";
+        $client = new Client(['base_uri' => $url, 'verify' => false]);
         $response = $client->request('GET', $url);
         $data = json_decode($response->getBody());
         return response()->json($data);
