@@ -291,7 +291,7 @@ class NetappController extends Controller
             ]);
 
         $url = config("app.netapp_fingerprint_base_url") . $request->netapp_name . "/" . $request->version . "/fingerprint.json";
-        $client = new Client();
+        $client = new Client(['verify' => false]);
         try {
             $response = $client->request('GET', $url);
             $data = json_decode($response->getBody());
