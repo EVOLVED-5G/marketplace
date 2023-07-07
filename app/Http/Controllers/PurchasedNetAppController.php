@@ -67,7 +67,7 @@ class PurchasedNetAppController extends Controller
         $netappName =$githubUrlExploded[count($githubUrlExploded)-1];
         $url = config("app.netapp_fingerprint_base_url") . $netappName . "/" . $netapp->version . "/". $netappName . ".tar.gz";
 
-        $filename= $netappName."docker_images.tar.gz";
+        $filename= $netappName."_docker_images.tar.gz";
         $headers = [
             'Content-Type' => 'application/gzip',
             'Content-Disposition' => 'attachment; filename="'.$filename.'"',
