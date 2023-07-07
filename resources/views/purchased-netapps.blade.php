@@ -57,7 +57,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ env("APP_URL") }}/netapps/purchased/download/?id={{ $purchasedNetApp->netapp->id }}" >
+                                        <a download="download" href="{{ env("APP_URL") }}/netapps/purchased/download/?id={{ $purchasedNetApp->netapp->id }}" >
                                             Download
                                         </a>
                                     </td>

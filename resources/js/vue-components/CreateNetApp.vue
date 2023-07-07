@@ -1279,11 +1279,17 @@ export default {
             this.readPrivacyError = null;
         },
         setDockerImageURLValue() {
-            this.form.deployment.docker_image_url = process.env.MIX_NETAPP_OPEN_REPOSITORY_DOCKER_IMAGE_BASE_URL
-                + this.getNetappNameFromGitHubURL() + "/images:" + this.form.service.version;
+            if (this.form.deployment.githubURL){
+                this.form.deployment.docker_image_url = process.env.MIX_NETAPP_OPEN_REPOSITORY_DOCKER_IMAGE_BASE_URL
+                    + this.getNetappNameFromGitHubURL() + "/images:" + this.form.service.version;
+            }
+
         },
         getNetappNameFromGitHubURL() {
-            return this.form.deployment.githubURL.split("/").pop();
+            if (this.form.deployment.githubURL) {
+                return this.form.deployment.githubURL.split("/").pop();
+            }
+            return ""
         },
         Validation() {
             if (this.progressValue === this.stepsValue.service) {
