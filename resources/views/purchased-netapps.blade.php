@@ -57,7 +57,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a download="download" href="{{ config("app.url") }}/netapps/purchased/download/?id={{ $purchasedNetApp->netapp->id }}" >
+                                        <a href="{{ config("app.url") }}/netapps/download-zip-file?id={{ $purchasedNetApp->netapp->id }}" >
                                             Download
                                         </a>
                                     </td>

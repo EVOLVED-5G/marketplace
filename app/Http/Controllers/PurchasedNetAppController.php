@@ -59,7 +59,7 @@ class PurchasedNetAppController extends Controller
         return view('purchased-netapps', compact('purchasedNetApps'));
     }
 
-    public function download(Request $request): \Symfony\Component\HttpFoundation\StreamedResponse
+    public function downloadDockerImages(Request $request): \Symfony\Component\HttpFoundation\StreamedResponse
     {
         $netappId = $request->query->get("id");
         $netapp = Netapp::where('id', $netappId)->first();
