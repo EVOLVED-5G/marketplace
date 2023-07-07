@@ -131,8 +131,6 @@ class TMForumAPIManager implements ForumAPIManager {
             throw new Exception("Product name is required");
         if (!$data['description'])
             throw new Exception("Product description is required");
-        if (!$data['price'])
-            throw new Exception("Product price is required");
         if (!is_numeric($data['price']))
             throw new Exception("Product price must be a number");
     }
