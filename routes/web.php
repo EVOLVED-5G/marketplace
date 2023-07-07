@@ -84,5 +84,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/test_download_url', [PurchasedNetAppController::class, 'test_download_url']);
     Route::get('/test_download', [PurchasedNetAppController::class, 'test_download']);
+    Route::get('/test_download_file_image', [PurchasedNetAppController::class, 'test_download_03']);
+
 
 });

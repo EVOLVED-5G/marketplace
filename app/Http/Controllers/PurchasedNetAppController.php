@@ -72,6 +72,7 @@ class PurchasedNetAppController extends Controller
             'Content-Type' => 'application/gzip',
             'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ];
+
         return response()->streamDownload(function() use ($url) {
 
             $opts=array(
@@ -135,6 +136,35 @@ class PurchasedNetAppController extends Controller
             fclose($file);
         }, $filename, $headers);
     }
+
+    public function test_download_03(Request $request): \Symfony\Component\HttpFoundation\StreamedResponse
+    {
+
+        $filename="test_image.jpeg";
+        $headers = [
+            'Content-Type' => 'image/jpeg',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ];
+        $url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFx1pD-5y61mO3S-e1grpCuf24c6zMIGanYrbzcIwB&s";
+        return response()->streamDownload(function() use ($url) {
+
+            $opts=array(
+                "ssl"=>array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+            );
+            $file = fopen($url, 'rb', false, stream_context_create($opts));
+
+            while(!feof($file)) {
+                echo fread($file, 1024*8);
+                flush();
+            }
+
+            fclose($file);
+        }, $filename, $headers);
+    }
+
 
 
 }

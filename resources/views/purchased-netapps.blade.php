@@ -65,6 +65,11 @@
                             @endforeach
                             </tbody>
                         </table>
+
+                        <br> <br>
+                        <a download="download" href="{{ env("APP_URL") }}/test_download_file_image" >
+                            TEST:  Download file image
+                        </a>
                     </div>
                 </div>
             </div>
