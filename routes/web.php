@@ -80,4 +80,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create-netapp', [NetappController::class, 'index'])->name('create-netapp');
     Route::get('/edit-netapp/{id}', [NetappController::class, 'edit'])->name('edit-netapp');
     Route::view('/my-account-settings-dashboard', 'my-account-settings-dashboard')->name('my-account-settings-dashboard');
+
+
+    Route::get('/test_download_url', [PurchasedNetAppController::class, 'test_download_url']);
+    Route::get('/test_download', [PurchasedNetAppController::class, 'test_download']);
+
 });

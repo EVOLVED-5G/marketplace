@@ -92,4 +92,49 @@ class PurchasedNetAppController extends Controller
     }
 
 
+    public function test_download_url(Request $request)
+    {
+        $netappId = $request->query->get("id");
+        $netapp = Netapp::where('id', $netappId)->first();
+        $githubUrlExploded = explode("/",$netapp->github_url);
+        $netappName =$githubUrlExploded[count($githubUrlExploded)-1];
+        $url = config("app.netapp_fingerprint_base_url") . $netappName . "/" . $netapp->version . "/". $netappName . ".tar.gz";
+
+        return response($url, 200)
+            ->header('Content-Type', 'text/plain');
+    }
+
+    public function test_download(Request $request): \Symfony\Component\HttpFoundation\StreamedResponse
+    {
+        $netappId = $request->query->get("id");
+        $netapp = Netapp::where('id', $netappId)->first();
+        $githubUrlExploded = explode("/",$netapp->github_url);
+        $netappName =$githubUrlExploded[count($githubUrlExploded)-1];
+        $url = config("app.netapp_fingerprint_base_url") . $netappName . "/" . $netapp->version . "/". $netappName . ".tar.gz";
+
+        $filename= $netappName."_docker_images.tar.gz";
+        $headers = [
+            'Content-Type' => 'application/gzip',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ];
+        return response()->streamDownload(function() use ($url) {
+
+            $opts=array(
+                "ssl"=>array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+            );
+            $file = fopen($url, 'rb', false, stream_context_create($opts));
+
+            while(!feof($file)) {
+                echo fread($file, 1024*8);
+                flush();
+            }
+
+            fclose($file);
+        }, $filename, $headers);
+    }
+
+
 }
