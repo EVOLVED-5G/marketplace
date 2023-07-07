@@ -57,7 +57,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a download="download" href="{{ env("APP_URL") }}/netapps/purchased/download/?id={{ $purchasedNetApp->netapp->id }}" >
+                                        <a download="download" href="{{ config("app.url") }}/netapps/purchased/download/?id={{ $purchasedNetApp->netapp->id }}" >
                                             Download
                                         </a>
                                     </td>
@@ -66,10 +66,6 @@
                             </tbody>
                         </table>
 
-                        <br> <br>
-                        <a download="download" href="{{ env("APP_URL") }}/test_download_file_image" >
-                            TEST:  Download file image
-                        </a>
                     </div>
                 </div>
             </div>
